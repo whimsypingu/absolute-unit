@@ -5,7 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const CONVERSIONS = {
+type Unit = {
+	label: string;
+	factor: number;
+}
+type Category = 'length' | 'weight';
+type CategoryData = {
+	units: Record<string, Unit>;
+}
+
+const CONVERSIONS: Record<Category, CategoryData> = {
 	length: {
 		units: {
 			meters: { label: 'Meters', factor: 1 },
@@ -22,17 +31,28 @@ const CONVERSIONS = {
 	}
 };
 
+type HistoryEntry = {
+	from: string;
+	to: string;
+}
+type UnitHistory = Record<Category, HistoryEntry>
+
+const initialHistory = (Object.keys(CONVERSIONS) as Category[]).reduce((acc, cat) => {
+	const firstUnit = Object.keys(CONVERSIONS[cat].units)[0];
+	const secondUnit = Object.keys(CONVERSIONS[cat].units)[1];
+	acc[cat] = { from: firstUnit, to: secondUnit };
+	return acc;
+}, {} as UnitHistory);
+
 
 export default function App() {
 	// 1. STATE: These track user choices
 	const [category, setCategory] = useState<keyof typeof CONVERSIONS>('length');
 	const [value, setValue] = useState<string>("");
 	
-	const [unitHistory, setUnitHistory] = useImmer({
-		length: { from: 'meters', to: 'feet' },
-		weight: { from: 'kilograms', to: 'pounds'},
-	});
-	const updateUnitHistory = (category: string, field: 'from' | 'to', value: string) => {
+	const [unitHistory, setUnitHistory] = useImmer<UnitHistory>(initialHistory);	
+	
+	const updateUnitHistory = (category: Category, field: 'from' | 'to', value: string) => {
 		setUnitHistory(draft => {
 			draft[category][field] = value;
 		});
