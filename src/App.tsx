@@ -5,65 +5,27 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-type Unit = {
-	label: string;
-	factor: number;
-}
-type Category = 'length' | 'weight';
-type CategoryData = {
-	units: Record<string, Unit>;
-}
-
-const CONVERSIONS: Record<Category, CategoryData> = {
-	length: {
-		units: {
-			meters: { label: 'Meters', factor: 1 },
-			feet: { label: 'Feet', factor: 3.28084 },
-			inches: { label: 'Inches', factor: 39.3701 },
-		}
-	},
-	weight: {
-		units: {
-			kilograms: { label: 'Kilograms', factor: 1 },
-			pounds: { label: 'Pounds', factor: 2.20462 },
-			ounces: { label: 'Ounces', factor: 35.274 },
-		}
-	}
-};
-
-type HistoryEntry = {
-	from: string;
-	to: string;
-}
-type UnitHistory = Record<Category, HistoryEntry>
-
-const initialHistory = (Object.keys(CONVERSIONS) as Category[]).reduce((acc, cat) => {
-	const firstUnit = Object.keys(CONVERSIONS[cat].units)[0];
-	const secondUnit = Object.keys(CONVERSIONS[cat].units)[1];
-	acc[cat] = { from: firstUnit, to: secondUnit };
-	return acc;
-}, {} as UnitHistory);
-
+import * as Structs from './data/conversions.ts';
 
 export default function App() {
 	// 1. STATE: These track user choices
-	const [category, setCategory] = useState<keyof typeof CONVERSIONS>('length');
+	const [category, setCategory] = useState<Structs.Category>(Structs.InitialCategory);
 	const [value, setValue] = useState<string>("");
 	
-	const [unitHistory, setUnitHistory] = useImmer<UnitHistory>(initialHistory);	
+	const [conversionHistory, setConversionHistory] = useImmer<Structs.ConversionHistory>(Structs.InitialHistory);	
 	
-	const updateUnitHistory = (category: Category, field: 'from' | 'to', value: string) => {
-		setUnitHistory(draft => {
+	const updateConversionHistory = (category: Structs.Category, field: 'from' | 'to', value: string) => {
+		setConversionHistory(draft => {
 			draft[category][field] = value;
 		});
 	}
 
 	// 2. LOGIC: Derived state (Calculates automatically)
-	const currentCategory = CONVERSIONS[category];
-	const currentUnits = unitHistory[category];
+	const currentCategory: Structs.CategoryData = Structs.CONVERSIONS[category];
+	const currentEntry: Structs.ConversionEntry = conversionHistory[category];
 
-	const fromUnitData = currentCategory.units[currentUnits.from as keyof typeof currentCategory.units];
-	const toUnitData = currentCategory.units[currentUnits.to as keyof typeof currentCategory.units];
+	const fromUnitData: Structs.UnitData = currentCategory.units[currentEntry.from];
+	const toUnitData: Structs.UnitData = currentCategory.units[currentEntry.to];
 
 	const fromFactor = fromUnitData.factor;
 	const toFactor = toUnitData.factor;
@@ -77,14 +39,14 @@ export default function App() {
 			<CardContent className="space-y-4 pt-6">
 
 				<div className="flex gap-2">
-					{Object.keys(CONVERSIONS).map((key) => (
+					{Object.keys(Structs.CONVERSIONS).map((key) => (
 						<Button
 							key={key}
 							// "default" variant if selected, "outline" if not
 							variant={category === key ? "default" : "outline"}
 							className="flex-1 capitalize"
 							onClick={() => {
-								setCategory(key as keyof typeof CONVERSIONS);
+								setCategory(key as Structs.Category);
 							}}
 						>
 							{key}
@@ -102,8 +64,8 @@ export default function App() {
 					/>
 
 					<Select 
-						value={currentUnits.from} 
-						onValueChange={(val) => updateUnitHistory(category, 'from', val)}
+						value={currentEntry.from} 
+						onValueChange={(val) => updateConversionHistory(category, 'from', val)}
 					>
 						<SelectTrigger className="w-32">
 							<SelectValue />
@@ -123,8 +85,8 @@ export default function App() {
 					</div>
 
 					<Select 
-						value={currentUnits.to} 
-						onValueChange={(val) => updateUnitHistory(category, 'to', val)}
+						value={currentEntry.to} 
+						onValueChange={(val) => updateConversionHistory(category, 'to', val)}
 					>
 						<SelectTrigger className="w-32">
 							<SelectValue />
