@@ -8,7 +8,7 @@ import { Combobox, ComboboxTrigger, ComboboxValue, ComboboxContent, ComboboxInpu
 
 import * as Structs from './data/constants.ts';
 import { Shuffle } from 'lucide-react';
-import { convert, getFlattenedUnitKeys, getUnitData } from './data/utils.ts';
+import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import React from 'react';
 
 export default function App() {
@@ -28,37 +28,18 @@ export default function App() {
 	const currentCategoryData: Structs.CategoryData = Structs.CONVERSIONS[category];
 	const currentEntry: Structs.ConversionEntry = conversionHistory[category];
 
-	const fromUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.from); //currentCategoryData.units[currentEntry.from];
-	const toUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.to); //currentCategoryData.units[currentEntry.to];
+	const fromUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.from); 
+	const toUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.to);
 
 	const result = convert(value, fromUnitData.toBase, toUnitData.fromBase);
 
 	// 3. RANDOMIZE
 	const handleRandomize = () => {
-		let randomCategory: Structs.Category = category;
-		while (randomCategory === category) {
-			randomCategory = Structs.CATEGORIES[Math.floor(Math.random() * Structs.CATEGORIES.length)];
-		}
+		const { category: newCategory, from, to } = getRandomConversion(category);
+		setCategory(newCategory);
 
-		setCategory(randomCategory);
-
-		const randomCategoryData = Structs.CONVERSIONS[randomCategory];
-		const unitKeys: string[] = getFlattenedUnitKeys(randomCategoryData);
-
-		if (unitKeys.length < 2) {
-			updateConversionHistory(randomCategory, 'from', unitKeys[0]);
-			updateConversionHistory(randomCategory, 'to', unitKeys[0]);
-			return;
-		}
-
-		const randomFrom: string = unitKeys[Math.floor(Math.random() * unitKeys.length)];
-		let randomTo: string = randomFrom;
-		while (randomTo === randomFrom) {
-			randomTo = unitKeys[Math.floor(Math.random() * unitKeys.length)];
-		}
-
-		updateConversionHistory(randomCategory, 'from', randomFrom);
-		updateConversionHistory(randomCategory, 'to', randomTo);
+		updateConversionHistory(newCategory, 'from', from);
+		updateConversionHistory(newCategory, 'to', to);
 		return;
 	}
 

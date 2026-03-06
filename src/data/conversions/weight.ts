@@ -24,12 +24,12 @@ export const weight: CategoryData = {
             }
         },
         {
-            label: "Weird Units",
+            label: "True Units",
             units: {
                 daniels: {
                     label: 'Daniels',
-                    toBase: 'x * 100000',
-                    fromBase: 'x / 100000'
+                    toBase: '1 / -0.00001 * (2.71 @ ((0.99 - x) / (x + 0.99)))',
+                    fromBase: '(1.98 / (1 + (2.71 ^ (x * -0.00001)))) - 0.99'
                 }
             }
         }

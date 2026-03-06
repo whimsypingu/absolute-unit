@@ -14,7 +14,7 @@ export const CONVERSIONS: ConversionRegistry = {
 
 
 // Operations and Formulas
-export type Op = 'x' | 'add' | 'subtract' | 'multiply' | 'divide' | 'pow';
+export type Op = 'x' | 'add' | 'subtract' | 'multiply' | 'divide' | 'pow' | 'log';
 export type Formula = (Op | number)[]
 
 

@@ -1,7 +1,14 @@
-import type { Op, Formula, CategoryData, UnitData, Category } from "./constants.ts"
+import { type Op, type Formula, type CategoryData, type UnitData, CATEGORIES, CONVERSIONS} from "./constants.ts"
 
 const mapOp = (op: string): Op => {
-    const map: Record<string, Op> = { '+': 'add', '-': 'subtract', '*': 'multiply', '/': 'divide', '^': 'pow' };
+    const map: Record<string, Op> = { 
+		'+': 'add', 
+		'-': 'subtract', 
+		'*': 'multiply', 
+		'/': 'divide', 
+		'^': 'pow', 
+		'@': 'log'
+	};
     return map[op];
 };
 
@@ -10,13 +17,13 @@ const parseToRPN = (infix: string): Formula => {
     const stack: string[] = [];
     
     // Tokens: numbers, 'x', operators, and parentheses
-    const tokens = infix.match(/\d*\.?\d+|x|[+\-*/^()]/g) || [];
-
-    const precedence: Record<string, number> = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3 };
+	const tokens = infix.match(/-?\d*\.?\d+|x|[+\-*/^()@]/g) || [];
+    
+	const precedence: Record<string, number> = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '@': 4 };
 
     for (const token of tokens) {
-        if (/\d/.test(token)) {
-            // Numbers are pushed directly to output
+		if (/^-?\d*\.?\d+$/.test(token)) {
+        	// Numbers and negative numbers are pushed directly to output
             output.push(parseFloat(token));
         } else if (token === 'x') {
 			// input is pushed to the output
@@ -46,15 +53,14 @@ const evaluateRPN = (x: number, formula: Formula): number => {
 	for (const token of formula) {
 		if (typeof token === 'number') {
 			stack.push(token);
+		} else if (token === 'x') {
+			stack.push(x);
 		} else {
 			const b = stack.pop()!;
 			const a = stack.pop()!;
 
 			//different Ops
 			switch (token) {
-				case 'x':
-					stack.push(x);
-					break;
 				case 'add':
 					stack.push(a + b); 
 					break;
@@ -69,6 +75,9 @@ const evaluateRPN = (x: number, formula: Formula): number => {
 					break;
 				case 'pow':
 					stack.push(Math.pow(a, b));
+					break;
+				case 'log':
+					stack.push(Math.log(b) / Math.log(a));
 					break;
 			}
 		}
@@ -94,6 +103,7 @@ export const convert = (value: string, toBase: string, fromBase: string) => {
 
 
 
+//Helper functions to go through the nested stuff
 
 export const getUnitData = (
     categoryData: CategoryData, 
@@ -108,6 +118,28 @@ export const getUnitData = (
     throw new Error(`Unit ${unitKey} not found in category ${categoryData.label}`);
 };
 
-export const getFlattenedUnitKeys = (categoryData: CategoryData): string[] => {
+const getFlattenedUnitKeys = (categoryData: CategoryData): string[] => {
 	return categoryData.unitGroups.flatMap(group => Object.keys(group.units));
-}
+};
+
+export const getRandomConversion = (currentCategory: string) => {
+	let newCategory = currentCategory;
+	while (newCategory === currentCategory) {
+		newCategory = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+	}
+
+	const categoryData = CONVERSIONS[newCategory];
+	const unitKeys = getFlattenedUnitKeys(categoryData);
+
+	const newFrom: string = unitKeys[Math.floor(Math.random() * unitKeys.length)];
+	let newTo: string = newFrom;
+	while (newTo === newFrom) {
+		newTo = unitKeys[Math.floor(Math.random() * unitKeys.length)];
+	}
+
+	return {
+		category: newCategory,
+		from: newFrom,
+		to: newTo
+	};
+};
