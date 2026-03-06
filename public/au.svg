@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="104.09029mm"
+   height="104.08977mm"
+   viewBox="0 0 104.09029 104.08977"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="au.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0396254"
+     inkscape:cx="290.48924"
+     inkscape:cy="197.18641"
+     inkscape:window-width="1720"
+     inkscape:window-height="1392"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-52.954907,-96.455094)">
+    <path
+       id="rect3"
+       style="fill:#000000;stroke-width:0.529167"
+       d="M 52.954907,96.455094 V 200.54486 H 157.04519 V 96.455094 Z m 5.472018,5.471506 h 93.146255 v 93.14676 H 58.426925 Z" />
+    <text
+       xml:space="preserve"
+       style="font-size:47.5745px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke-width:7.9291"
+       x="75.649231"
+       y="165.43448"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:47.5745px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:7.9291"
+         x="75.649231"
+         y="165.43448">Au</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.55099px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke-width:1.2585"
+       x="63.772888"
+       y="105.71548"
+       id="text5"
+       transform="scale(0.95717659,1.0447393)"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.55099px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.2585"
+         x="63.772888"
+         y="105.71548">79</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.55099px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke-width:1.2585"
+       x="128.76761"
+       y="105.71548"
+       id="text5-1"
+       transform="scale(0.95717659,1.0447393)"><tspan
+         sodipodi:role="line"
+         id="tspan5-7"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.55099px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.2585"
+         x="128.76761"
+         y="105.71548">196.967</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.55099px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke-width:1.2585"
+       x="101.15852"
+       y="183.97035"
+       id="text5-1-7"
+       transform="scale(0.95717659,1.0447393)"><tspan
+         sodipodi:role="line"
+         id="tspan5-7-6"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.55099px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.2585"
+         x="101.15852"
+         y="183.97035">Gold</tspan></text>
+  </g>
+</svg>

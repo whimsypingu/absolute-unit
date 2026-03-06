@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGr
 import { Combobox, ComboboxTrigger, ComboboxValue, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxGroup, ComboboxItem } from "@/components/ui/combobox";
 
 import * as Structs from './data/constants.ts';
-import { Shuffle } from 'lucide-react';
+import { ArrowLeftRight, Shuffle } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import React from 'react';
 
@@ -33,7 +33,7 @@ export default function App() {
 
 	const result = convert(value, fromUnitData.toBase, toUnitData.fromBase);
 
-	// 3. RANDOMIZE
+	// 3. MIX:
 	const handleRandomize = () => {
 		const { category: newCategory, from, to } = getRandomConversion(category);
 		setCategory(newCategory);
@@ -41,7 +41,15 @@ export default function App() {
 		updateConversionHistory(newCategory, 'from', from);
 		updateConversionHistory(newCategory, 'to', to);
 		return;
-	}
+	};
+	const handleSwap = () => {
+		const currentFrom = currentEntry.from;
+		const currentTo = currentEntry.to;
+
+		updateConversionHistory(category, 'from', currentTo);
+		updateConversionHistory(category, 'to', currentFrom);
+		return;
+	};
 
 	return (
 	<div className="p-8 max-w-lg mx-auto">
@@ -78,10 +86,10 @@ export default function App() {
 					<Button
 						variant="outline"
 						size="icon"
-						onClick={handleRandomize}
-						title="I'm feeling random"
+						onClick={handleSwap}
+						title="Swap units"
 					>
-						<Shuffle className='h-4 w-4' />
+						<ArrowLeftRight className='h-4 w-4' />
 					</Button>
 				</div>
 
@@ -160,6 +168,21 @@ export default function App() {
 						</SelectContent>
 					</Select>
 				</div>
+
+
+				<div className='flex gap-2 items-center'>	
+					<Button
+						className="flex-1 h-14"
+						variant="outline"
+						size="icon"
+						onClick={handleRandomize}
+						title="I'm feeling random"
+					>
+						<Shuffle className='h-5 w-5' />
+						I'm feeling random
+					</Button>
+				</div>
+
 
 			</CardContent>
 		</Card>
