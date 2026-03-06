@@ -1,8 +1,9 @@
 {
-	"name": "absolute_unit",
+	"name": "absolute-unit",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
+	"homepage": "https://whimsypingu.github.io/absolute-unit",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
