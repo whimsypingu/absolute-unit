@@ -1,6 +1,14 @@
+import { length } from "./conversions/length";
+import { weight } from "./conversions/weight";
+
+export type Op = 'x' | 'add' | 'subtract' | 'multiply' | 'divide' | 'pow';
+export type Formula = (Op | number)[]
+
+
 export interface UnitData {
 	label: string;
-	factor: number;
+	toBase: string;
+	fromBase: string;
 }
 export interface CategoryData {
 	label: string;
@@ -8,24 +16,15 @@ export interface CategoryData {
 }
 export type ConversionRegistry = Record<string, CategoryData>
 
+
+
 //CONVERSIONS
 export const CONVERSIONS: ConversionRegistry = {
-	length: {
-		label: 'Length',
-		units: {
-			meters: { label: 'Meters', factor: 1 },
-			feet: { label: 'Feet', factor: 3.28084 },
-			inches: { label: 'Inches', factor: 39.3701 },
-		}
-	},
-	weight: {
-		label: 'Weight',
-		units: {
-			kilograms: { label: 'Kilograms', factor: 1 },
-			pounds: { label: 'Pounds', factor: 2.20462 },
-			ounces: { label: 'Ounces', factor: 35.274 },
-		}
-	},
+
+	length,
+	weight
+
+	/*
     energy: {
 		label: 'Energy',
         units: {
@@ -39,15 +38,23 @@ export const CONVERSIONS: ConversionRegistry = {
 	temperature: {
 		label: 'Temperature',
 		units: {
-
+			celsius: { label: 'Celsius (°C)', factor: 1 },
+			fahrenheit: { label: 'Fahrenheit (°F)', factor: 1 }, // Logic: (C * 9/5) + 32
+			kelvin: { label: 'Kelvin (K)', factor: 1 },        // Logic: C + 273.15
+			rankine: { label: 'Rankine (°Ra)', factor: 1 },    // Logic: (C + 273.15) * 9/5			
 		}
 	},
 	time: {
 		label: 'Time',
 		units: {
-
+			seconds: { label: 'Seconds', factor: 1 },
+			minutes: { label: 'Minutes', factor: 1/60 },
+			hours: { label: 'Hours', factor: 1/3600 },
+			days: { label: 'Days', factor: 1/86400 },
+			weeks: { label: 'Weeks', factor: 1/604800 },
 		}
 	}
+		*/
 
 } as const;
 
