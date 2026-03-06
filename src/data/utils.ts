@@ -1,4 +1,4 @@
-import type { Op, Formula } from "./constants.ts"
+import type { Op, Formula, CategoryData, UnitData, Category } from "./constants.ts"
 
 const mapOp = (op: string): Op => {
     const map: Record<string, Op> = { '+': 'add', '-': 'subtract', '*': 'multiply', '/': 'divide', '^': 'pow' };
@@ -90,4 +90,24 @@ export const convert = (value: string, toBase: string, fromBase: string) => {
 	const targetValue = evaluateRPN(baseValue, fromBaseRPN);
 
 	return targetValue;
+}
+
+
+
+
+export const getUnitData = (
+    categoryData: CategoryData, 
+    unitKey: string
+): UnitData => {
+    // Search through all groups to find the unit definition
+    for (const group of categoryData.unitGroups) {
+        if (group.units[unitKey]) {
+            return group.units[unitKey];
+        }
+    }
+    throw new Error(`Unit ${unitKey} not found in category ${categoryData.label}`);
+};
+
+export const getFlattenedUnitKeys = (categoryData: CategoryData): string[] => {
+	return categoryData.unitGroups.flatMap(group => Object.keys(group.units));
 }

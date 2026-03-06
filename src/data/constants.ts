@@ -24,15 +24,22 @@ export interface UnitData {
 	toBase: string;
 	fromBase: string;
 }
-export interface CategoryData {
+export interface UnitGroup {
 	label: string;
 	units: Record<string, UnitData>;
+}
+export interface CategoryData {
+	label: string;
+	unitGroups: UnitGroup[];
+	//units: Record<string, UnitData>;
 }
 export type ConversionRegistry = Record<string, CategoryData>
 
 
 export type Category = keyof typeof CONVERSIONS;
-export type UnitKey<C extends Category> = keyof typeof CONVERSIONS[C]['units'];
+export type UnitKey<C extends Category> = keyof (
+	typeof CONVERSIONS[C]['unitGroups'][number]['units']
+);
 
 
 // Categories and initial state
@@ -50,7 +57,11 @@ export type ConversionHistory = {
 }
 
 export const INITIAL_HISTORY = (Object.keys(CONVERSIONS) as Category[]).reduce((acc, cat) => {
-	const unitKeys = Object.keys(CONVERSIONS[cat].units);
+	//grab first group
+	const firstGroup = CONVERSIONS[cat].unitGroups[0];
+
+	//grab all unit keys from the group
+	const unitKeys = Object.keys(firstGroup.units);
     
 	acc[cat] = { 
         from: unitKeys[0], 

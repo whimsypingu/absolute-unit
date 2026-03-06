@@ -3,12 +3,13 @@ import { useImmer } from 'use-immer';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel, SelectSeparator } from "@/components/ui/select";
 import { Combobox, ComboboxTrigger, ComboboxValue, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxGroup, ComboboxItem } from "@/components/ui/combobox";
 
 import * as Structs from './data/constants.ts';
 import { Shuffle } from 'lucide-react';
-import { convert } from './data/utils.ts';
+import { convert, getFlattenedUnitKeys, getUnitData } from './data/utils.ts';
+import React from 'react';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -27,8 +28,8 @@ export default function App() {
 	const currentCategoryData: Structs.CategoryData = Structs.CONVERSIONS[category];
 	const currentEntry: Structs.ConversionEntry = conversionHistory[category];
 
-	const fromUnitData: Structs.UnitData = currentCategoryData.units[currentEntry.from];
-	const toUnitData: Structs.UnitData = currentCategoryData.units[currentEntry.to];
+	const fromUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.from); //currentCategoryData.units[currentEntry.from];
+	const toUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.to); //currentCategoryData.units[currentEntry.to];
 
 	const result = convert(value, fromUnitData.toBase, toUnitData.fromBase);
 
@@ -41,7 +42,8 @@ export default function App() {
 
 		setCategory(randomCategory);
 
-		const unitKeys: string[] = Object.keys(Structs.CONVERSIONS[randomCategory].units);
+		const randomCategoryData = Structs.CONVERSIONS[randomCategory];
+		const unitKeys: string[] = getFlattenedUnitKeys(randomCategoryData);
 
 		if (unitKeys.length < 2) {
 			updateConversionHistory(randomCategory, 'from', unitKeys[0]);
@@ -120,10 +122,23 @@ export default function App() {
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
-							{Object.entries(currentCategoryData.units).map(([key, unit]) => (
-								<SelectItem key={key} value={key}>
-									{unit.label}
-								</SelectItem>
+							{currentCategoryData.unitGroups.map((group, index) => (
+								<React.Fragment key={group.label}>
+
+									<SelectGroup key={group.label}>
+										<SelectLabel>{group.label}</SelectLabel>
+										{Object.entries(group.units).map(([key, unit]) => (
+											<SelectItem key={key} value={key}>
+												{unit.label}
+											</SelectItem>
+										))}
+									</SelectGroup>
+
+									{index < currentCategoryData.unitGroups.length - 1 && (
+										<SelectSeparator />
+									)}
+
+								</React.Fragment>
 							))}
 						</SelectContent>
 					</Select>
@@ -143,10 +158,23 @@ export default function App() {
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
-							{Object.entries(currentCategoryData.units).map(([key, unit]) => (
-								<SelectItem key={key} value={key}>
-									{unit.label}
-								</SelectItem>
+							{currentCategoryData.unitGroups.map((group, index) => (
+								<React.Fragment key={group.label}>
+
+									<SelectGroup key={group.label}>
+										<SelectLabel>{group.label}</SelectLabel>
+										{Object.entries(group.units).map(([key, unit]) => (
+											<SelectItem key={key} value={key}>
+												{unit.label}
+											</SelectItem>
+										))}
+									</SelectGroup>
+
+									{index < currentCategoryData.unitGroups.length - 1 && (
+										<SelectSeparator />
+									)}
+
+								</React.Fragment>
 							))}
 						</SelectContent>
 					</Select>
