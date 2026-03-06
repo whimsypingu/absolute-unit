@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Combobox, ComboboxTrigger, ComboboxValue, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxGroup, ComboboxItem } from "@/components/ui/combobox";
 
-import * as Structs from './data/types.ts';
+import * as Structs from './data/constants.ts';
 import { Shuffle } from 'lucide-react';
 import { convert } from './data/utils.ts';
 

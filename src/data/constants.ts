@@ -2,10 +2,23 @@ import { energy } from "./conversions/energy";
 import { length } from "./conversions/length";
 import { weight } from "./conversions/weight";
 
+//CONVERSIONS
+export const CONVERSIONS: ConversionRegistry = {
+
+	length,
+	weight,
+	energy
+
+} as const;
+
+
+
+// Operations and Formulas
 export type Op = 'x' | 'add' | 'subtract' | 'multiply' | 'divide' | 'pow';
 export type Formula = (Op | number)[]
 
 
+// Conversion breakdown
 export interface UnitData {
 	label: string;
 	toBase: string;
@@ -17,16 +30,6 @@ export interface CategoryData {
 }
 export type ConversionRegistry = Record<string, CategoryData>
 
-
-
-//CONVERSIONS
-export const CONVERSIONS: ConversionRegistry = {
-
-	length,
-	weight,
-	energy
-
-} as const;
 
 export type Category = keyof typeof CONVERSIONS;
 export type UnitKey<C extends Category> = keyof typeof CONVERSIONS[C]['units'];

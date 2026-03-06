@@ -1,4 +1,4 @@
-import type { Op, Formula } from "./types.ts"
+import type { Op, Formula } from "./constants.ts"
 
 const mapOp = (op: string): Op => {
     const map: Record<string, Op> = { '+': 'add', '-': 'subtract', '*': 'multiply', '/': 'divide', '^': 'pow' };

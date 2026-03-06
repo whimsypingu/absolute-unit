@@ -1,4 +1,4 @@
-import type { CategoryData } from "../types.ts";
+import type { CategoryData } from "../constants.ts";
 
 export const length: CategoryData = {
     label: 'Length',
