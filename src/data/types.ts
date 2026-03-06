@@ -1,3 +1,4 @@
+import { energy } from "./conversions/energy";
 import { length } from "./conversions/length";
 import { weight } from "./conversions/weight";
 
@@ -22,39 +23,8 @@ export type ConversionRegistry = Record<string, CategoryData>
 export const CONVERSIONS: ConversionRegistry = {
 
 	length,
-	weight
-
-	/*
-    energy: {
-		label: 'Energy',
-        units: {
-            joules: { label: 'Joules', factor: 1 },
-            kilojoules: { label: 'Kilojoules', factor: 0.001 },
-            calories: { label: 'Calories', factor: 0.000239006 },
-            wattHours: { label: 'Watt-hours', factor: 0.000277778 },
-			bigmacs: { label: 'Big Macs', factor: 1/2426720 },
-        }
-	},
-	temperature: {
-		label: 'Temperature',
-		units: {
-			celsius: { label: 'Celsius (°C)', factor: 1 },
-			fahrenheit: { label: 'Fahrenheit (°F)', factor: 1 }, // Logic: (C * 9/5) + 32
-			kelvin: { label: 'Kelvin (K)', factor: 1 },        // Logic: C + 273.15
-			rankine: { label: 'Rankine (°Ra)', factor: 1 },    // Logic: (C + 273.15) * 9/5			
-		}
-	},
-	time: {
-		label: 'Time',
-		units: {
-			seconds: { label: 'Seconds', factor: 1 },
-			minutes: { label: 'Minutes', factor: 1/60 },
-			hours: { label: 'Hours', factor: 1/3600 },
-			days: { label: 'Days', factor: 1/86400 },
-			weeks: { label: 'Weeks', factor: 1/604800 },
-		}
-	}
-		*/
+	weight,
+	energy
 
 } as const;
 
