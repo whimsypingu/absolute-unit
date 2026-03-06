@@ -4,15 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Combobox, ComboboxTrigger, ComboboxValue, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxGroup, ComboboxItem } from "@/components/ui/combobox";
 
 import * as Structs from './data/conversions.ts';
 
 export default function App() {
 	// 1. STATE: These track user choices
-	const [category, setCategory] = useState<Structs.Category>(Structs.InitialCategory);
+	const [category, setCategory] = useState<Structs.Category>(Structs.INITIAL_CATEGORY);
 	const [value, setValue] = useState<string>("");
 	
-	const [conversionHistory, setConversionHistory] = useImmer<Structs.ConversionHistory>(Structs.InitialHistory);	
+	const [conversionHistory, setConversionHistory] = useImmer<Structs.ConversionHistory>(Structs.INITIAL_HISTORY);	
 	
 	const updateConversionHistory = (category: Structs.Category, field: 'from' | 'to', value: string) => {
 		setConversionHistory(draft => {
@@ -21,11 +22,11 @@ export default function App() {
 	}
 
 	// 2. LOGIC: Derived state (Calculates automatically)
-	const currentCategory: Structs.CategoryData = Structs.CONVERSIONS[category];
+	const currentCategoryData: Structs.CategoryData = Structs.CONVERSIONS[category];
 	const currentEntry: Structs.ConversionEntry = conversionHistory[category];
 
-	const fromUnitData: Structs.UnitData = currentCategory.units[currentEntry.from];
-	const toUnitData: Structs.UnitData = currentCategory.units[currentEntry.to];
+	const fromUnitData: Structs.UnitData = currentCategoryData.units[currentEntry.from];
+	const toUnitData: Structs.UnitData = currentCategoryData.units[currentEntry.to];
 
 	const fromFactor = fromUnitData.factor;
 	const toFactor = toUnitData.factor;
@@ -38,25 +39,33 @@ export default function App() {
 		<Card>
 			<CardContent className="space-y-4 pt-6">
 
-				<div className="flex gap-2">
-					{Object.keys(Structs.CONVERSIONS).map((key) => (
-						<Button
-							key={key}
-							// "default" variant if selected, "outline" if not
-							variant={category === key ? "default" : "outline"}
-							className="flex-1 capitalize"
-							onClick={() => {
-								setCategory(key as Structs.Category);
-							}}
-						>
-							{key}
-						</Button>
-					))}
-				</div>
 
-				<div className="grid grid-cols-[1fr_auto] gap-2 items-center">
+				<Combobox 
+					autoHighlight
+					items={Structs.CATEGORY_ITEMS}
+					value={Structs.CATEGORY_ITEMS.find((item) => item.id === category) || null}
+					onValueChange={(item: Structs.CategoryItem | null) => {
+						if (item) setCategory(item.id as Structs.Category);
+					}}
+				>
+					<ComboboxInput placeholder="Select a category" showClear />
+					<ComboboxContent>
+						<ComboboxEmpty>No items found.</ComboboxEmpty>
+						<ComboboxList>
+						{(item) => (
+							<ComboboxItem key={item} value={item}>
+							{item.label}
+							</ComboboxItem>
+						)}
+						</ComboboxList>
+					</ComboboxContent>
+				</Combobox>
+
+				{/* <div className="grid grid-cols-[1fr_auto] gap-2 items-center"> */}
+				<div className='flex gap-2 items-center'>	
 					{/* FROM */}
 					<Input 
+						className='flex-1'
 						type="number" 
 						value={value} 
 						onChange={(e) => setValue(e.target.value)} 
@@ -71,16 +80,19 @@ export default function App() {
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
-							{Object.keys(currentCategory.units).map(u => (
-								<SelectItem key={u} value={u}>{u}</SelectItem>
+							{Object.entries(currentCategoryData.units).map(([key, unit]) => (
+								<SelectItem key={key} value={key}>
+									{unit.label}
+								</SelectItem>
 							))}
 						</SelectContent>
 					</Select>
 				</div>
 
-				<div className="grid grid-cols-[1fr_auto] gap-2 items-center">
+				{/* <div className="grid grid-cols-[1fr_auto] gap-2 items-center"> */}
+				<div className='flex gap-2 items-center'>	
 					{/* TO */}
-					<div className="text-center text-xl font-bold p-4 bg-slate-100 rounded-lg">
+					<div className="flex-1 text-center text-xl font-bold p-4 bg-slate-100 rounded-lg">
 						{result.toFixed(2)}
 					</div>
 
@@ -92,8 +104,10 @@ export default function App() {
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
-							{Object.keys(currentCategory.units).map(u => (
-								<SelectItem key={u} value={u}>{u}</SelectItem>
+							{Object.entries(currentCategoryData.units).map(([key, unit]) => (
+								<SelectItem key={key} value={key}>
+									{unit.label}
+								</SelectItem>
 							))}
 						</SelectContent>
 					</Select>
