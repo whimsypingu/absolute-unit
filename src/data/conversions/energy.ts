@@ -36,7 +36,12 @@ export const energy: CategoryData = {
                     toBase: 'x * 563 * 4184',
                     fromBase: 'x / (563 * 4184)'
                 },
-            }
+                tonsTNT: {
+                    label: 'Tons of TNT',
+                    toBase: 'x * (4.184 * (10 ^ 9))',
+                    fromBase: 'x / (4.184 * (10 ^ 9))'
+                }
+            },
         }
     ]
 }

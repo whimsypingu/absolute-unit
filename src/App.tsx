@@ -127,7 +127,7 @@ export default function App() {
 
 				<div className='flex gap-2 items-center'>	
 					{/* TO */}
-					<div className="flex-1 text-center text-xl font-bold p-4 bg-slate-100 rounded-lg">
+					<div className="flex-1 min-w-0 text-center text-xl font-bold p-4 bg-slate-100 rounded-lg truncate">
 						{result.toFixed(2)}
 					</div>
 
