@@ -54,9 +54,13 @@ export const CONVERSIONS: ConversionRegistry = {
 export type Category = keyof typeof CONVERSIONS;
 export type UnitKey<C extends Category> = keyof typeof CONVERSIONS[C]['units'];
 
+
+// Categories and initial state
 export const CATEGORIES: Category[] = Object.keys(CONVERSIONS);
 export const INITIAL_CATEGORY: Category = CATEGORIES[0];
 
+
+// History for each category
 export type ConversionEntry = {
 	from: string;
 	to: string;
@@ -76,6 +80,7 @@ export const INITIAL_HISTORY = (Object.keys(CONVERSIONS) as Category[]).reduce((
 }, {} as ConversionHistory);
 
 
+// Mappings from Category -> Label
 export type CategoryItem = {
 	id: string;
 	label: string;
