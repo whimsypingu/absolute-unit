@@ -62,8 +62,8 @@ export const volume: CategoryData = {
                 },
                 olympicSwimmingPool: {
                     label: 'Olympic Swimming Pools',
-                    toBase: 'x * (10 ^ 6)',
-                    fromBase: 'x / (10 ^ 6)'
+                    toBase: 'x * (2.5 * (10 ^ 6))',
+                    fromBase: 'x / (2.5 * (10 ^ 6))'
                 },
                 grandCanyon: {
                     label: 'Grand Canyons',

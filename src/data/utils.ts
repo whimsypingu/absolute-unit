@@ -85,10 +85,22 @@ const evaluateRPN = (x: number, formula: Formula): number => {
 	return stack.pop()!;
 }
 
-export const convert = (value: string, toBase: string, fromBase: string) => {
+const formatValue = (value: number): string => {
+	const absValue = Math.abs(value);
+	if (absValue >= 1_000_000_000 || (absValue > 0 && absValue < 0.000_001)) {
+		return value.toExponential(4);
+	}
+
+	return new Intl.NumberFormat('en-US', {
+		maximumFractionDigits: 6,
+		useGrouping: true,
+	}).format(value);
+}
+
+export const convert = (value: string, toBase: string, fromBase: string): string => {
 	const numericValue = parseFloat(value);
 	
-	if (isNaN(numericValue)) return 0;
+	if (isNaN(numericValue)) return '0';
 	
 	const toBaseRPN = parseToRPN(toBase);
 
@@ -98,7 +110,19 @@ export const convert = (value: string, toBase: string, fromBase: string) => {
 
 	const targetValue = evaluateRPN(baseValue, fromBaseRPN);
 
-	return targetValue;
+	return formatValue(targetValue);
+}
+
+
+
+//helper function to check for clean input
+export const sanitizeInput = (input: string): string => {
+	return input.replace(/\s+/g, '');
+}
+export const isInputValid = (input: string): boolean => {
+	const trimmed = sanitizeInput(input);
+
+	return (trimmed === "" || /^\d*\.?\d*$/.test(trimmed));
 }
 
 

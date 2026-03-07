@@ -60,6 +60,11 @@ export const length: CategoryData = {
                     toBase: 'x * 100 * 0.9144',
                     fromBase: 'x / 91.44'
                 },
+                greatWallOfChina: {
+                    label: 'Great Walls of China',
+                    toBase: 'x * 21196.18 * 1000',
+                    fromBase: 'x / (21196.18 * 1000)'
+                },
                 lunarDistance: {
                     label: 'Lunar Distances',
                     toBase: 'x * 384400 * 1000',

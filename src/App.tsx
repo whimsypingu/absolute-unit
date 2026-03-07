@@ -8,8 +8,9 @@ import { Combobox, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, 
 
 import * as Structs from './data/constants.ts';
 import { ArrowLeftRight, Shuffle } from 'lucide-react';
-import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
+import { convert, getRandomConversion, getUnitData, isInputValid, sanitizeInput } from './data/utils.ts';
 import React from 'react';
+import { ButtonGroup } from './components/ui/button-group.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -31,7 +32,7 @@ export default function App() {
 	const fromUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.from); 
 	const toUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.to);
 
-	const result = convert(value, fromUnitData.toBase, toUnitData.fromBase);
+	const result: string = convert(sanitizeInput(value), fromUnitData.toBase, toUnitData.fromBase);
 
 	// 3. MIX:
 	const handleRandomize = () => {
@@ -52,7 +53,7 @@ export default function App() {
 	};
 
 	return (
-	<div className="min-h-screen flex items-center justify-center">
+	<div className="min-h-screen flex flex-col items-center p-4 sm:p-8 gap-6">
 		<Card className='w-full max-w-xl'>
 			<CardContent className="space-y-4 pt-6">
 
@@ -83,6 +84,72 @@ export default function App() {
 						</ComboboxContent>
 					</Combobox>
 
+				</div>
+
+				<div className='flex gap-2 items-center'>
+				<ButtonGroup className='flex-1 flex'>
+					{/* FROM */}
+					<Input 
+						className='flex-1 h-12 text-lg'
+						type="text"
+						inputMode='decimal' 
+						value={value} 
+						onChange={(e) => {
+							const val = e.target.value;
+							if (isInputValid(val)) {
+								setValue(val);
+							}
+						}}
+						placeholder="Enter value"
+					/>
+
+					{/* TO */}
+					<Button
+						variant='outline'
+						disabled
+						className={`
+							flex-1 h-12 px-3 flex items-center 
+							bg-slate-100 rounded-md border border-slate-200 
+							text-lg font-medium text-black truncate
+							[&:disabled]:opacity-100
+						`}
+					>
+						{result}
+					</Button>
+				</ButtonGroup>
+				</div>
+
+				<div className='flex gap-2 items-center'>
+				<ButtonGroup className='flex-1 flex'>
+					<Select 
+						value={currentEntry.from} 
+						onValueChange={(val) => updateConversionHistory(category, 'from', val)}
+					>
+						<SelectTrigger className="flex-1">
+							<SelectValue />
+						</SelectTrigger>
+						<SelectContent>
+							{currentCategoryData.unitGroups.map((group, index) => (
+								<React.Fragment key={group.label}>
+
+									<SelectGroup key={group.label}>
+										<SelectLabel>{group.label}</SelectLabel>
+										{Object.entries(group.units).map(([key, unit]) => (
+											<SelectItem key={key} value={key}>
+												{unit.label}
+											</SelectItem>
+										))}
+									</SelectGroup>
+
+									{index < currentCategoryData.unitGroups.length - 1 && (
+										<SelectSeparator />
+									)}
+
+								</React.Fragment>
+							))}
+						</SelectContent>
+					</Select>
+
 					<Button
 						variant="outline"
 						size="icon"
@@ -91,59 +158,12 @@ export default function App() {
 					>
 						<ArrowLeftRight className='h-4 w-4' />
 					</Button>
-				</div>
-
-				<div className='flex gap-2 items-center'>	
-					{/* FROM */}
-					<Input 
-						className='flex-1'
-						type="number" 
-						value={value} 
-						onChange={(e) => setValue(e.target.value)} 
-						placeholder="Enter value"
-					/>
-
-					<Select 
-						value={currentEntry.from} 
-						onValueChange={(val) => updateConversionHistory(category, 'from', val)}
-					>
-						<SelectTrigger className="w-40">
-							<SelectValue />
-						</SelectTrigger>
-						<SelectContent>
-							{currentCategoryData.unitGroups.map((group, index) => (
-								<React.Fragment key={group.label}>
-
-									<SelectGroup key={group.label}>
-										<SelectLabel>{group.label}</SelectLabel>
-										{Object.entries(group.units).map(([key, unit]) => (
-											<SelectItem key={key} value={key}>
-												{unit.label}
-											</SelectItem>
-										))}
-									</SelectGroup>
-
-									{index < currentCategoryData.unitGroups.length - 1 && (
-										<SelectSeparator />
-									)}
-
-								</React.Fragment>
-							))}
-						</SelectContent>
-					</Select>
-				</div>
-
-				<div className='flex gap-2 items-center'>	
-					{/* TO */}
-					<div className="flex-1 min-w-0 text-center text-xl font-bold p-4 bg-slate-100 rounded-lg truncate">
-						{result.toFixed(2)}
-					</div>
 
 					<Select 
 						value={currentEntry.to} 
 						onValueChange={(val) => updateConversionHistory(category, 'to', val)}
 					>
-						<SelectTrigger className="w-40">
+						<SelectTrigger className="flex-1">
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
@@ -167,6 +187,7 @@ export default function App() {
 							))}
 						</SelectContent>
 					</Select>
+				</ButtonGroup>
 				</div>
 
 
@@ -185,6 +206,26 @@ export default function App() {
 
 
 			</CardContent>
+		</Card>
+
+		<Card className="w-full max-w-xl">
+		<CardContent className="flex divide-x divide-slate-200">
+			{/* Left Column: Metric Fact */}
+			<div className="flex-1 p-4">
+			<h3 className="font-bold">Metric Facts</h3>
+			<p className="text-sm text-muted-foreground">
+				Metric units are SI-based and used universally in science and engineering.
+			</p>
+			</div>
+
+			{/* Right Column: Imperial Fact */}
+			<div className="flex-1 p-4">
+			<h3 className="font-bold">Imperial Facts</h3>
+			<p className="text-sm text-muted-foreground">
+				Imperial units are largely US-based and rooted in historical body-part measurements.
+			</p>
+			</div>
+		</CardContent>
 		</Card>
 	</div>
 	);
