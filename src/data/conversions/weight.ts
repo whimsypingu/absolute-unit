@@ -35,6 +35,16 @@ export const weight: CategoryData = {
         {
             label: 'Informal Units',
             units: {
+                kilogrammeSteel: {
+                    label: 'Kilogrammes of Steel',
+                    toBase: 'x * 1',
+                    fromBase: 'x * 1'
+                },
+                kilogrammeFeather: {
+                    label: 'Kilogrammes of Feathers',
+                    toBase: 'x * 1',
+                    fromBase: 'x * 1'
+                },
                 bagCement: {
                     label: 'Bags of Cement',
                     toBase: 'x * 43',
