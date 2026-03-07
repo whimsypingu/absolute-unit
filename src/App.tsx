@@ -5,12 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel, SelectSeparator } from "@/components/ui/select";
 import { Combobox, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxItem } from "@/components/ui/combobox";
+import { ButtonGroup } from './components/ui/button-group';
 
 import * as Structs from './data/constants.ts';
 import { ArrowLeftRight, Shuffle } from 'lucide-react';
-import { convert, getRandomConversion, getUnitData, isInputValid, sanitizeInput } from './data/utils.ts';
+import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
+import { formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
-import { ButtonGroup } from './components/ui/button-group.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -32,7 +33,8 @@ export default function App() {
 	const fromUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.from); 
 	const toUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.to);
 
-	const result: string = convert(sanitizeInput(value), fromUnitData.toBase, toUnitData.fromBase);
+	const convertedValue: number = convert(sanitizeInput(value), fromUnitData.toBase, toUnitData.fromBase);
+	const result: string = formatHumanReadable(convertedValue);
 
 	// 3. MIX:
 	const handleRandomize = () => {
