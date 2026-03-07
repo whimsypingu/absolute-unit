@@ -3,14 +3,14 @@ import type { CategoryData } from "../constants.ts";
 export const weight: CategoryData = {
     label: 'Weight',
     initialUnits: {
-        from: 'kilograms', 
-        to: 'pounds'
+        from: 'kilogram', 
+        to: 'pound'
     },
     unitGroups: [
         {
             label: "Metric",
             units: {
-                kilograms: { 
+                kilogram: { 
                     label: 'Kilograms', 
                     toBase: 'x * 1',
                     fromBase: 'x * 1'
@@ -20,12 +20,12 @@ export const weight: CategoryData = {
         {
             label: 'Imperial',
             units: {
-                pounds: { 
+                pound: { 
                     label: 'Pounds', 
                     toBase: 'x * 0.453592',
                     fromBase: 'x * 2.20462'
                 },
-                ounces: { 
+                ounce: { 
                     label: 'Ounces', 
                     toBase: 'x * 0.0625 * 0.453592',
                     fromBase: 'x * 2.20462 * 16'
@@ -35,7 +35,7 @@ export const weight: CategoryData = {
         {
             label: 'Informal Units',
             units: {
-                bagsCement: {
+                bagCement: {
                     label: 'Bags of Cement',
                     toBase: 'x * 43',
                     fromBase: 'x / 43'
@@ -43,9 +43,9 @@ export const weight: CategoryData = {
             }
         },
         {
-            label: "True Units",
+            label: "Absolute Units",
             units: {
-                daniels: {
+                daniel: {
                     label: 'Daniels',
                     toBase: '1 / -0.00001 * (2.71 @ ((0.99 - x) / (x + 0.99)))',
                     fromBase: '(1.98 / (1 + (2.71 ^ (x * -0.00001)))) - 0.99'

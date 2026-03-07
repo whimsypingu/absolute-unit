@@ -53,7 +53,7 @@ export default function App() {
 
 	return (
 	<div className="min-h-screen flex items-center justify-center">
-		<Card className='w-full max-w-2xl'>
+		<Card className='w-full max-w-xl'>
 			<CardContent className="space-y-4 pt-6">
 
 				<div className='flex gap-2 items-center'>

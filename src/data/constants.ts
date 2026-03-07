@@ -1,5 +1,6 @@
 import { energy } from "./conversions/energy";
 import { length } from "./conversions/length";
+import { time } from "./conversions/time";
 import { weight } from "./conversions/weight";
 
 //CONVERSIONS
@@ -7,7 +8,8 @@ export const CONVERSIONS: ConversionRegistry = {
 
 	length,
 	weight,
-	energy
+	energy,
+	time
 
 } as const;
 

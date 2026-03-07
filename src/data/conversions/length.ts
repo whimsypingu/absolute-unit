@@ -3,19 +3,19 @@ import type { CategoryData } from "../constants.ts";
 export const length: CategoryData = {
     label: 'Length',
     initialUnits: {
-        from: 'meters', 
-        to: 'feet'
+        from: 'meter', 
+        to: 'foot'
     },
     unitGroups: [
         {
             label: 'Metric',
             units: {
-                meters: { 
+                meter: { 
                     label: 'Meters', 
                     toBase: 'x * 1',
                     fromBase: 'x * 1'
                 },
-                kilometers: {
+                kilometer: {
                     label: 'Kilometers',
                     toBase: 'x * 1000',
                     fromBase: 'x / 1000'
@@ -25,22 +25,22 @@ export const length: CategoryData = {
         {
             label: 'Imperial',
             units: {
-                inches: { 
+                inche: { 
                     label: 'Inches',
                     toBase: 'x * 0.0254',
                     fromBase: 'x * 3.28084 * 12'
                 },
-                feet: {
+                foot: {
                     label: 'Feet', 
                     toBase: 'x * 0.3048',
                     fromBase: 'x * 3.28084'
                 },
-                yards: {
+                yard: {
                     label: 'Yards',
                     toBase: 'x * 0.9144',
                     fromBase: 'x / 0.9144'
                 },
-                miles: {
+                mile: {
                     label: 'Miles',
                     toBase: 'x * 1609.34',
                     fromBase: 'x / 1609.34'
@@ -50,17 +50,17 @@ export const length: CategoryData = {
         {
             label: 'Informal Units',
             units: {
-                hands: {
+                hand: {
                     label: 'Hands',
                     toBase: 'x * 4 * 0.0254',
                     fromBase: 'x / (4 * 0.0254)'
                 },
-                footballFields: {
+                footballField: {
                     label: 'Football Fields',
                     toBase: 'x * 100 * 0.9144',
                     fromBase: 'x / 91.44'
                 },
-                lunarDistances: {
+                lunarDistance: {
                     label: 'Lunar Distances',
                     toBase: 'x * 384400 * 1000',
                     fromBase: 'x / (384400 * 1000)'
