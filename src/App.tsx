@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel, SelectSeparator } from "@/components/ui/select";
-import { Combobox, ComboboxTrigger, ComboboxValue, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxGroup, ComboboxItem } from "@/components/ui/combobox";
+import { Combobox, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxItem } from "@/components/ui/combobox";
 
 import * as Structs from './data/constants.ts';
 import { ArrowLeftRight, Shuffle } from 'lucide-react';
@@ -52,8 +52,8 @@ export default function App() {
 	};
 
 	return (
-	<div className="p-8 max-w-lg mx-auto">
-		<Card>
+	<div className="min-h-screen flex items-center justify-center">
+		<Card className='w-full max-w-2xl'>
 			<CardContent className="space-y-4 pt-6">
 
 				<div className='flex gap-2 items-center'>
@@ -107,7 +107,7 @@ export default function App() {
 						value={currentEntry.from} 
 						onValueChange={(val) => updateConversionHistory(category, 'from', val)}
 					>
-						<SelectTrigger className="w-32">
+						<SelectTrigger className="w-40">
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
@@ -143,7 +143,7 @@ export default function App() {
 						value={currentEntry.to} 
 						onValueChange={(val) => updateConversionHistory(category, 'to', val)}
 					>
-						<SelectTrigger className="w-32">
+						<SelectTrigger className="w-40">
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>

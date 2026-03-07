@@ -2,6 +2,10 @@ import type { CategoryData } from "../constants.ts";
 
 export const weight: CategoryData = {
     label: 'Weight',
+    initialUnits: {
+        from: 'kilograms', 
+        to: 'pounds'
+    },
     unitGroups: [
         {
             label: "Conventional Units",
@@ -21,6 +25,16 @@ export const weight: CategoryData = {
                     toBase: 'x * 0.0625 * 0.453592',
                     fromBase: 'x * 2.20462 * 16'
                 },
+            }
+        },
+        {
+            label: 'Informal Units',
+            units: {
+                bagsCement: {
+                    label: 'Bags of Cement',
+                    toBase: 'x * 43',
+                    fromBase: 'x / 43'
+                }
             }
         },
         {

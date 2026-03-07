@@ -30,8 +30,8 @@ export interface UnitGroup {
 }
 export interface CategoryData {
 	label: string;
+	initialUnits: ConversionEntry;
 	unitGroups: UnitGroup[];
-	//units: Record<string, UnitData>;
 }
 export type ConversionRegistry = Record<string, CategoryData>
 
@@ -56,17 +56,12 @@ export type ConversionHistory = {
     [K in Category]: ConversionEntry;
 }
 
-export const INITIAL_HISTORY = (Object.keys(CONVERSIONS) as Category[]).reduce((acc, cat) => {
+export const INITIAL_HISTORY: ConversionHistory = (Object.keys(CONVERSIONS) as Category[]).reduce((acc, cat) => {
 	//grab first group
-	const firstGroup = CONVERSIONS[cat].unitGroups[0];
+	const { from, to } = CONVERSIONS[cat].initialUnits;
 
-	//grab all unit keys from the group
-	const unitKeys = Object.keys(firstGroup.units);
-    
-	acc[cat] = { 
-        from: unitKeys[0], 
-        to: unitKeys[1] || unitKeys[0] 
-    };
+	acc[cat] = { from, to };
+
 	return acc;
 }, {} as ConversionHistory);
 
