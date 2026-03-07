@@ -8,13 +8,18 @@ export const weight: CategoryData = {
     },
     unitGroups: [
         {
-            label: "Conventional Units",
+            label: "Metric",
             units: {
                 kilograms: { 
                     label: 'Kilograms', 
                     toBase: 'x * 1',
                     fromBase: 'x * 1'
                 },
+            }
+        },
+        {
+            label: 'Imperial',
+            units: {
                 pounds: { 
                     label: 'Pounds', 
                     toBase: 'x * 0.453592',

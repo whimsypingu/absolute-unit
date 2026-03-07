@@ -8,7 +8,7 @@ export const energy: CategoryData = {
     },
     unitGroups: [
         {
-            label: 'Conventional Units',
+            label: 'Metric',
             units: {
                 joules: {
                     label: 'Joules',
