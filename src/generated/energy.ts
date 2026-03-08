@@ -8,35 +8,6 @@ export const energy: CategoryData = {
     },
     unitGroups: [
         {
-            label: 'Informal Units',
-            units: {
-                bigmac: {
-                    singular: 'Big Mac',
-                    plural: 'Big Macs',
-                    toBase: 'x * 563 * 4184',
-                    fromBase: 'x / (563 * 4184)',
-                },
-                gallonGas: {
-                    singular: 'Gallon of Gas',
-                    plural: 'Gallons of Gas',
-                    toBase: 'x * (1.213 * (10 ^ 8))',
-                    fromBase: 'x / (1.213 * (10 ^ 8))',
-                },
-                hiroshima: {
-                    singular: 'Hiroshima',
-                    plural: 'Hiroshimas',
-                    toBase: 'x * (15000 * 4.184 * (10 ^ 9))',
-                    fromBase: 'x / (15000 * 4.184 * (10 ^ 9))',
-                },
-                tonTNT: {
-                    singular: 'Ton of TNT',
-                    plural: 'Tons of TNT',
-                    toBase: 'x * (4.184 * (10 ^ 9))',
-                    fromBase: 'x / (4.184 * (10 ^ 9))',
-                }
-            }
-        },
-        {
             label: 'Metric',
             units: {
                 calorie: {
@@ -62,6 +33,35 @@ export const energy: CategoryData = {
                     plural: 'Watt-hours',
                     toBase: 'x * 3600',
                     fromBase: 'x / 3600',
+                }
+            }
+        },
+        {
+            label: 'Informal Units',
+            units: {
+                bigmac: {
+                    singular: 'Big Mac',
+                    plural: 'Big Macs',
+                    toBase: 'x * 563 * 4184',
+                    fromBase: 'x / (563 * 4184)',
+                },
+                gallonGas: {
+                    singular: 'Gallon of Gas',
+                    plural: 'Gallons of Gas',
+                    toBase: 'x * (1.213 * (10 ^ 8))',
+                    fromBase: 'x / (1.213 * (10 ^ 8))',
+                },
+                hiroshima: {
+                    singular: 'Hiroshima',
+                    plural: 'Hiroshimas',
+                    toBase: 'x * (15000 * 4.184 * (10 ^ 9))',
+                    fromBase: 'x / (15000 * 4.184 * (10 ^ 9))',
+                },
+                tonTNT: {
+                    singular: 'Ton of TNT',
+                    plural: 'Tons of TNT',
+                    toBase: 'x * (4.184 * (10 ^ 9))',
+                    fromBase: 'x / (4.184 * (10 ^ 9))',
                 }
             }
         }

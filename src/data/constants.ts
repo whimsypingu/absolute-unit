@@ -6,12 +6,14 @@
 
 import { energy } from "../generated/energy.ts";
 import { length } from "../generated/length.ts";
+import { weight } from "../generated/weight.ts";
 
 //CONVERSIONS
 export const CONVERSIONS: ConversionRegistry = {
 
 	length,
 	energy,
+	weight,
 
 } as const;
 

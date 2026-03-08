@@ -1,0 +1,7 @@
+{
+    "unitName": "kilogram",
+    "singular": "Kilogram",
+    "plural": "Kilograms",
+    "toBase": "x * 1",
+    "fromBase": "x * 1"
+}

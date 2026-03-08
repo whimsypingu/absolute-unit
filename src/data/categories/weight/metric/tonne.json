@@ -1,0 +1,7 @@
+{
+    "unitName": "tonne",
+    "singular": "Tonne",
+    "plural": "Tonnes",
+    "toBase": "x * 1000",
+    "fromBase": "x / 1000"
+}

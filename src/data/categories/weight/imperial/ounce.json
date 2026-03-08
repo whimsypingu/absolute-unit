@@ -1,0 +1,7 @@
+{
+    "unitName": "ounce",
+    "singular": "Ounce",
+    "plural": "Ounces",
+    "toBase": "x * 0.0625 * 0.453592",
+    "fromBase": "x * 2.20462 * 16"
+}

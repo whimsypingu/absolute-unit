@@ -1,0 +1,7 @@
+{
+    "unitName": "pound",
+    "singular": "Pound",
+    "plural": "Pounds",
+    "toBase": "x * 0.453592",
+    "fromBase": "x * 2.20462"
+}

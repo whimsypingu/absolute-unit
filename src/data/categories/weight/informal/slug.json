@@ -1,0 +1,7 @@
+{
+    "unitName": "slug",
+    "singular": "Slug",
+    "plural": "Slugs",
+    "toBase": "x * 14.5939",
+    "fromBase": "x / 14.5939"
+}

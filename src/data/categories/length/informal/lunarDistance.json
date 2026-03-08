@@ -1,0 +1,7 @@
+{
+    "unitName": "lunarDistance",
+    "singular": "Lunar Distance",
+    "plural": "Lunar Distances",
+    "toBase": "x * 384400 * 1000",
+    "fromBase": "x / (384400 * 1000)"
+}

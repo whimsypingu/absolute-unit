@@ -1,0 +1,6 @@
+{
+    "catName": "weight",
+    "label": "Weight",
+    "initialFromUnitName": "kilogram",
+    "initialToUnitName": "pound"
+}

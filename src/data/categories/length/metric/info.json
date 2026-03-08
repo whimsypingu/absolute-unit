@@ -1,4 +1,5 @@
 {
     "groupName": "metric",
-    "label": "Metric"
+    "label": "Metric",
+    "priority": 0
 }

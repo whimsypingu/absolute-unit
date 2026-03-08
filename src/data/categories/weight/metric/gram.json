@@ -1,0 +1,7 @@
+{
+    "unitName": "gram",
+    "singular": "Gram",
+    "plural": "Grams",
+    "toBase": "x * 0.001",
+    "fromBase": "x * 1000"
+}

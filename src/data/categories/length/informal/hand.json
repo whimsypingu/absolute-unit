@@ -1,0 +1,7 @@
+{
+    "unitName": "hand",
+    "singular": "Hand",
+    "plural": "Hands",
+    "toBase": "x * 4 * 0.0254",
+    "fromBase": "x / (4 * 0.0254)"
+}

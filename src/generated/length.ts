@@ -8,6 +8,23 @@ export const length: CategoryData = {
     },
     unitGroups: [
         {
+            label: 'Metric',
+            units: {
+                kilometer: {
+                    singular: 'Kilometer',
+                    plural: 'Kilometers',
+                    toBase: 'x * 1000',
+                    fromBase: 'x / 1000',
+                },
+                meter: {
+                    singular: 'Meter',
+                    plural: 'Meters',
+                    toBase: 'x * 1',
+                    fromBase: 'x * 1',
+                }
+            }
+        },
+        {
             label: 'Imperial',
             units: {
                 foot: {
@@ -50,23 +67,18 @@ export const length: CategoryData = {
                     plural: 'Great Walls of China',
                     toBase: 'x * 21196.18 * 1000',
                     fromBase: 'x / (21196.18 * 1000)',
-                }
-            }
-        },
-        {
-            label: 'Metric',
-            units: {
-                kilometer: {
-                    singular: 'Kilometer',
-                    plural: 'Kilometers',
-                    toBase: 'x * 1000',
-                    fromBase: 'x / 1000',
                 },
-                meter: {
-                    singular: 'Meter',
-                    plural: 'Meters',
-                    toBase: 'x * 1',
-                    fromBase: 'x * 1',
+                hand: {
+                    singular: 'Hand',
+                    plural: 'Hands',
+                    toBase: 'x * 4 * 0.0254',
+                    fromBase: 'x / (4 * 0.0254)',
+                },
+                lunarDistance: {
+                    singular: 'Lunar Distance',
+                    plural: 'Lunar Distances',
+                    toBase: 'x * 384400 * 1000',
+                    fromBase: 'x / (384400 * 1000)',
                 }
             }
         }

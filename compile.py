@@ -79,13 +79,9 @@ def write_ts_file(output_dir, cat_json, content):
 
 def validate_get_info(dir):
     """
-    Asserts dir is a directory.
     Checks for info.json in the directory.
     Returns parsed data if successful, otherwise None
     """
-    if not dir.is_dir():
-        return None
-
     info_file = dir / "info.json"
     if not info_file.exists():
         return None
@@ -102,18 +98,23 @@ def compile():
     #categories
     for cat_dir in SOURCE_DIR.iterdir():
 
+        if not cat_dir.is_dir():
+            continue
+
         cat_json = validate_get_info(cat_dir)
         if not cat_json:
-            print(f"Skipping {cat_dir.name}, missing info.json file.")
+            print(f"Skipping {cat_dir.name}, missing info.json")
             continue
 
         #unitGroups
         group_list = []
         for group_dir in cat_dir.iterdir():
+            if not group_dir.is_dir():
+                continue
 
             group_json = validate_get_info(group_dir)
             if not group_json:
-                print(f"Skipping {group_dir.name}, missing info.json file.")
+                print(f"Skipping {group_dir.name}, missing info.json")
                 continue
 
             #unit
@@ -134,12 +135,16 @@ def compile():
 
             try:
                 compiled_group = compile_group(group_json, unit_list)
-                group_list.append(compiled_group)
+
+                priority = group_json.get("priority", 100)
+                group_list.append((priority, compiled_group))
             except KeyError as e:
                 print(f"Error: {group_dir.name} is missing a required field: {e}")
 
         try:
-            compiled_cat = compile_cat(cat_json, group_list)
+            group_list.sort(key=lambda x: x[0])
+            sorted_group_list = [item[1] for item in group_list]
+            compiled_cat = compile_cat(cat_json, sorted_group_list)
         except KeyError as e:
             print(f"Error: {cat_dir.name} is missing a required field: {e}")
 
