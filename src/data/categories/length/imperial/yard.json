@@ -1,0 +1,7 @@
+{
+    "unitName": "yard",
+    "singular": "Yard",
+    "plural": "Yards",
+    "toBase": "x * 0.9144",
+    "fromBase": "x / 0.9144"
+}

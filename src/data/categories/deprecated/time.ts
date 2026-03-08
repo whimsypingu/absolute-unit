@@ -1,4 +1,4 @@
-import type { CategoryData } from "../constants.ts";
+import type { CategoryData } from "../../constants.ts";
 
 export const time: CategoryData = {
     label: 'Time',

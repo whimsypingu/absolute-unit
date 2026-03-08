@@ -1,7 +1,7 @@
 import type { CategoryData } from "../data/constants.ts";
 
 export const length: CategoryData = {
-    label: 'Energy',
+    label: 'Length',
     initialUnits: {
         from: 'meter', 
         to: 'foot'
@@ -21,6 +21,35 @@ export const length: CategoryData = {
                     plural: 'Inches',
                     toBase: 'x * 0.0254',
                     fromBase: 'x / 3.28084 * 12',
+                },
+                mile: {
+                    singular: 'Mile',
+                    plural: 'Miles',
+                    toBase: 'x * 1609.34',
+                    fromBase: 'x / 1609.34',
+                },
+                yard: {
+                    singular: 'Yard',
+                    plural: 'Yards',
+                    toBase: 'x * 0.9144',
+                    fromBase: 'x / 0.9144',
+                }
+            }
+        },
+        {
+            label: 'Informal Units',
+            units: {
+                footballField: {
+                    singular: 'Football Field',
+                    plural: 'Football Fields',
+                    toBase: 'x * 100 * 0.9144',
+                    fromBase: 'x / 91.44',
+                },
+                greatWallOfChina: {
+                    singular: 'Great Wall of China',
+                    plural: 'Great Walls of China',
+                    toBase: 'x * 21196.18 * 1000',
+                    fromBase: 'x / (21196.18 * 1000)',
                 }
             }
         },

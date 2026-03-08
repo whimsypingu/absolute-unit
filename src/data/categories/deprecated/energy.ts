@@ -1,4 +1,4 @@
-import type { CategoryData } from "../constants.ts";
+import type { CategoryData } from "../../constants.ts";
 
 export const energy: CategoryData = {
     label: 'Energy',

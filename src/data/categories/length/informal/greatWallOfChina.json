@@ -1,0 +1,7 @@
+{
+    "unitName": "greatWallOfChina",
+    "singular": "Great Wall of China",
+    "plural": "Great Walls of China",
+    "toBase": "x * 21196.18 * 1000",
+    "fromBase": "x / (21196.18 * 1000)"
+}
