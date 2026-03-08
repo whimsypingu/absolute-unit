@@ -1,0 +1,7 @@
+{
+    "unitName": "foot",
+    "singular": "Foot",
+    "plural": "Feet",
+    "toBase": "x * 0.3048",
+    "fromBase": "x / 3.28084"
+}

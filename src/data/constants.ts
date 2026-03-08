@@ -1,17 +1,17 @@
-import { energy } from "./conversions/energy";
-import { length } from "./conversions/length";
-import { time } from "./conversions/time";
-import { volume } from "./conversions/volume";
-import { weight } from "./conversions/weight";
+// import { energy } from "./categories/energy";
+// import { length } from "./categories/length";
+// import { time } from "./categories/time";
+// import { volume } from "./categories/volume";
+// import { weight } from "./categories/weight";
+
+import { energy } from "../generated/energy.ts";
+import { length } from "../generated/length.ts";
 
 //CONVERSIONS
 export const CONVERSIONS: ConversionRegistry = {
 
 	length,
-	weight,
-	volume,
 	energy,
-	time
 
 } as const;
 
@@ -24,7 +24,9 @@ export type Formula = (Op | number)[]
 
 // Conversion breakdown
 export interface UnitData {
-	label: string;
+	singular: string;
+	plural: string;
+	abbr?: string;
 	toBase: string;
 	fromBase: string;
 }

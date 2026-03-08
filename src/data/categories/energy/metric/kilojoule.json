@@ -1,0 +1,7 @@
+{
+    "unitName": "kilojoule",
+    "singular": "Kilojoule",
+    "plural": "Kilojoules",
+    "toBase": "x * 1000",
+    "fromBase": "x * 0.001"
+}

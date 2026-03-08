@@ -1,0 +1,7 @@
+{
+    "unitName": "gallonGas",
+    "singular": "Gallon of Gas",
+    "plural": "Gallons of Gas",
+    "toBase": "x * (1.213 * (10 ^ 8))",
+    "fromBase": "x / (1.213 * (10 ^ 8))"
+}

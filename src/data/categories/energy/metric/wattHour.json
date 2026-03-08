@@ -1,0 +1,7 @@
+{
+    "unitName": "wattHour",
+    "singular": "Watt-hour",
+    "plural": "Watt-hours",
+    "toBase": "x * 3600",
+    "fromBase": "x / 3600"
+}

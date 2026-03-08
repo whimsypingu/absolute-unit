@@ -1,0 +1,6 @@
+{
+    "catName": "length",
+    "label": "Length",
+    "initialFromUnitName": "meter",
+    "initialToUnitName": "foot"
+}

@@ -118,6 +118,8 @@ export const getUnitData = (
     throw new Error(`Unit ${unitKey} not found in category ${categoryData.label}`);
 };
 
+
+
 const getFlattenedUnitKeys = (categoryData: CategoryData): string[] => {
 	return categoryData.unitGroups.flatMap(group => Object.keys(group.units));
 };

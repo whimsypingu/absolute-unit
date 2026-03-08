@@ -1,0 +1,7 @@
+{
+    "unitName": "calorie",
+    "singular": "Calorie",
+    "plural": "Calories",
+    "toBase": "x * 4184",
+    "fromBase": "x / 4184"
+}

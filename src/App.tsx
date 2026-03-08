@@ -7,31 +7,34 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGr
 import { Combobox, ComboboxContent, ComboboxInput, ComboboxList, ComboboxEmpty, ComboboxItem } from "@/components/ui/combobox";
 import { ButtonGroup } from './components/ui/button-group';
 
-import * as Structs from './data/constants.ts';
+import { INITIAL_CATEGORY, INITIAL_HISTORY, CONVERSIONS, CATEGORY_ITEMS } from './data/constants.ts';
+import type { Category, ConversionHistory, CategoryData, ConversionEntry, UnitData, CategoryItem} from './data/constants.ts';
+
 import { ArrowLeftRight, Shuffle } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import { formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
+import { Item, ItemContent, ItemDescription, ItemTitle } from './components/ui/item.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
-	const [category, setCategory] = useState<Structs.Category>(Structs.INITIAL_CATEGORY);
+	const [category, setCategory] = useState<Category>(INITIAL_CATEGORY);
 	const [value, setValue] = useState<string>("");
 	
-	const [conversionHistory, setConversionHistory] = useImmer<Structs.ConversionHistory>(Structs.INITIAL_HISTORY);	
+	const [conversionHistory, setConversionHistory] = useImmer<ConversionHistory>(INITIAL_HISTORY);	
 	
-	const updateConversionHistory = (category: Structs.Category, field: 'from' | 'to', value: string) => {
+	const updateConversionHistory = (category: Category, field: 'from' | 'to', value: string) => {
 		setConversionHistory(draft => {
 			draft[category][field] = value;
 		});
 	}
 
 	// 2. LOGIC: Derived state (Calculates automatically)
-	const currentCategoryData: Structs.CategoryData = Structs.CONVERSIONS[category];
-	const currentEntry: Structs.ConversionEntry = conversionHistory[category];
+	const currentCategoryData: CategoryData = CONVERSIONS[category];
+	const currentEntry: ConversionEntry = conversionHistory[category];
 
-	const fromUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.from); 
-	const toUnitData: Structs.UnitData = getUnitData(currentCategoryData, currentEntry.to);
+	const fromUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.from); 
+	const toUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.to);
 
 	const convertedValue: number = convert(sanitizeInput(value), fromUnitData.toBase, toUnitData.fromBase);
 	const result: string = formatHumanReadable(convertedValue);
@@ -59,14 +62,14 @@ export default function App() {
 		<Card className='w-full max-w-xl'>
 			<CardContent className="space-y-4 pt-6">
 
-				<div className='flex gap-2 items-center'>
+				<div className='flex gap-2 items-center w-full min-w-0'>
 
 					<Combobox 
 						autoHighlight
-						items={Structs.CATEGORY_ITEMS}
-						value={Structs.CATEGORY_ITEMS.find((item) => item.id === category) || null}
-						onValueChange={(item: Structs.CategoryItem | null) => {
-							if (item) setCategory(item.id as Structs.Category);
+						items={CATEGORY_ITEMS}
+						value={CATEGORY_ITEMS.find((item) => item.id === category) || null}
+						onValueChange={(item: CategoryItem | null) => {
+							if (item) setCategory(item.id as Category);
 						}}
 					>
 						<ComboboxInput
@@ -88,7 +91,7 @@ export default function App() {
 
 				</div>
 
-				<div className='flex gap-2 items-center'>
+				<div className='flex gap-2 items-center w-full min-w-0'>
 				<ButtonGroup className='flex-1 flex'>
 					{/* FROM */}
 					<Input 
@@ -121,13 +124,15 @@ export default function App() {
 				</ButtonGroup>
 				</div>
 
-				<div className='flex gap-2 items-center'>
-				<ButtonGroup className='flex-1 flex'>
+
+				{/* UNITS */}
+				<div className='flex gap-2 items-center w-full min-w-0'>
+				<ButtonGroup className='flex-1 flex min-w-0 overflow-hidden'>
 					<Select 
 						value={currentEntry.from} 
 						onValueChange={(val) => updateConversionHistory(category, 'from', val)}
 					>
-						<SelectTrigger className="flex-1">
+						<SelectTrigger className="flex-1 min-w-0 truncate">
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
@@ -138,7 +143,7 @@ export default function App() {
 										<SelectLabel>{group.label}</SelectLabel>
 										{Object.entries(group.units).map(([key, unit]) => (
 											<SelectItem key={key} value={key}>
-												{unit.label}
+												{unit.plural}
 											</SelectItem>
 										))}
 									</SelectGroup>
@@ -165,7 +170,7 @@ export default function App() {
 						value={currentEntry.to} 
 						onValueChange={(val) => updateConversionHistory(category, 'to', val)}
 					>
-						<SelectTrigger className="flex-1">
+						<SelectTrigger className="flex-1 min-w-0 truncate">
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
@@ -176,7 +181,7 @@ export default function App() {
 										<SelectLabel>{group.label}</SelectLabel>
 										{Object.entries(group.units).map(([key, unit]) => (
 											<SelectItem key={key} value={key}>
-												{unit.label}
+												{unit.plural}
 											</SelectItem>
 										))}
 									</SelectGroup>
@@ -193,7 +198,7 @@ export default function App() {
 				</div>
 
 
-				<div className='flex gap-2 items-center'>	
+				<div className='flex gap-2 items-center w-full min-w-0'>
 					<Button
 						className="flex-1 h-14"
 						variant="outline"
@@ -213,20 +218,24 @@ export default function App() {
 		<Card className="w-full max-w-xl">
 		<CardContent className="flex divide-x divide-slate-200">
 			{/* Left Column: Metric Fact */}
-			<div className="flex-1 p-4">
-			<h3 className="font-bold">Metric Facts</h3>
-			<p className="text-sm text-muted-foreground">
-				Metric units are SI-based and used universally in science and engineering.
-			</p>
-			</div>
+			<Item className='flex-1 h-full'>
+				<ItemContent>
+					<ItemTitle>{fromUnitData.singular}</ItemTitle>
+					<ItemDescription>
+						test
+					</ItemDescription>
+				</ItemContent>
+			</Item>
 
 			{/* Right Column: Imperial Fact */}
-			<div className="flex-1 p-4">
-			<h3 className="font-bold">Imperial Facts</h3>
-			<p className="text-sm text-muted-foreground">
-				Imperial units are largely US-based and rooted in historical body-part measurements.
-			</p>
-			</div>
+			<Item className='flex-1 h-full'>
+				<ItemContent>
+					<ItemTitle>{toUnitData.singular}</ItemTitle>
+					<ItemDescription>
+						Imperial units are largely US-based and rooted in historical body-part measurements.
+					</ItemDescription>
+				</ItemContent>
+			</Item>
 		</CardContent>
 		</Card>
 	</div>

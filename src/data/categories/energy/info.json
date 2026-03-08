@@ -1,0 +1,6 @@
+{
+    "catName": "energy",
+    "label": "Energy",
+    "initialFromUnitName": "joule",
+    "initialToUnitName": "calorie"
+}

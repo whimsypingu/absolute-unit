@@ -1,0 +1,7 @@
+{
+    "unitName": "inch",
+    "singular": "Inch",
+    "plural": "Inches",
+    "toBase": "x * 0.0254",
+    "fromBase": "x / 3.28084 * 12"
+}

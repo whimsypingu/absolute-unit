@@ -12,16 +12,19 @@ export const weight: CategoryData = {
             units: {
                 gram: {
                     label: 'Grams',
+                    abbr: 'g',
                     toBase: 'x * 0.001',
-                    fromBase: 'x * 1000'
+                    fromBase: 'x * 1000',
                 },
-                kilogram: { 
+                kilogram: {
                     label: 'Kilograms', 
+                    abbr: 'kg',
                     toBase: 'x * 1',
                     fromBase: 'x * 1'
                 },
                 tonne: {
                     label: 'Tonnes',
+                    abbr: 't',
                     toBase: 'x * 1000',
                     fromBase: 'x / 1000',
                 },
@@ -30,13 +33,15 @@ export const weight: CategoryData = {
         {
             label: 'Imperial',
             units: {
-                pound: { 
+                pound: {
                     label: 'Pounds', 
+                    abbr: 'lb',
                     toBase: 'x * 0.453592',
                     fromBase: 'x * 2.20462'
                 },
                 ounce: { 
                     label: 'Ounces', 
+                    abbr: 'oz',
                     toBase: 'x * 0.0625 * 0.453592',
                     fromBase: 'x * 2.20462 * 16'
                 },
@@ -49,16 +54,6 @@ export const weight: CategoryData = {
                     label: 'Slugs',
                     toBase: 'x * 14.5939',
                     fromBase: 'x / 14.5939'
-                },
-                kilogrammeSteel: {
-                    label: 'Kilogrammes of Steel',
-                    toBase: 'x * 1',
-                    fromBase: 'x * 1'
-                },
-                kilogrammeFeather: {
-                    label: 'Kilogrammes of Feathers',
-                    toBase: 'x * 1',
-                    fromBase: 'x * 1'
                 },
                 bagCement: {
                     label: 'Bags of Cement',

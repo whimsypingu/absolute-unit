@@ -1,0 +1,7 @@
+{
+    "unitName": "bigmac",
+    "singular": "Big Mac",
+    "plural": "Big Macs",
+    "toBase": "x * 563 * 4184",
+    "fromBase": "x / (563 * 4184)"
+}

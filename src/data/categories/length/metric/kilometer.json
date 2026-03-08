@@ -1,0 +1,7 @@
+{
+    "unitName": "kilometer",
+    "singular": "Kilometer",
+    "plural": "Kilometers",
+    "toBase": "x * 1000",
+    "fromBase": "x / 1000"
+}
