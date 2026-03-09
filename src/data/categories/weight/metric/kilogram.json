@@ -4,5 +4,6 @@
     "plural": "Kilograms",
     "abbr": "kg",
     "toBase": "x * 1",
-    "fromBase": "x * 1"
+    "fromBase": "x * 1",
+    "priority": 0
 }

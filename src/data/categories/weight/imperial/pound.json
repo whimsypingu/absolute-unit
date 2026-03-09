@@ -4,5 +4,6 @@
     "plural": "Pounds",
     "abbr": "lb",
     "toBase": "x * 0.453592",
-    "fromBase": "x * 2.20462"
+    "fromBase": "x * 2.20462",
+    "priority": 0
 }

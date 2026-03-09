@@ -4,5 +4,6 @@
     "plural": "Hours",
     "abbr": "hr",
     "toBase": "x * 60 * 60",
-    "fromBase": "x / (60 * 60)"
+    "fromBase": "x / (60 * 60)",
+    "priority": 1
 }

@@ -1,5 +1,5 @@
 {
-    "groupName": "medieval",
-    "label": "Medieval Units",
-    "priority": 3
+    "groupName": "metric",
+    "label": "Metric",
+    "priority": 0
 }

@@ -4,5 +4,6 @@
     "plural": "Grand Canyons",
     "abbr": "",
     "toBase": "(x * 1000) * (4.17 * (10 ^ 12))",
-    "fromBase": "(x * 0.001) / (4.17 * (10 ^ 12))"
+    "fromBase": "(x * 0.001) / (4.17 * (10 ^ 12))",
+    "priority": 20
 }

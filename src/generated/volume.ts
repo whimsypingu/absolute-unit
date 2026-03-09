@@ -10,12 +10,12 @@ export const volume: CategoryData = {
         {
             label: 'Metric',
             units: {
-                cubicMeter: {
-                    singular: 'Cubic Meter',
-                    plural: 'Cubic Meters',
-                    toBase: 'x * 1000',
-                    fromBase: 'x * 0.001',
-                    abbr: 'm³',
+                milliliter: {
+                    singular: 'Milliliter',
+                    plural: 'Milliliters',
+                    toBase: 'x * 0.001',
+                    fromBase: 'x * 1000',
+                    abbr: 'mL',
                 },
                 liter: {
                     singular: 'Liter',
@@ -24,31 +24,31 @@ export const volume: CategoryData = {
                     fromBase: 'x * 1',
                     abbr: 'L',
                 },
-                milliliter: {
-                    singular: 'Milliliter',
-                    plural: 'Milliliters',
-                    toBase: 'x * 0.001',
-                    fromBase: 'x * 1000',
-                    abbr: 'mL',
+                cubicMeter: {
+                    singular: 'Cubic Meter',
+                    plural: 'Cubic Meters',
+                    toBase: 'x * 1000',
+                    fromBase: 'x * 0.001',
+                    abbr: 'm³',
                 }
             }
         },
         {
             label: 'US Customary',
             units: {
-                cup: {
-                    singular: 'Cup',
-                    plural: 'Cups',
-                    toBase: '(x / 33.814) * 8',
-                    fromBase: '(x * 33.814) / 8',
-                    abbr: 'c',
-                },
                 fluidOunce: {
                     singular: 'Fluid Ounce',
                     plural: 'Fluid Ounces',
                     toBase: 'x / 33.814',
                     fromBase: 'x * 33.814',
                     abbr: 'fl oz',
+                },
+                cup: {
+                    singular: 'Cup',
+                    plural: 'Cups',
+                    toBase: '(x / 33.814) * 8',
+                    fromBase: '(x * 33.814) / 8',
+                    abbr: 'c',
                 },
                 pint: {
                     singular: 'Pint',
@@ -69,12 +69,11 @@ export const volume: CategoryData = {
         {
             label: 'Informal Units',
             units: {
-                grandCanyon: {
-                    singular: 'Grand Canyon',
-                    plural: 'Grand Canyons',
-                    toBase: '(x * 1000) * (4.17 * (10 ^ 12))',
-                    fromBase: '(x * 0.001) / (4.17 * (10 ^ 12))',
-                    abbr: '',
+                shot: {
+                    singular: 'Shot',
+                    plural: 'Shots',
+                    toBase: '(x * 0.001) * 40',
+                    fromBase: '(x * 1000) / 40',
                 },
                 olympicSwimmingPool: {
                     singular: 'Olympic Swimming Pool',
@@ -82,11 +81,12 @@ export const volume: CategoryData = {
                     toBase: 'x * (2.5 * (10 ^ 6))',
                     fromBase: 'x / (2.5 * (10 ^ 6))',
                 },
-                shot: {
-                    singular: 'Shot',
-                    plural: 'Shots',
-                    toBase: '(x * 0.001) * 40',
-                    fromBase: '(x * 1000) / 40',
+                grandCanyon: {
+                    singular: 'Grand Canyon',
+                    plural: 'Grand Canyons',
+                    toBase: '(x * 1000) * (4.17 * (10 ^ 12))',
+                    fromBase: '(x * 0.001) / (4.17 * (10 ^ 12))',
+                    abbr: '',
                 }
             }
         }

@@ -3,5 +3,6 @@
     "singular": "Hiroshima",
     "plural": "Hiroshimas",
     "toBase": "x * (15000 * 4.184 * (10 ^ 9))",
-    "fromBase": "x / (15000 * 4.184 * (10 ^ 9))"
+    "fromBase": "x / (15000 * 4.184 * (10 ^ 9))",
+    "priority": 3
 }

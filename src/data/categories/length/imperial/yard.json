@@ -4,5 +4,6 @@
     "plural": "Yards",
     "abbr": "yd",
     "toBase": "x * 0.9144",
-    "fromBase": "x / 0.9144"
+    "fromBase": "x / 0.9144",
+    "priority": 1
 }

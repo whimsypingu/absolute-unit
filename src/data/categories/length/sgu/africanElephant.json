@@ -3,5 +3,6 @@
     "singular": "African Elephant",
     "plural": "African Elephants",
     "toBase": "x * 6.99",
-    "fromBase": "x / 6.99"
+    "fromBase": "x / 6.99",
+    "priority": 1
 }

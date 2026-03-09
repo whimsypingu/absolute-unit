@@ -3,5 +3,6 @@
     "singular": "Moment",
     "plural": "Moments",
     "toBase": "x * 90",
-    "fromBase": "x / 90"
+    "fromBase": "x / 90",
+    "priority": 0
 }

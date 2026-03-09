@@ -4,5 +4,6 @@
     "plural": "Kilojoules",
     "abbr": "kJ",
     "toBase": "x * 1000",
-    "fromBase": "x * 0.001"
+    "fromBase": "x * 0.001",
+    "priority": 1
 }

@@ -4,5 +4,6 @@
     "plural": "Calories",
     "abbr": "kcal",
     "toBase": "x * 4184",
-    "fromBase": "x / 4184"
+    "fromBase": "x / 4184",
+    "priority": 10
 }

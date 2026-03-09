@@ -10,32 +10,25 @@ export const length: CategoryData = {
         {
             label: 'Metric',
             units: {
-                kilometer: {
-                    singular: 'Kilometer',
-                    plural: 'Kilometers',
-                    toBase: 'x * 1000',
-                    fromBase: 'x / 1000',
-                    abbr: 'km',
-                },
                 meter: {
                     singular: 'Meter',
                     plural: 'Meters',
                     toBase: 'x * 1',
                     fromBase: 'x * 1',
                     abbr: 'm',
+                },
+                kilometer: {
+                    singular: 'Kilometer',
+                    plural: 'Kilometers',
+                    toBase: 'x * 1000',
+                    fromBase: 'x / 1000',
+                    abbr: 'km',
                 }
             }
         },
         {
             label: 'Imperial',
             units: {
-                foot: {
-                    singular: 'Foot',
-                    plural: 'Feet',
-                    toBase: 'x * 0.3048',
-                    fromBase: 'x / 0.3048',
-                    abbr: 'ft',
-                },
                 inch: {
                     singular: 'Inch',
                     plural: 'Inches',
@@ -43,12 +36,12 @@ export const length: CategoryData = {
                     fromBase: 'x * 39.3701',
                     abbr: 'in',
                 },
-                mile: {
-                    singular: 'Mile',
-                    plural: 'Miles',
-                    toBase: 'x * 1609.34',
-                    fromBase: 'x / 1609.34',
-                    abbr: 'mi',
+                foot: {
+                    singular: 'Foot',
+                    plural: 'Feet',
+                    toBase: 'x * 0.3048',
+                    fromBase: 'x / 0.3048',
+                    abbr: 'ft',
                 },
                 yard: {
                     singular: 'Yard',
@@ -56,18 +49,19 @@ export const length: CategoryData = {
                     toBase: 'x * 0.9144',
                     fromBase: 'x / 0.9144',
                     abbr: 'yd',
+                },
+                mile: {
+                    singular: 'Mile',
+                    plural: 'Miles',
+                    toBase: 'x * 1609.34',
+                    fromBase: 'x / 1609.34',
+                    abbr: 'mi',
                 }
             }
         },
         {
             label: 'Standard Giraffe Units',
             units: {
-                africanElephant: {
-                    singular: 'African Elephant',
-                    plural: 'African Elephants',
-                    toBase: 'x * 6.99',
-                    fromBase: 'x / 6.99',
-                },
                 corgi: {
                     singular: 'Corgi',
                     plural: 'Corgis',
@@ -80,12 +74,24 @@ export const length: CategoryData = {
                     toBase: 'x * 5.5',
                     fromBase: 'x / 5.5',
                     abbr: 'SGU',
+                },
+                africanElephant: {
+                    singular: 'African Elephant',
+                    plural: 'African Elephants',
+                    toBase: 'x * 6.99',
+                    fromBase: 'x / 6.99',
                 }
             }
         },
         {
             label: 'Informal Units',
             units: {
+                hand: {
+                    singular: 'Hand',
+                    plural: 'Hands',
+                    toBase: 'x * 4 * 0.0254',
+                    fromBase: 'x / (4 * 0.0254)',
+                },
                 footballField: {
                     singular: 'Football Field',
                     plural: 'Football Fields',
@@ -97,12 +103,6 @@ export const length: CategoryData = {
                     plural: 'Great Walls of China',
                     toBase: 'x * 21196.18 * 1000',
                     fromBase: 'x / (21196.18 * 1000)',
-                },
-                hand: {
-                    singular: 'Hand',
-                    plural: 'Hands',
-                    toBase: 'x * 4 * 0.0254',
-                    fromBase: 'x / (4 * 0.0254)',
                 },
                 lunarDistance: {
                     singular: 'Lunar Distance',

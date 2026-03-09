@@ -4,5 +4,6 @@
     "plural": "Fluid Ounces",
     "abbr": "fl oz",
     "toBase": "x / 33.814",
-    "fromBase": "x * 33.814"
+    "fromBase": "x * 33.814",
+    "priority": 0
 }

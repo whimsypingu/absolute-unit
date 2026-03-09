@@ -4,5 +4,6 @@
     "plural": "Grams",
     "abbr": "g",
     "toBase": "x * 0.001",
-    "fromBase": "x * 1000"
+    "fromBase": "x * 1000",
+    "priority": -1
 }

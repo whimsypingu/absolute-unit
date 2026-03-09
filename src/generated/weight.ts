@@ -55,17 +55,17 @@ export const weight: CategoryData = {
         {
             label: 'Informal Units',
             units: {
-                bagCement: {
-                    singular: 'Bag of Cement',
-                    plural: 'Bags of Cement',
-                    toBase: 'x * 43',
-                    fromBase: 'x / 43',
-                },
                 slug: {
                     singular: 'Slug',
                     plural: 'Slugs',
                     toBase: 'x * 14.5939',
                     fromBase: 'x / 14.5939',
+                },
+                bagCement: {
+                    singular: 'Bag of Cement',
+                    plural: 'Bags of Cement',
+                    toBase: 'x * 43',
+                    fromBase: 'x / 43',
                 }
             }
         },

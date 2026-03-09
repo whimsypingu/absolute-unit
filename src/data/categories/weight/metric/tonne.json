@@ -4,5 +4,6 @@
     "plural": "Tonnes",
     "abbr": "t",
     "toBase": "x * 1000",
-    "fromBase": "x / 1000"
+    "fromBase": "x / 1000",
+    "priority": 1
 }

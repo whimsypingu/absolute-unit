@@ -10,13 +10,6 @@ export const energy: CategoryData = {
         {
             label: 'Metric',
             units: {
-                calorie: {
-                    singular: 'Calorie',
-                    plural: 'Calories',
-                    toBase: 'x * 4184',
-                    fromBase: 'x / 4184',
-                    abbr: 'kcal',
-                },
                 joule: {
                     singular: 'Joule',
                     plural: 'Joules',
@@ -30,6 +23,13 @@ export const energy: CategoryData = {
                     toBase: 'x * 1000',
                     fromBase: 'x * 0.001',
                     abbr: 'kJ',
+                },
+                calorie: {
+                    singular: 'Calorie',
+                    plural: 'Calories',
+                    toBase: 'x * 4184',
+                    fromBase: 'x / 4184',
+                    abbr: 'kcal',
                 },
                 wattHour: {
                     singular: 'Watt-hour',
@@ -55,17 +55,17 @@ export const energy: CategoryData = {
                     toBase: 'x * (1.213 * (10 ^ 8))',
                     fromBase: 'x / (1.213 * (10 ^ 8))',
                 },
-                hiroshima: {
-                    singular: 'Hiroshima',
-                    plural: 'Hiroshimas',
-                    toBase: 'x * (15000 * 4.184 * (10 ^ 9))',
-                    fromBase: 'x / (15000 * 4.184 * (10 ^ 9))',
-                },
                 tonTNT: {
                     singular: 'Ton of TNT',
                     plural: 'Tons of TNT',
                     toBase: 'x * (4.184 * (10 ^ 9))',
                     fromBase: 'x / (4.184 * (10 ^ 9))',
+                },
+                hiroshima: {
+                    singular: 'Hiroshima',
+                    plural: 'Hiroshimas',
+                    toBase: 'x * (15000 * 4.184 * (10 ^ 9))',
+                    fromBase: 'x / (15000 * 4.184 * (10 ^ 9))',
                 }
             }
         }

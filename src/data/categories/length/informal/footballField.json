@@ -3,5 +3,6 @@
     "singular": "Football Field",
     "plural": "Football Fields",
     "toBase": "x * 100 * 0.9144",
-    "fromBase": "x / 91.44"
+    "fromBase": "x / 91.44",
+    "priority": 1
 }

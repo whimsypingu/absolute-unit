@@ -3,5 +3,6 @@
     "singular": "Shot",
     "plural": "Shots",
     "toBase": "(x * 0.001) * 40",
-    "fromBase": "(x * 1000) / 40"
+    "fromBase": "(x * 1000) / 40",
+    "priority": -1
 }

@@ -3,5 +3,6 @@
     "singular": "Bag of Cement",
     "plural": "Bags of Cement",
     "toBase": "x * 43",
-    "fromBase": "x / 43"
+    "fromBase": "x / 43",
+    "priority": 1
 }

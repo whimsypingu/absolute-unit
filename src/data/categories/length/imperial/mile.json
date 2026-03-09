@@ -4,5 +4,6 @@
     "plural": "Miles",
     "abbr": "mi",
     "toBase": "x * 1609.34",
-    "fromBase": "x / 1609.34"
+    "fromBase": "x / 1609.34",
+    "priority": 2
 }

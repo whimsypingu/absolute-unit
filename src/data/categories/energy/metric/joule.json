@@ -4,5 +4,6 @@
     "plural": "Joules",
     "abbr": "J",
     "toBase": "x * 1",
-    "fromBase": "x * 1"
+    "fromBase": "x * 1",
+    "priority": 0
 }

@@ -4,5 +4,6 @@
     "plural": "Giraffes",
     "abbr": "SGU",
     "toBase": "x * 5.5",
-    "fromBase": "x / 5.5"
+    "fromBase": "x / 5.5",
+    "priority": 0
 }

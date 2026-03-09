@@ -4,5 +4,6 @@
     "plural": "Years",
     "abbr": "a",
     "toBase": "x * 365.25 * 24 * 60 * 60",
-    "fromBase": "x / (365.25 * 24 * 60 * 60)"
+    "fromBase": "x / (365.25 * 24 * 60 * 60)",
+    "priority": 10
 }

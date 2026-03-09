@@ -19,10 +19,10 @@ def include_field(key, value):
     return f"\n    {key}: '{value}',"
 
 def compile_unit(unit_json):
-    optional_fields = ["abbr"]
+    valid_optional_fields = ["abbr"]
 
     additionalFields = ""
-    for field in optional_fields:
+    for field in valid_optional_fields:
         if field in unit_json:
             additionalFields = f"{additionalFields}{include_field(field, unit_json[field])}"
 
@@ -108,6 +108,19 @@ def validate_get_info(dir):
             return json.load(f)
         except:
             return None
+        
+def sorted_by_priority(priority_list):
+    """
+    Checks that a list of [(priority, value), etc] has no duplicate priorities when sorted.
+    Returns sorted list stripped of priorities if successful, otherwise raises KeyError
+    """
+    priority_list.sort(key=lambda x: x[0])
+
+    for i in range(1, len(priority_list)):
+        if priority_list[i][0] == priority_list[i-1][0]:
+            raise KeyError
+    
+    return [item[1] for item in priority_list]
     
 def compile():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -145,17 +158,21 @@ def compile():
                         unit_json = json.load(uf)
 
                         compiled_unit = compile_unit(unit_json)
-                        unit_list.append(compiled_unit)
+
+                        unit_priority = unit_json.get("priority", 100)
+                        unit_list.append((unit_priority, compiled_unit))
                     except json.JSONDecodeError:
                         print(f"Error: {unit_file.name} is not valid JSON.")
                     except KeyError as e:
                         print(f"Error: {unit_file.name} is missing the required field: {e}")
 
             try:
-                compiled_group = compile_group(group_json, unit_list)
+                unit_list.sort(key=lambda x: x[0])
+                sorted_unit_list = [item[1] for item in unit_list]
+                compiled_group = compile_group(group_json, sorted_unit_list)
 
-                priority = group_json.get("priority", 100)
-                group_list.append((priority, compiled_group))
+                group_priority = group_json.get("priority", 100)
+                group_list.append((group_priority, compiled_group))
             except KeyError as e:
                 print(f"Error: {group_dir.name} is missing a required field: {e}")
 

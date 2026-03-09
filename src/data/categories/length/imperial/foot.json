@@ -4,5 +4,6 @@
     "plural": "Feet",
     "abbr": "ft",
     "toBase": "x * 0.3048",
-    "fromBase": "x / 0.3048"
+    "fromBase": "x / 0.3048",
+    "priority": 0
 }

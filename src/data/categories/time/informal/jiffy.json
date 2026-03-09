@@ -3,5 +3,6 @@
     "singular": "Jiffy",
     "plural": "Jiffies",
     "toBase": "x * 0.01",
-    "fromBase": "x * 100"
+    "fromBase": "x * 100",
+    "priority": 0
 }

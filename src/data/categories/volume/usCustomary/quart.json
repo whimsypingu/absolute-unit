@@ -4,5 +4,6 @@
     "plural": "Quarts",
     "abbr": "qt",
     "toBase": "(x / 33.814) * 32",
-    "fromBase": "(x * 33.814) / 32"
+    "fromBase": "(x * 33.814) / 32",
+    "priority": 3
 }

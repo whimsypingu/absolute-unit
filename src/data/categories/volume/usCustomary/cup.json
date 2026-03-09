@@ -4,5 +4,6 @@
     "plural": "Cups",
     "abbr": "c",
     "toBase": "(x / 33.814) * 8",
-    "fromBase": "(x * 33.814) / 8"
+    "fromBase": "(x * 33.814) / 8",
+    "priority": 1
 }

@@ -3,5 +3,6 @@
     "singular": "Ton of TNT",
     "plural": "Tons of TNT",
     "toBase": "x * (4.184 * (10 ^ 9))",
-    "fromBase": "x / (4.184 * (10 ^ 9))"
+    "fromBase": "x / (4.184 * (10 ^ 9))",
+    "priority": 2
 }

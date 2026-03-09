@@ -4,5 +4,6 @@
     "plural": "Minutes",
     "abbr": "min",
     "toBase": "x * 60",
-    "fromBase": "x / 60"
+    "fromBase": "x / 60",
+    "priority": 0
 }
