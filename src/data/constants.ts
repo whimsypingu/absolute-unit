@@ -4,16 +4,16 @@
 // import { volume } from "./categories/volume";
 // import { weight } from "./categories/weight";
 
-import { energy } from "../generated/energy.ts";
-import { length } from "../generated/length.ts";
-import { weight } from "../generated/weight.ts";
+// import { energy } from "../generated/energy.ts";
+// import { length } from "../generated/length.ts";
+// import { weight } from "../generated/weight.ts";
+
+import * as AllGeneratedConversions from "../generated";
 
 //CONVERSIONS
 export const CONVERSIONS: ConversionRegistry = {
 
-	length,
-	energy,
-	weight,
+	...AllGeneratedConversions,
 
 } as const;
 

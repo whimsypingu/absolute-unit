@@ -1,0 +1,8 @@
+{
+    "unitName": "fluidOunce",
+    "singular": "Fluid Ounce",
+    "plural": "Fluid Ounces",
+    "abbr": "fl oz",
+    "toBase": "x / 33.814",
+    "fromBase": "x * 33.814"
+}

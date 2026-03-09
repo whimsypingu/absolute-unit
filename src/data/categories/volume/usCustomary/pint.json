@@ -1,0 +1,8 @@
+{
+    "unitName": "pint",
+    "singular": "Pint",
+    "plural": "Pints",
+    "abbr": "pt",
+    "toBase": "(x / 33.814) * 16",
+    "fromBase": "(x * 33.814) / 16"
+}

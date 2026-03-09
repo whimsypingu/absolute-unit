@@ -72,11 +72,17 @@ def compile_cat(cat_json, group_list):
     )
 
 
+def compile_index(cat_list):
+    result = ""
+    for cat_name in cat_list:
+        result = result + f"export * from \"./{cat_name}\";\n"
+    return result
+
+
+
 
 #write
-def write_ts_file(output_dir, cat_json, content):
-    cat_name = cat_json["catName"]
-    file_name = f"{cat_name}.ts"
+def write_ts_file(output_dir, file_name, content):
     file_path = output_dir / file_name
 
     try:
@@ -107,6 +113,7 @@ def compile():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     #categories
+    cat_list = []
     for cat_dir in SOURCE_DIR.iterdir():
 
         if not cat_dir.is_dir():
@@ -160,6 +167,14 @@ def compile():
             print(f"Error: {cat_dir.name} is missing a required field: {e}")
 
 
-        write_ts_file(OUTPUT_DIR, cat_json, compiled_cat)
+        #generate category file
+        cat_name = cat_json["catName"]
+        cat_file = f"{cat_name}.ts"
+        write_ts_file(OUTPUT_DIR, cat_file, compiled_cat)
+
+        cat_list.append(cat_name)
+    
+    compiled_index = compile_index(cat_list)
+    write_ts_file(OUTPUT_DIR, "index.ts", compiled_index)
         
 compile()

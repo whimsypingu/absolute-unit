@@ -1,0 +1,7 @@
+{
+    "unitName": "olympicSwimmingPool",
+    "singular": "Olympic Swimming Pool",
+    "plural": "Olympic Swimming Pools",
+    "toBase": "x * (2.5 * (10 ^ 6))",
+    "fromBase": "x / (2.5 * (10 ^ 6))"
+}

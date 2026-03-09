@@ -1,0 +1,8 @@
+{
+    "unitName": "cubicMeter",
+    "singular": "Cubic Meter",
+    "plural": "Cubic Meters",
+    "abbr": "m³",
+    "toBase": "x * 1000",
+    "fromBase": "x * 0.001"
+}

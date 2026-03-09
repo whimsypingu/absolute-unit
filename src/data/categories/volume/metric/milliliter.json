@@ -1,0 +1,8 @@
+{
+    "unitName": "milliliter",
+    "singular": "Milliliter",
+    "plural": "Milliliters",
+    "abbr": "mL",
+    "toBase": "x * 0.001",
+    "fromBase": "x * 1000"
+}
