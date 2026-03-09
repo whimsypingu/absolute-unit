@@ -86,7 +86,7 @@ export const weight: CategoryData = {
                     plural: 'Daniels',
                     toBase: '( (2.71 ^ (x * 10)) - (2.71 ^ (-1 * x * 10)) ) * 0.5',
                     fromBase: '( 2.71 @ (x + ((x ^ 2 + 1) ^ 0.5)) ) * 0.1',
-                    desc: 'One of my college roommates, fattest guy I've ever seen fr',
+                    desc: 'One of my college roommates, fattest guy I\'ve ever seen fr',
                     lastCheck: '3/9/2026',
                 }
             }

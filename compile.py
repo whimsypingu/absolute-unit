@@ -16,7 +16,8 @@ UNIT_TEMPLATE = """{unitName}: {{
 }}"""
 
 def include_field(key, value):
-    return f"\n    {key}: '{value}',"
+    ts_safe_value = str(value).replace("'", "\\'")
+    return f"\n    {key}: '{ts_safe_value}',"
 
 def compile_unit(unit_json):
     valid_optional_fields = ["abbr", "desc", "source", "lastCheck"]

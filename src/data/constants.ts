@@ -32,6 +32,8 @@ export interface UnitData {
 	fromBase: string;
 	abbr?: string;
 	desc?: string;
+	source?: string;
+	lastCheck?: string;
 }
 export interface UnitGroup {
 	label: string;

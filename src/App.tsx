@@ -219,30 +219,38 @@ export default function App() {
 			{/* Left Column: Metric Fact */}
 			<div className='flex-1 min-w-0 pr-6 flex flex-col'>
 				
-				<h3 className='text-base font-medium mb-2'>
+				<h3 className='text-lg font-medium mb-2'>
 					{fromUnitData.singular}
 					{!!fromUnitData.abbr && (
-						<span className="text-xs text-muted-foreground font-normal ml-2">({fromUnitData.abbr})</span>
+						<span className="text-sm text-muted-foreground font-normal ml-2">({fromUnitData.abbr})</span>
 					)}
 				</h3>
 
-				<p className='text-sm text-slate-600'>
+				<p className='text-sm text-slate-700'>
 					{fromUnitData.desc ?? "No description provided."}	
 				</p>
+
+				<div className='pt-2 mt-auto border-t border-slate-100 text-[0.625rem] text-right text-slate-400'>
+					{fromUnitData.lastCheck ?? "Au"}
+				</div>
 
 			</div>
 			<div className='flex-1 min-w-0 pl-6 flex flex-col'>
 
-				<h3 className='text-base font-medium mb-2'>
+				<h3 className='text-lg font-medium mb-2'>
 					{toUnitData.singular}
 					{!!toUnitData.abbr && (
-						<span className="text-xs text-muted-foreground font-normal ml-2">({toUnitData.abbr})</span>
+						<span className="text-sm text-muted-foreground font-normal ml-2">({toUnitData.abbr})</span>
 					)}
 				</h3>
 
-				<p className='text-sm text-slate-600'>
+				<p className='text-sm text-slate-700'>
 					{toUnitData.desc ?? "No description provided."}	
 				</p>
+
+				<div className='pt-2 mt-auto border-t border-slate-100 text-[0.625rem] text-right text-slate-400'>
+					{toUnitData.lastCheck ?? "Au"}
+				</div>
 
 			</div>
 							
