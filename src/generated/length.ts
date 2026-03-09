@@ -33,14 +33,14 @@ export const length: CategoryData = {
                     singular: 'Foot',
                     plural: 'Feet',
                     toBase: 'x * 0.3048',
-                    fromBase: 'x / 3.28084',
+                    fromBase: 'x / 0.3048',
                     abbr: 'ft',
                 },
                 inch: {
                     singular: 'Inch',
                     plural: 'Inches',
                     toBase: 'x * 0.0254',
-                    fromBase: 'x / 3.28084 * 12',
+                    fromBase: 'x * 39.3701',
                     abbr: 'in',
                 },
                 mile: {
@@ -79,7 +79,7 @@ export const length: CategoryData = {
                     plural: 'Giraffes',
                     toBase: 'x * 5.5',
                     fromBase: 'x / 5.5',
-                    abbr: 'sgu',
+                    abbr: 'SGU',
                 }
             }
         },

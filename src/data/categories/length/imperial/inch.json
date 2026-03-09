@@ -4,5 +4,5 @@
     "plural": "Inches",
     "abbr": "in",
     "toBase": "x * 0.0254",
-    "fromBase": "x / 3.28084 * 12"
+    "fromBase": "x * 39.3701"
 }
