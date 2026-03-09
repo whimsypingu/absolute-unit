@@ -14,6 +14,8 @@ import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import { formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem } from './components/ui/carousel.tsx';
+import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerClose, DrawerTrigger } from './components/ui/drawer.tsx';
+import WheelGesturesPlugin from 'embla-carousel-wheel-gestures';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -60,6 +62,7 @@ export default function App() {
 	<div className="h-full w-full overflow-hidden flex flex-col items-center">
 
 		<Carousel 
+			plugins={[WheelGesturesPlugin()]}
 			opts={{
 				align: 'start',
 				slidesToScroll: 1,
@@ -243,9 +246,29 @@ export default function App() {
 								)}
 							</div>
 
-							<p className='text-sm text-slate-700 hyphens-auto'>
-								{fromUnitData.desc ?? "No description provided."}
-							</p>
+							<Drawer direction="bottom">
+								<DrawerTrigger asChild>
+									<p className='text-sm text-slate-700 hyphens-auto line-clamp-3 md:line-clamp-none'>
+										{fromUnitData.desc ?? "No description provided."}
+									</p>
+								</DrawerTrigger>
+
+								<DrawerContent className='p-6'>
+									<DrawerHeader>
+										<DrawerTitle>{fromUnitData.singular}</DrawerTitle>
+									</DrawerHeader>
+
+									<p className="text-slate-700 leading-relaxed">
+										{fromUnitData.desc}
+									</p>
+
+									<DrawerFooter>
+										<DrawerClose asChild>
+											<Button variant="outline">Close</Button>
+										</DrawerClose>
+									</DrawerFooter>
+								</DrawerContent>
+							</Drawer>
 						</div>
 
 
@@ -266,9 +289,29 @@ export default function App() {
 								)}
 							</div>
 
-							<p className='text-sm text-slate-700 hyphens-auto'>
-								{toUnitData.desc ?? "No description provided."}	
-							</p>
+							<Drawer direction="bottom">
+								<DrawerTrigger asChild>
+									<p className='text-sm text-slate-700 hyphens-auto line-clamp-3 md:line-clamp-none'>
+										{toUnitData.desc ?? "No description provided."}
+									</p>
+								</DrawerTrigger>
+
+								<DrawerContent className='p-6'>
+									<DrawerHeader>
+										<DrawerTitle>{toUnitData.singular}</DrawerTitle>
+									</DrawerHeader>
+
+									<p className="text-slate-700 leading-relaxed">
+										{toUnitData.desc}
+									</p>
+
+									<DrawerFooter>
+										<DrawerClose asChild>
+											<Button variant="outline">Close</Button>
+										</DrawerClose>
+									</DrawerFooter>
+								</DrawerContent>
+							</Drawer>
 						</div>
 
 
