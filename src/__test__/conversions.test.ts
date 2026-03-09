@@ -5,6 +5,21 @@ import * as AllGeneratedConversions from '../generated/index';
 import { convert } from '../data/utils';
 
 
+describe('Registry initial unit configuration integrity', () => {
+    Object.entries(AllGeneratedConversions).forEach(([moduleName, categoryData]) => {
+
+        it(`[${moduleName}] initialUnits should exist in unitGroups`, () => {
+            const availableUnits = categoryData.unitGroups.flatMap(group =>
+                Object.keys(group.units)
+            );
+
+            expect(availableUnits).toContain(categoryData.initialUnits.from);
+            expect(availableUnits).toContain(categoryData.initialUnits.to);
+        });
+    });
+});
+
+
 describe('Automatic registry round-trip tests', () => {
     Object.entries(AllGeneratedConversions).forEach(([moduleName, categoryData]) => {
 
