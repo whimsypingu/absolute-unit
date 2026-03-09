@@ -57,9 +57,24 @@ export default function App() {
 	};
 
 	return (
-	<div className="min-h-screen flex flex-col items-center p-4 sm:p-8 gap-6">
+	<div className="min-h-screen flex flex-col items-center p-4 sm:p-8 gap-4">
 		<Card className='w-full max-w-xl'>
 			<CardContent className="space-y-4">
+
+				{/* IM FEELING RANDOM */}
+				<div className='flex gap-2 items-center w-full min-w-0'>
+					<Button
+						className="flex-1 h-12"
+						variant="outline"
+						size="icon"
+						onClick={handleRandomize}
+						title="I'm feeling random"
+					>
+						<Shuffle className='h-5 w-5' />
+						I'm feeling random
+					</Button>
+				</div>
+
 				<div className='flex gap-2 items-center w-full min-w-0'>
 
 					<Combobox 
@@ -194,21 +209,6 @@ export default function App() {
 					</Select>
 				</ButtonGroup>
 				</div>
-
-
-				<div className='flex gap-2 items-center w-full min-w-0'>
-					<Button
-						className="flex-1 h-14"
-						variant="outline"
-						size="icon"
-						onClick={handleRandomize}
-						title="I'm feeling random"
-					>
-						<Shuffle className='h-5 w-5' />
-						I'm feeling random
-					</Button>
-				</div>
-
 
 			</CardContent>
 		</Card>
