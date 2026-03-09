@@ -60,8 +60,7 @@ export default function App() {
 	return (
 	<div className="min-h-screen flex flex-col items-center p-4 sm:p-8 gap-6">
 		<Card className='w-full max-w-xl'>
-			<CardContent className="space-y-4 pt-6">
-
+			<CardContent className="space-y-4">
 				<div className='flex gap-2 items-center w-full min-w-0'>
 
 					<Combobox 
