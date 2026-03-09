@@ -2,6 +2,7 @@
     "unitName": "tonne",
     "singular": "Tonne",
     "plural": "Tonnes",
+    "abbr": "t",
     "toBase": "x * 1000",
     "fromBase": "x / 1000"
 }

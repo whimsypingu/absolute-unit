@@ -2,6 +2,7 @@
     "unitName": "joule",
     "singular": "Joule",
     "plural": "Joules",
+    "abbr": "J",
     "toBase": "x * 1",
     "fromBase": "x * 1"
 }

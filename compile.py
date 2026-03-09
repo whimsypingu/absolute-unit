@@ -12,12 +12,23 @@ UNIT_TEMPLATE = """{unitName}: {{
     singular: '{singular}',
     plural: '{plural}',
     toBase: '{toBase}',
-    fromBase: '{fromBase}',
+    fromBase: '{fromBase}',{additionalFields}
 }}"""
 
+def include_field(key, value):
+    return f"\n    {key}: '{value}',"
+
 def compile_unit(unit_json):
+    optional_fields = ["abbr"]
+
+    additionalFields = ""
+    for field in optional_fields:
+        if field in unit_json:
+            additionalFields = f"{additionalFields}{include_field(field, unit_json[field])}"
+
     return UNIT_TEMPLATE.format(
-        **unit_json
+        **unit_json,
+        additionalFields=additionalFields
     )
 
 

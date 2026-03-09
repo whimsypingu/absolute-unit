@@ -28,9 +28,10 @@ export type Formula = (Op | number)[]
 export interface UnitData {
 	singular: string;
 	plural: string;
-	abbr?: string;
 	toBase: string;
 	fromBase: string;
+	abbr?: string;
+	info?: string;
 }
 export interface UnitGroup {
 	label: string;

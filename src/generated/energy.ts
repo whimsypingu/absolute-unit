@@ -15,24 +15,28 @@ export const energy: CategoryData = {
                     plural: 'Calories',
                     toBase: 'x * 4184',
                     fromBase: 'x / 4184',
+                    abbr: 'kcal',
                 },
                 joule: {
                     singular: 'Joule',
                     plural: 'Joules',
                     toBase: 'x * 1',
                     fromBase: 'x * 1',
+                    abbr: 'J',
                 },
                 kilojoule: {
                     singular: 'Kilojoule',
                     plural: 'Kilojoules',
                     toBase: 'x * 1000',
                     fromBase: 'x * 0.001',
+                    abbr: 'kJ',
                 },
                 wattHour: {
                     singular: 'Watt-hour',
                     plural: 'Watt-hours',
                     toBase: 'x * 3600',
                     fromBase: 'x / 3600',
+                    abbr: 'Wh',
                 }
             }
         },

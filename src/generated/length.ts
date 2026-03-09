@@ -15,12 +15,14 @@ export const length: CategoryData = {
                     plural: 'Kilometers',
                     toBase: 'x * 1000',
                     fromBase: 'x / 1000',
+                    abbr: 'km',
                 },
                 meter: {
                     singular: 'Meter',
                     plural: 'Meters',
                     toBase: 'x * 1',
                     fromBase: 'x * 1',
+                    abbr: 'm',
                 }
             }
         },
@@ -32,24 +34,28 @@ export const length: CategoryData = {
                     plural: 'Feet',
                     toBase: 'x * 0.3048',
                     fromBase: 'x / 3.28084',
+                    abbr: 'ft',
                 },
                 inch: {
                     singular: 'Inch',
                     plural: 'Inches',
                     toBase: 'x * 0.0254',
                     fromBase: 'x / 3.28084 * 12',
+                    abbr: 'in',
                 },
                 mile: {
                     singular: 'Mile',
                     plural: 'Miles',
                     toBase: 'x * 1609.34',
                     fromBase: 'x / 1609.34',
+                    abbr: 'mi',
                 },
                 yard: {
                     singular: 'Yard',
                     plural: 'Yards',
                     toBase: 'x * 0.9144',
                     fromBase: 'x / 0.9144',
+                    abbr: 'yd',
                 }
             }
         },
@@ -79,6 +85,7 @@ export const length: CategoryData = {
                     plural: 'Lunar Distances',
                     toBase: 'x * 384400 * 1000',
                     fromBase: 'x / (384400 * 1000)',
+                    abbr: 'LD',
                 }
             }
         }

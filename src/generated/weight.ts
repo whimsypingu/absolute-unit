@@ -15,18 +15,21 @@ export const weight: CategoryData = {
                     plural: 'Grams',
                     toBase: 'x * 0.001',
                     fromBase: 'x * 1000',
+                    abbr: 'g',
                 },
                 kilogram: {
                     singular: 'Kilogram',
                     plural: 'Kilograms',
                     toBase: 'x * 1',
                     fromBase: 'x * 1',
+                    abbr: 'kg',
                 },
                 tonne: {
                     singular: 'Tonne',
                     plural: 'Tonnes',
                     toBase: 'x * 1000',
                     fromBase: 'x / 1000',
+                    abbr: 't',
                 }
             }
         },
@@ -38,12 +41,14 @@ export const weight: CategoryData = {
                     plural: 'Ounces',
                     toBase: 'x * 0.0625 * 0.453592',
                     fromBase: 'x * 2.20462 * 16',
+                    abbr: 'oz',
                 },
                 pound: {
                     singular: 'Pound',
                     plural: 'Pounds',
                     toBase: 'x * 0.453592',
                     fromBase: 'x * 2.20462',
+                    abbr: 'lb',
                 }
             }
         },

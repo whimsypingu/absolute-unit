@@ -2,6 +2,7 @@
     "unitName": "inch",
     "singular": "Inch",
     "plural": "Inches",
+    "abbr": "in",
     "toBase": "x * 0.0254",
     "fromBase": "x / 3.28084 * 12"
 }

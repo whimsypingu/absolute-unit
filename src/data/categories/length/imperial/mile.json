@@ -2,6 +2,7 @@
     "unitName": "mile",
     "singular": "Mile",
     "plural": "Miles",
+    "abbr": "mi",
     "toBase": "x * 1609.34",
     "fromBase": "x / 1609.34"
 }

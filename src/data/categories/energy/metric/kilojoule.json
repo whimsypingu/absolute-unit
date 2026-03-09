@@ -2,6 +2,7 @@
     "unitName": "kilojoule",
     "singular": "Kilojoule",
     "plural": "Kilojoules",
+    "abbr": "kJ",
     "toBase": "x * 1000",
     "fromBase": "x * 0.001"
 }

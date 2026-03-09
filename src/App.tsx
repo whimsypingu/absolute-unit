@@ -215,24 +215,34 @@ export default function App() {
 			</CardContent>
 		</Card>
 
-		<Card className="w-full max-w-xl">
-		<CardContent className="flex divide-x divide-slate-200">
+		<Card className="w-full max-w-xl flex-grow">
+		<CardContent className="flex divide-x divide-slate-200 h-full">
 			{/* Left Column: Metric Fact */}
-			<Item className='flex-1 h-full'>
-				<ItemContent>
-					<ItemTitle>{fromUnitData.singular}</ItemTitle>
-					<ItemDescription>
-						test
+			<Item className='flex-1 h-full p-0 m-0'>
+				<ItemContent className='flex flex-col gap-2 h-full'>
+					<ItemTitle>
+						{fromUnitData.singular}
+						{!!fromUnitData.abbr && (
+							<span className="text-xs text-muted-foreground font-normal">({fromUnitData.abbr})</span>
+						)}
+					</ItemTitle>
+					<ItemDescription className='flex-grow overflow-y-auto pr-4'>
+						{fromUnitData.info ?? "No additional information provided."}
 					</ItemDescription>
 				</ItemContent>
 			</Item>
 
 			{/* Right Column: Imperial Fact */}
-			<Item className='flex-1 h-full'>
-				<ItemContent>
-					<ItemTitle>{toUnitData.singular}</ItemTitle>
-					<ItemDescription>
-						Imperial units are largely US-based and rooted in historical body-part measurements.
+			<Item className='flex-1 h-full p-0 m-0'>
+				<ItemContent className='flex flex-col gap-2 h-full'>
+					<ItemTitle>
+						{toUnitData.singular}
+						{!!toUnitData.abbr && (
+							<span className="text-xs text-muted-foreground font-normal">({toUnitData.abbr})</span>
+						)}
+					</ItemTitle>
+					<ItemDescription className='flex-grow overflow-y-auto pr-4'>
+						{toUnitData.info ?? "No additional information provided."}
 					</ItemDescription>
 				</ItemContent>
 			</Item>
