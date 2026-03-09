@@ -14,7 +14,6 @@ import { ArrowLeftRight, Shuffle } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import { formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
-import { Item, ItemContent, ItemDescription, ItemTitle } from './components/ui/item.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
