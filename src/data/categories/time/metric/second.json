@@ -1,0 +1,8 @@
+{
+    "unitName": "second",
+    "singular": "Second",
+    "plural": "Seconds",
+    "abbr": "s",
+    "toBase": "x * 1",
+    "fromBase": "x * 1"
+}

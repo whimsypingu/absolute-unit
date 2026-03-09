@@ -1,0 +1,8 @@
+{
+    "unitName": "hour",
+    "singular": "Hour",
+    "plural": "Hours",
+    "abbr": "hr",
+    "toBase": "x * 60 * 60",
+    "fromBase": "x / (60 * 60)"
+}

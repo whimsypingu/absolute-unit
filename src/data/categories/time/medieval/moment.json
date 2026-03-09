@@ -1,0 +1,7 @@
+{
+    "unitName": "moment",
+    "singular": "Moment",
+    "plural": "Moments",
+    "toBase": "x * 90",
+    "fromBase": "x / 90"
+}

@@ -1,0 +1,7 @@
+{
+    "unitName": "jiffy",
+    "singular": "Jiffy",
+    "plural": "Jiffies",
+    "toBase": "x * 0.01",
+    "fromBase": "x * 100"
+}

@@ -1,0 +1,7 @@
+{
+    "unitName": "day",
+    "singular": "Day",
+    "plural": "Days",
+    "toBase": "x * 24 * 60 * 60",
+    "fromBase": "x / (24 * 60 * 60)"
+}

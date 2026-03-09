@@ -1,0 +1,8 @@
+{
+    "unitName": "minute",
+    "singular": "Minute",
+    "plural": "Minutes",
+    "abbr": "min",
+    "toBase": "x * 60",
+    "fromBase": "x / 60"
+}

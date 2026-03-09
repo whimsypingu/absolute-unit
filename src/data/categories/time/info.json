@@ -1,0 +1,6 @@
+{
+    "catName": "time",
+    "label": "Time",
+    "initialFromUnitName": "second",
+    "initialToUnitName": "hour"
+}

@@ -1,0 +1,8 @@
+{
+    "unitName": "millisecond",
+    "singular": "Millisecond",
+    "plural": "Milliseconds",
+    "abbr": "ms",
+    "toBase": "x / 1000",
+    "fromBase": "x * 1000"
+}
