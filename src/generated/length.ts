@@ -60,6 +60,30 @@ export const length: CategoryData = {
             }
         },
         {
+            label: 'Standard Giraffe Units',
+            units: {
+                africanElephant: {
+                    singular: 'African Elephant',
+                    plural: 'African Elephants',
+                    toBase: 'x * 6.99',
+                    fromBase: 'x / 6.99',
+                },
+                corgi: {
+                    singular: 'Corgi',
+                    plural: 'Corgis',
+                    toBase: 'x * 0.3',
+                    fromBase: 'x / 0.3',
+                },
+                giraffe: {
+                    singular: 'Giraffe',
+                    plural: 'Giraffes',
+                    toBase: 'x * 5.5',
+                    fromBase: 'x / 5.5',
+                    abbr: 'sgu',
+                }
+            }
+        },
+        {
             label: 'Informal Units',
             units: {
                 footballField: {

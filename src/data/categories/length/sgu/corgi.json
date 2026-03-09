@@ -1,0 +1,7 @@
+{
+    "unitName": "corgi",
+    "singular": "Corgi",
+    "plural": "Corgis",
+    "toBase": "x * 0.3",
+    "fromBase": "x / 0.3"
+}
