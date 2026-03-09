@@ -11,4 +11,7 @@ export default defineConfig({
 		},
 	},
 	base: '/absolute-unit/',
+	server: {
+		allowedHosts: ['.trycloudflare.com'],
+	}
 });
