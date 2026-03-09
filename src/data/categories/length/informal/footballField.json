@@ -4,5 +4,7 @@
     "plural": "Football Fields",
     "toBase": "x * 100 * 0.9144",
     "fromBase": "x / 91.44",
-    "priority": 1
+    "priority": 1,
+    "desc": "An American football field is 100 yards long (not including the endzones).",
+    "lastCheck": "3/9/2026"
 }

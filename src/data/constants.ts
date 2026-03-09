@@ -31,7 +31,7 @@ export interface UnitData {
 	toBase: string;
 	fromBase: string;
 	abbr?: string;
-	info?: string;
+	desc?: string;
 }
 export interface UnitGroup {
 	label: string;

@@ -4,5 +4,7 @@
     "plural": "Tons of TNT",
     "toBase": "x * (4.184 * (10 ^ 9))",
     "fromBase": "x / (4.184 * (10 ^ 9))",
-    "priority": 2
+    "priority": 2,
+    "desc": "By convention, a ton of TNT represents the energy released by detonating one metric tonne of TNT, which is 4.184 gigajoules (9 zeros) or hilariously 1 gigacalorie.",
+    "lastCheck": "3/9/2026"
 }

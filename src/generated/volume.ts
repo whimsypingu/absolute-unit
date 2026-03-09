@@ -23,6 +23,8 @@ export const volume: CategoryData = {
                     toBase: 'x * 1',
                     fromBase: 'x * 1',
                     abbr: 'L',
+                    desc: 'A liter is a metric unit of volume commonly used for liquids. It is equivalent to the volume of one kilogram of water at its maximum density, which is at 4 degrees Celsius.',
+                    lastCheck: '3/9/2026',
                 },
                 cubicMeter: {
                     singular: 'Cubic Meter',
@@ -42,6 +44,8 @@ export const volume: CategoryData = {
                     toBase: 'x / 33.814',
                     fromBase: 'x * 33.814',
                     abbr: 'fl oz',
+                    desc: 'Not to be confused with ounces, a fluid ounce is a measure of volume mostly used for liquids.',
+                    lastCheck: '3/9/2026',
                 },
                 cup: {
                     singular: 'Cup',
@@ -87,6 +91,9 @@ export const volume: CategoryData = {
                     toBase: '(x * 1000) * (4.17 * (10 ^ 12))',
                     fromBase: '(x * 0.001) / (4.17 * (10 ^ 12))',
                     abbr: '',
+                    desc: 'An iconic geologic landscape with rocks dating back to 1.8 billion years ago located in northern Arizona.',
+                    source: 'https://www.nps.gov/grca/learn/management/statistics.htm',
+                    lastCheck: '3/9/2026',
                 }
             }
         }

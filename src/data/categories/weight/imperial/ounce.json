@@ -5,5 +5,7 @@
     "abbr": "oz",
     "toBase": "x * 0.0625 * 0.453592",
     "fromBase": "x * 2.20462 * 16",
-    "priority": -1
+    "priority": -1,
+    "desc": "Not to be confused with troy ounces (used for precious metals) and fluid ounces (volume), the regular ounce is used to measure the weight of standard everyday items, like paperclips.",
+    "lastCheck": "3/9/2026"
 }

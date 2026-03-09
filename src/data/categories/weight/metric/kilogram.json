@@ -5,5 +5,8 @@
     "abbr": "kg",
     "toBase": "x * 1",
     "fromBase": "x * 1",
-    "priority": 0
+    "priority": 0,
+    "desc": "A kilogram is the International System of Units (SI) base unit of mass, defined by taking the fixed numerical value of the Planck constant when expressed in the unit J * s (kg * m^2 * s^-1). Who the heck finds this?",
+    "lastCheck": "3/9/2026"
 }
+

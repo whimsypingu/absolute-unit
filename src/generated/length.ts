@@ -16,6 +16,8 @@ export const length: CategoryData = {
                     toBase: 'x * 1',
                     fromBase: 'x * 1',
                     abbr: 'm',
+                    desc: 'A meter is the standard International System of Units (SI) base unit of length. It is defined as the distance light travels in a vacuum in 1/299,792,458 of a second for some reason.',
+                    lastCheck: '3/9/2026',
                 },
                 kilometer: {
                     singular: 'Kilometer',
@@ -74,6 +76,9 @@ export const length: CategoryData = {
                     toBase: 'x * 5.5',
                     fromBase: 'x / 5.5',
                     abbr: 'SGU',
+                    desc: 'The standardized giraffe unit was proposed by the European Space Agency's Near-Earth Object Coordination Centre as a standardized unit for animal size reference, based on journalist records.',
+                    source: 'https://neo.ssa.esa.int/documents/d/guest/newsletter-april-2024',
+                    lastCheck: '3/9/2026',
                 },
                 africanElephant: {
                     singular: 'African Elephant',
@@ -97,12 +102,17 @@ export const length: CategoryData = {
                     plural: 'Football Fields',
                     toBase: 'x * 100 * 0.9144',
                     fromBase: 'x / 91.44',
+                    desc: 'An American football field is 100 yards long (not including the endzones).',
+                    lastCheck: '3/9/2026',
                 },
                 greatWallOfChina: {
-                    singular: 'Great Wall of China',
+                    singular: 'The Great Wall of China',
                     plural: 'Great Walls of China',
                     toBase: 'x * 21196.18 * 1000',
                     fromBase: 'x / (21196.18 * 1000)',
+                    desc: 'A series of fortifications in China, The Great Wall of China was used as protection against invasions from the north. It is the world's largest military structure.',
+                    source: 'https://whc.unesco.org/en/list/438/',
+                    lastCheck: '3/9/2026',
                 },
                 lunarDistance: {
                     singular: 'Lunar Distance',

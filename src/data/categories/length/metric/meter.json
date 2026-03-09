@@ -5,5 +5,7 @@
     "abbr": "m",
     "toBase": "x * 1",
     "fromBase": "x * 1",
-    "priority": 0
+    "priority": 0,
+    "desc": "A meter is the standard International System of Units (SI) base unit of length. It is defined as the distance light travels in a vacuum in 1/299,792,458 of a second for some reason.",
+    "lastCheck": "3/9/2026"
 }

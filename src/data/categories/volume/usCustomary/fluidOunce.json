@@ -5,5 +5,7 @@
     "abbr": "fl oz",
     "toBase": "x / 33.814",
     "fromBase": "x * 33.814",
-    "priority": 0
+    "priority": 0,
+    "desc": "Not to be confused with ounces, a fluid ounce is a measure of volume mostly used for liquids.",
+    "lastCheck": "3/9/2026"
 }

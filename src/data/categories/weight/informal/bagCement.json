@@ -4,5 +4,8 @@
     "plural": "Bags of Cement",
     "toBase": "x * 43",
     "fromBase": "x / 43",
-    "priority": 1
+    "priority": 1,
+    "desc": "According to the American Concrete Institute, a bag of cement is 43 kg in the United States. There are other kinds of cement but I have no idea how much they weigh.",
+    "source": "https://www.concrete.org/frequentlyaskedquestions.aspx?faqid=866",
+    "lastCheck": "3/9/2026"
 }

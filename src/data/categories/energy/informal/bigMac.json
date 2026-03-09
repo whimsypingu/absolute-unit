@@ -2,7 +2,10 @@
     "unitName": "bigmac",
     "singular": "Big Mac",
     "plural": "Big Macs",
-    "toBase": "x * 563 * 4184",
-    "fromBase": "x / (563 * 4184)",
-    "priority": 0
+    "toBase": "x * 580 * 4184",
+    "fromBase": "x / (580 * 4184)",
+    "priority": 0,
+    "desc": "A standard Big Mac contains 580 kcal. Including the fries and a drink would exceed 1000 kcal.",
+    "source": "https://www.mcdonalds.com/us/en-us/product/big-mac.html",
+    "lastCheck": "3/9/2026"
 }

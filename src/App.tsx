@@ -214,37 +214,38 @@ export default function App() {
 			</CardContent>
 		</Card>
 
-		<Card className="w-full max-w-xl flex-grow">
-		<CardContent className="flex divide-x divide-slate-200 h-full">
+		<Card className="w-full max-w-xl flex flex-col min-h-[400px]">
+		<CardContent className="flex flex-grow items-stretch divide-x divide-slate-200">
 			{/* Left Column: Metric Fact */}
-			<Item className='flex-1 h-full p-0 m-0'>
-				<ItemContent className='flex flex-col gap-2 h-full'>
-					<ItemTitle>
-						{fromUnitData.singular}
-						{!!fromUnitData.abbr && (
-							<span className="text-xs text-muted-foreground font-normal">({fromUnitData.abbr})</span>
-						)}
-					</ItemTitle>
-					<ItemDescription className='flex-grow overflow-y-auto pr-4'>
-						{fromUnitData.info ?? "No additional information provided."}
-					</ItemDescription>
-				</ItemContent>
-			</Item>
+			<div className='flex-1 min-w-0 pr-6 flex flex-col'>
+				
+				<h3 className='text-base font-medium mb-2'>
+					{fromUnitData.singular}
+					{!!fromUnitData.abbr && (
+						<span className="text-xs text-muted-foreground font-normal ml-2">({fromUnitData.abbr})</span>
+					)}
+				</h3>
 
-			{/* Right Column: Imperial Fact */}
-			<Item className='flex-1 h-full p-0 m-0'>
-				<ItemContent className='flex flex-col gap-2 h-full'>
-					<ItemTitle>
-						{toUnitData.singular}
-						{!!toUnitData.abbr && (
-							<span className="text-xs text-muted-foreground font-normal">({toUnitData.abbr})</span>
-						)}
-					</ItemTitle>
-					<ItemDescription className='flex-grow overflow-y-auto pr-4'>
-						{toUnitData.info ?? "No additional information provided."}
-					</ItemDescription>
-				</ItemContent>
-			</Item>
+				<p className='text-sm text-slate-600'>
+					{fromUnitData.desc ?? "No description provided."}	
+				</p>
+
+			</div>
+			<div className='flex-1 min-w-0 pl-6 flex flex-col'>
+
+				<h3 className='text-base font-medium mb-2'>
+					{toUnitData.singular}
+					{!!toUnitData.abbr && (
+						<span className="text-xs text-muted-foreground font-normal ml-2">({toUnitData.abbr})</span>
+					)}
+				</h3>
+
+				<p className='text-sm text-slate-600'>
+					{toUnitData.desc ?? "No description provided."}	
+				</p>
+
+			</div>
+							
 		</CardContent>
 		</Card>
 	</div>

@@ -1,8 +1,11 @@
 {
     "unitName": "greatWallOfChina",
-    "singular": "Great Wall of China",
+    "singular": "The Great Wall of China",
     "plural": "Great Walls of China",
     "toBase": "x * 21196.18 * 1000",
     "fromBase": "x / (21196.18 * 1000)",
-    "priority": 2
+    "priority": 2,
+    "desc": "A series of fortifications in China, The Great Wall of China was used as protection against invasions from the north. It is the world's largest military structure.",
+    "source": "https://whc.unesco.org/en/list/438/",
+    "lastCheck": "3/9/2026"
 }

@@ -5,5 +5,7 @@
     "abbr": "J",
     "toBase": "x * 1",
     "fromBase": "x * 1",
-    "priority": 0
+    "priority": 0,
+    "desc": "A joule is the standard International System of Units (SI) unit for measuring energy. It is defined as the energy transferred when a force of 1 newton moves an object over a distance of one meter.",
+    "lastCheck": "3/9/2026"
 }

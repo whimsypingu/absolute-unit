@@ -5,5 +5,8 @@
     "abbr": "",
     "toBase": "(x * 1000) * (4.17 * (10 ^ 12))",
     "fromBase": "(x * 0.001) / (4.17 * (10 ^ 12))",
-    "priority": 20
+    "priority": 20,
+    "desc": "An iconic geologic landscape with rocks dating back to 1.8 billion years ago located in northern Arizona.",
+    "source": "https://www.nps.gov/grca/learn/management/statistics.htm",
+    "lastCheck": "3/9/2026"
 }

@@ -5,5 +5,7 @@
     "abbr": "kcal",
     "toBase": "x * 4184",
     "fromBase": "x / 4184",
-    "priority": 10
+    "priority": 10,
+    "desc": "In daily diet and exercise, \"calories\", \"Calories\", and \"kilocalories\" are used interchangeably to mean the same thing, which is insanely confusing. The calories listed on food packaging are actually kilocalories (kcal). 1 kcal = 4.184 kJ",
+    "lastCheck": "3/9/2026"
 }

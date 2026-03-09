@@ -5,5 +5,7 @@
     "abbr": "L",
     "toBase": "x * 1",
     "fromBase": "x * 1",
-    "priority": 0
+    "priority": 0,
+    "desc": "A liter is a metric unit of volume commonly used for liquids. It is equivalent to the volume of one kilogram of water at its maximum density, which is at 4 degrees Celsius.",
+    "lastCheck": "3/9/2026"
 }

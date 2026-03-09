@@ -5,5 +5,7 @@
     "abbr": "Wh",
     "toBase": "x * 3600",
     "fromBase": "x / 3600",
-    "priority": 20
+    "priority": 20,
+    "desc": "A watt-hour represents the amount of energy equivalent to a power of 1 watt sustained for 1 hour.",
+    "lastCheck": "3/9/2026"
 }
