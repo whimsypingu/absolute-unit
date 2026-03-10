@@ -118,7 +118,7 @@ export default function App() {
 
 						{/* INPUT AND OUTPUT */}
 						<div className='flex gap-2 items-center w-full min-w-0'>
-						<ButtonGroup className='flex-1 flex h-12 md:h-24'>
+						<ButtonGroup className='flex-1 flex h-14 md:h-24'>
 							<Input 
 								className='flex-1 h-full text-base md:text-xl'
 								type="text"
@@ -139,7 +139,7 @@ export default function App() {
 								className={`
 									flex-1 h-full px-3 flex items-center 
 									bg-slate-100 rounded-md border border-slate-200 
-									text-base md:text-xl font-medium text-black truncate
+									text-base md:text-xl font-bold text-black truncate
 									[&:disabled]:opacity-100
 								`}
 							>
