@@ -73,6 +73,7 @@ function Carousel({
     api?.scrollNext()
   }, [api])
 
+  /*
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowLeft") {
@@ -85,6 +86,7 @@ function Carousel({
     },
     [scrollPrev, scrollNext]
   )
+  */
 
   React.useEffect(() => {
     if (!api || !setApi) return
@@ -117,7 +119,7 @@ function Carousel({
       }}
     >
       <div
-        onKeyDownCapture={handleKeyDown}
+        //onKeyDownCapture={handleKeyDown} //do not trigger this
         className={cn("relative", className)}
         role="region"
         aria-roledescription="carousel"

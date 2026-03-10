@@ -12,20 +12,40 @@ const BIG_DENOMINATIONS: Record<number, string> = {
 export const formatHumanReadable = (value: number): string => {
     if (value === 0) return "0";
 
-    const exponent = Math.floor(Math.log10(Math.abs(value)))
+    const absValue = Math.abs(value)
 
-    const keys = Object.keys(BIG_DENOMINATIONS).map(Number).sort((a, b) => b - a);
-    const foundKey = keys.find(k => (exponent >= 0 ? exponent >= k : exponent <= -k));
+    const upperFormatBound = 1_000_000; //at which point use suffixes
+    if (absValue >= upperFormatBound) {
+        const exponent = Math.floor(Math.log10(absValue))
+    
+        const keys = Object.keys(BIG_DENOMINATIONS).map(Number).sort((a, b) => b - a);
 
-    if (foundKey !== undefined) {
-        const divisor = Math.pow(10, foundKey);
+        //check against the biggest denomination, if it's too big then go scientific
+        if (exponent >= (keys[0] + 3)) {
+            return value.toExponential(2);
+        }
 
-        return `${(value / divisor).toFixed(2)} ${BIG_DENOMINATIONS[foundKey]}${exponent < 0 ? 'ths' : ''}`;
+        const foundKey = keys.find(k => exponent >= k);
+
+        if (foundKey) {
+            const formatted = value / Math.pow(10, foundKey);
+            return `${Number.parseFloat(formatted.toPrecision(3))} ${BIG_DENOMINATIONS[foundKey]}`;
+        }
+    }
+    
+    const lowerExpBound = 0.000_01; //at which point use exponential form
+    if (absValue < lowerExpBound) {
+        return value.toExponential(2);
     }
 
-    // Fallback for normal numbers
+    const maxFracDigits = Math.abs(Math.floor(Math.log10(lowerExpBound))); //number of digits in lowerExpBound
+
+    const wholeDigits = Math.max(0, Math.floor(Math.log10(absValue)) + 1); //take the number of whole number digits
+    const precision = Math.max(0, maxFracDigits - wholeDigits); //calculate maximum precision digits
+
     return new Intl.NumberFormat('en-US', {
-        maximumFractionDigits: 6,
+        maximumFractionDigits: precision,
+        minimumFractionDigits: 0,
         useGrouping: true,
     }).format(value);
 };
