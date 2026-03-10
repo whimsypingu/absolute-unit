@@ -67,6 +67,7 @@ export default function App() {
 				align: 'start',
 				slidesToScroll: 1,
 				loop: true, 
+				axis: 'x',
 			}}
 			orientation='vertical'
 			className='w-full max-w-xl md:max-w-3xl h-[100dvh]'
@@ -116,7 +117,7 @@ export default function App() {
 							</Select>
 						</div>
 
-						{/* FROM AND TO */}
+						{/* INPUT AND OUTPUT */}
 						<div className='flex gap-2 items-center w-full min-w-0'>
 						<ButtonGroup className='flex-1 flex h-12 md:h-24'>
 							<Input 
@@ -129,6 +130,10 @@ export default function App() {
 									if (isInputValid(val)) {
 										setValue(val);
 									}
+								}}
+								onKeyDown={(e) => {
+									e.nativeEvent.stopImmediatePropagation();
+									e.stopPropagation(); //stop event from reaching carousel
 								}}
 								placeholder="Enter value"
 							/>
