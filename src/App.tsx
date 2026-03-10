@@ -79,16 +79,18 @@ export default function App() {
 					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col p-6 gap-6">
 
 						{/* IM FEELING RANDOM */}
-						<div className='flex gap-2 w-full min-w-0 h-24'>
+						<div className='flex gap-2 w-full min-w-0 h-12 md:h-24'>
 							<Button
-								className="flex-1 h-full"
+								className="flex-1 h-full text-lg md:text-2xl"
 								variant="outline"
 								size="icon"
 								onClick={handleRandomize}
 								title="I'm feeling random"
 							>
-								<Shuffle className='h-5 w-5' />
-								I'm feeling random
+								<Shuffle className='size-5 md:size-8' />
+
+								<span className='hidden md:inline md:pl-2'>I'm feeling random</span>
+								<span className='md:hidden'>Random</span>
 							</Button>
 						</div>
 
@@ -99,13 +101,13 @@ export default function App() {
 								value={category} 
 								onValueChange={(value: string) => setCategory(value as Category)}
 							>
-								<SelectTrigger className="w-full h-18 py-6 px-4 flex items-center justify-between">
+								<SelectTrigger className="w-full h-18 py-6 px-4 flex items-center justify-between text-base md:text-xl">
 									<SelectValue placeholder="Select a category" />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectGroup>
 									{CATEGORY_ITEMS.map((item) => (
-										<SelectItem key={item.id} value={item.id}>
+										<SelectItem key={item.id} value={item.id} className='text-sm md:text-xl md:py-3'>
 										{item.label}
 										</SelectItem>
 									))}
@@ -116,11 +118,11 @@ export default function App() {
 
 						{/* FROM AND TO */}
 						<div className='flex gap-2 items-center w-full min-w-0'>
-						<ButtonGroup className='flex-1 flex h-14'>
+						<ButtonGroup className='flex-1 flex h-12 md:h-24'>
 							<Input 
-								className='flex-1 h-full text-lg'
+								className='flex-1 h-full text-base md:text-xl'
 								type="text"
-								inputMode='decimal' 
+								inputMode='decimal'
 								value={value} 
 								onChange={(e) => {
 									const val = e.target.value;
@@ -137,7 +139,7 @@ export default function App() {
 								className={`
 									flex-1 h-full px-3 flex items-center 
 									bg-slate-100 rounded-md border border-slate-200 
-									text-lg font-medium text-black truncate
+									text-base md:text-xl font-medium text-black truncate
 									[&:disabled]:opacity-100
 								`}
 							>
@@ -154,7 +156,7 @@ export default function App() {
 								value={currentEntry.from} 
 								onValueChange={(val) => updateConversionHistory(category, 'from', val)}
 							>
-								<SelectTrigger className="flex-1 min-w-0 truncate">
+								<SelectTrigger className="flex-1 min-w-0 truncate h-18 py-6 px-4 flex items-center justify-between text-base md:text-xl">
 									<SelectValue />
 								</SelectTrigger>
 								<SelectContent>
@@ -164,7 +166,7 @@ export default function App() {
 											<SelectGroup key={group.label}>
 												<SelectLabel>{group.label}</SelectLabel>
 												{Object.entries(group.units).map(([key, unit]) => (
-													<SelectItem key={key} value={key}>
+													<SelectItem key={key} value={key} className='text-sm md:text-xl md:py-3'>
 														{unit.plural}
 													</SelectItem>
 												))}
@@ -180,19 +182,20 @@ export default function App() {
 							</Select>
 
 							<Button
+								className="h-auto w-8 md:w-14 shrink-0 flex items-center justify-center"
 								variant="outline"
 								size="icon"
 								onClick={handleSwap}
 								title="Swap units"
 							>
-								<ArrowLeftRight className='h-4 w-4' />
+								<ArrowLeftRight className='size-4' />
 							</Button>
 
 							<Select 
 								value={currentEntry.to} 
 								onValueChange={(val) => updateConversionHistory(category, 'to', val)}
 							>
-								<SelectTrigger className="flex-1 min-w-0 truncate">
+								<SelectTrigger className="flex-1 min-w-0 truncate h-18 py-6 px-4 flex items-center justify-between text-base md:text-xl">
 									<SelectValue />
 								</SelectTrigger>
 								<SelectContent>
@@ -202,7 +205,7 @@ export default function App() {
 											<SelectGroup key={group.label}>
 												<SelectLabel>{group.label}</SelectLabel>
 												{Object.entries(group.units).map(([key, unit]) => (
-													<SelectItem key={key} value={key}>
+													<SelectItem key={key} value={key} className='text-sm md:text-xl md:py-3'>
 														{unit.plural}
 													</SelectItem>
 												))}
@@ -230,90 +233,88 @@ export default function App() {
 					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-200 p-6 gap-4">
 
 						{/* FROM DESC */}
-						<div className='flex-1 min-w-0 flex flex-col md:pr-6'>
-							
-							<div className='flex w-full items-baseline gap-2'>
-								<div className='flex flex-grow items-baseline gap-2'>
-									<h3 className='text-lg font-medium mb-2'>{fromUnitData.singular}</h3>
+						<Drawer direction="bottom">
+							<DrawerTrigger asChild>
+								<div className='pointer-events-auto md:pointer-events-none flex-1 min-w-0 flex flex-col md:pr-6'>
+									
+									<div className='flex w-full items-baseline gap-2'>
+										<div className='flex flex-grow items-baseline gap-2'>
+											<h3 className='text-lg font-medium mb-2'>{fromUnitData.singular}</h3>
 
-									{!!fromUnitData.abbr && (
-										<span className="text-sm text-muted-foreground font-normal">({fromUnitData.abbr})</span>
-									)}
-								</div>
+											{!!fromUnitData.abbr && (
+												<span className="text-sm text-muted-foreground font-normal">({fromUnitData.abbr})</span>
+											)}
+										</div>
 
-								{!!fromUnitData.lastCheck && (
-									<span className='text-[0.5rem] text-right text-slate-400 border-l border-slate-200 pl-2'>{fromUnitData.lastCheck}</span>
-								)}
-							</div>
+										{!!fromUnitData.lastCheck && (
+											<span className='text-[0.5rem] text-right text-slate-400 border-l border-slate-200 pl-2'>{fromUnitData.lastCheck}</span>
+										)}
+									</div>
 
-							<Drawer direction="bottom">
-								<DrawerTrigger asChild>
 									<p className='text-sm text-slate-700 hyphens-auto line-clamp-3 md:line-clamp-none'>
 										{fromUnitData.desc ?? "No description provided."}
 									</p>
-								</DrawerTrigger>
+								</div>
+							</DrawerTrigger>
 
-								<DrawerContent className='p-6'>
-									<DrawerHeader>
-										<DrawerTitle>{fromUnitData.singular}</DrawerTitle>
-									</DrawerHeader>
+							<DrawerContent className='p-6'>
+								<DrawerHeader>
+									<DrawerTitle>{fromUnitData.singular}</DrawerTitle>
+								</DrawerHeader>
 
-									<p className="text-slate-700 leading-relaxed">
-										{fromUnitData.desc}
-									</p>
+								<p className="text-slate-700 leading-relaxed">
+									{fromUnitData.desc}
+								</p>
 
-									<DrawerFooter>
-										<DrawerClose asChild>
-											<Button variant="outline">Close</Button>
-										</DrawerClose>
-									</DrawerFooter>
-								</DrawerContent>
-							</Drawer>
-						</div>
+								<DrawerFooter>
+									<DrawerClose asChild>
+										<Button variant="outline">Ok</Button>
+									</DrawerClose>
+								</DrawerFooter>
+							</DrawerContent>
+						</Drawer>
 
 
 						{/* TO DESC */}
-						<div className='flex-1 min-w-0 flex flex-col md:pl-2'>
+						<Drawer direction="bottom">
+							<DrawerTrigger asChild>
+								<div className='pointer-events-auto md:pointer-events-none flex-1 min-w-0 flex flex-col md:pl-2'>
+									<div className='flex w-full items-baseline gap-2'>
+										<div className='flex flex-grow items-baseline gap-2'>
+											<h3 className='text-lg font-medium mb-2'>{toUnitData.singular}</h3>
 
-							<div className='flex w-full items-baseline gap-2'>
-								<div className='flex flex-grow items-baseline gap-2'>
-									<h3 className='text-lg font-medium mb-2'>{toUnitData.singular}</h3>
+											{!!toUnitData.abbr && (
+												<span className="text-sm text-muted-foreground font-normal">({toUnitData.abbr})</span>
+											)}
+										</div>
 
-									{!!toUnitData.abbr && (
-										<span className="text-sm text-muted-foreground font-normal">({toUnitData.abbr})</span>
-									)}
-								</div>
+										{!!toUnitData.lastCheck && (
+											<span className='text-[0.5rem] text-right text-slate-400 border-l border-slate-200 pl-2'>{toUnitData.lastCheck}</span>
+										)}
+									</div>
 
-								{!!toUnitData.lastCheck && (
-									<span className='text-[0.5rem] text-right text-slate-400 border-l border-slate-200 pl-2'>{toUnitData.lastCheck}</span>
-								)}
-							</div>
-
-							<Drawer direction="bottom">
-								<DrawerTrigger asChild>
 									<p className='text-sm text-slate-700 hyphens-auto line-clamp-3 md:line-clamp-none'>
 										{toUnitData.desc ?? "No description provided."}
 									</p>
-								</DrawerTrigger>
+								</div>
+							</DrawerTrigger>
 
-								<DrawerContent className='p-6'>
-									<DrawerHeader>
-										<DrawerTitle>{toUnitData.singular}</DrawerTitle>
-									</DrawerHeader>
+							<DrawerContent className='p-6'>
+								<DrawerHeader>
+									<DrawerTitle>{toUnitData.singular}</DrawerTitle>
+								</DrawerHeader>
 
-									<p className="text-slate-700 leading-relaxed">
-										{toUnitData.desc}
-									</p>
+								<p className="text-slate-700 leading-relaxed">
+									{toUnitData.desc}
+								</p>
 
-									<DrawerFooter>
-										<DrawerClose asChild>
-											<Button variant="outline">Close</Button>
-										</DrawerClose>
-									</DrawerFooter>
-								</DrawerContent>
-							</Drawer>
-						</div>
-
+								<DrawerFooter>
+									<DrawerClose asChild>
+										<Button variant="outline">Ok</Button>
+									</DrawerClose>
+								</DrawerFooter>
+							</DrawerContent>
+						</Drawer>
 
 					</CardContent>
 				</Card>
