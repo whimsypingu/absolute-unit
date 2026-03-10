@@ -5,5 +5,7 @@
     "abbr": "s",
     "toBase": "x * 1",
     "fromBase": "x * 1",
-    "priority": 0
+    "priority": 0,
+    "desc": "A second is the standard International System of Units (SI) base unit of time. It is defined as the duration of 9,192,631,770 periods of electromagnetic energy emitted or absorbed by a cesium-133 atom during a slight transition of its state. What the heck",
+    "lastCheck": "3/9/2026"
 }
