@@ -40,12 +40,14 @@ export const formatHumanReadable = (value: number): string => {
 
     const maxFracDigits = Math.abs(Math.floor(Math.log10(lowerExpBound))); //number of digits in lowerExpBound
 
-    const precisionValue = Number.parseFloat(value.toPrecision(maxFracDigits));
+    const wholeDigits = Math.max(0, Math.floor(Math.log10(absValue)) + 1); //take the number of whole number digits
+    const precision = Math.max(0, maxFracDigits - wholeDigits); //calculate maximum precision digits
 
     return new Intl.NumberFormat('en-US', {
-        maximumFractionDigits: maxFracDigits,
+        maximumFractionDigits: precision,
+        minimumFractionDigits: 0,
         useGrouping: true,
-    }).format(precisionValue);
+    }).format(value);
 };
 
 
