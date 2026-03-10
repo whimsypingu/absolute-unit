@@ -33,23 +33,19 @@ export const formatHumanReadable = (value: number): string => {
         }
     }
     
-    const lowerExpBound = 0.000_001; //at which point use exponential form
+    const lowerExpBound = 0.000_01; //at which point use exponential form
     if (absValue < lowerExpBound) {
         return value.toExponential(2);
     }
 
     const maxFracDigits = Math.abs(Math.floor(Math.log10(lowerExpBound))); //number of digits in lowerExpBound
 
-    const wholeDigits = Math.max(0, Math.floor(Math.log10(absValue)) + 1); //take the number of whole number digits
-    const precision = Math.max(0, maxFracDigits - wholeDigits); //calculate maximum precision digits
-
-    const newval = Number.parseFloat(value.toPrecision(maxFracDigits));
+    const precisionValue = Number.parseFloat(value.toPrecision(maxFracDigits));
 
     return new Intl.NumberFormat('en-US', {
         maximumFractionDigits: maxFracDigits,
-        minimumFractionDigits: 0,
         useGrouping: true,
-    }).format(newval);
+    }).format(precisionValue);
 };
 
 
