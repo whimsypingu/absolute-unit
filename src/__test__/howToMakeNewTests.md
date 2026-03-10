@@ -44,3 +44,5 @@ Basic linear conversions shouldn't require too much testing. Mainly this stuff i
 To run specifically any edited files, like `energy.test.ts`, do `run vitest energy`. 
 
 For all test files in this project, do `npx vitest run`.
+
+(If `/src/generated/` files are missing, run `python compile.py` first.)
