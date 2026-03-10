@@ -262,11 +262,13 @@ export default function App() {
 									<DrawerTitle>{fromUnitData.singular}</DrawerTitle>
 								</DrawerHeader>
 
-								<p className="text-slate-700 leading-relaxed">
-									{fromUnitData.desc}
-								</p>
+								<div className='flex-1 overflow-y-auto'>
+									<p className="text-slate-700 leading-relaxed">
+										{fromUnitData.desc}
+									</p>
+								</div>
 
-								<DrawerFooter>
+								<DrawerFooter className='pb-0'>
 									<DrawerClose asChild>
 										<Button variant="outline">Ok</Button>
 									</DrawerClose>
@@ -299,16 +301,18 @@ export default function App() {
 								</div>
 							</DrawerTrigger>
 
-							<DrawerContent className='p-6'>
+							<DrawerContent className='p-6 flex flex-col'>
 								<DrawerHeader>
 									<DrawerTitle>{toUnitData.singular}</DrawerTitle>
 								</DrawerHeader>
 
-								<p className="text-slate-700 leading-relaxed">
-									{toUnitData.desc}
-								</p>
+								<div className='flex-1 overflow-y-auto'>
+									<p className="text-slate-700 leading-relaxed">
+										{toUnitData.desc}
+									</p>
+								</div>
 
-								<DrawerFooter>
+								<DrawerFooter className='pb-0'>
 									<DrawerClose asChild>
 										<Button variant="outline">Ok</Button>
 									</DrawerClose>
