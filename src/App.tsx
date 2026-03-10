@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { ButtonGroup } from './components/ui/button-group';
 import { INITIAL_CATEGORY, INITIAL_HISTORY, CONVERSIONS, CATEGORY_ITEMS } from './data/constants.ts';
 import type { Category, ConversionHistory, CategoryData, ConversionEntry, UnitData} from './data/constants.ts';
 
-import { ArrowLeftRight, Shuffle } from 'lucide-react';
+import { ArrowLeftRight, Shuffle, Copy, Check } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import { formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
@@ -29,6 +29,8 @@ export default function App() {
 			draft[category][field] = value;
 		});
 	}
+
+	const [copied, setCopied] = useState(false);
 
 	// 2. LOGIC: Derived state (Calculates automatically)
 	const currentCategoryData: CategoryData = CONVERSIONS[category];
@@ -57,6 +59,16 @@ export default function App() {
 		updateConversionHistory(category, 'to', currentFrom);
 		return;
 	};
+
+	// 4. COPY:
+	const handleCopy = () => {
+		navigator.clipboard.writeText(result);
+		setCopied(true);
+	};
+	useEffect(() => {
+		setCopied(false);
+		return () => {};
+	}, [result]);
 
 	return (
 	<div className="h-full w-full overflow-hidden flex flex-col items-center">
@@ -101,7 +113,7 @@ export default function App() {
 								value={category} 
 								onValueChange={(value: string) => setCategory(value as Category)}
 							>
-								<SelectTrigger className="w-full h-18 py-6 px-4 flex items-center justify-between text-base md:text-xl">
+								<SelectTrigger className="w-full py-2 md:py-6 px-3 md:px-4 flex items-center justify-between text-sm md:text-xl">
 									<SelectValue placeholder="Select a category" />
 								</SelectTrigger>
 								<SelectContent>
@@ -120,7 +132,7 @@ export default function App() {
 						<div className='flex gap-2 items-center w-full min-w-0'>
 						<ButtonGroup className='flex-1 flex h-14 md:h-24'>
 							<Input 
-								className='flex-1 h-full text-base md:text-xl'
+								className='flex-1 h-full px-3 md:px-4 text-base md:text-xl'
 								type="text"
 								inputMode='decimal'
 								value={value} 
@@ -135,28 +147,36 @@ export default function App() {
 
 							<Button
 								variant='outline'
-								disabled
+								onClick={handleCopy}
 								className={`
-									flex-1 h-full px-3 flex items-center 
+									flex-1 h-full px-3
 									bg-slate-100 rounded-md border border-slate-200 
-									text-base md:text-xl font-bold text-black truncate
-									[&:disabled]:opacity-100
+									text-base md:text-xl font-bold text-black
+									relative items-center justify-center
 								`}
 							>
-								{result}
+								<span className='truncate'>{result}</span>
+
+								<div className='absolute top-2 right-2 md:p-1 rounded hover:bg-slate-200 transition-colors'>
+									{copied ? (
+										<Check className='size-2 md:size-4 text-green-600' />
+									) : (
+										<Copy className='size-2 md:size-4 text-slate-500' />
+									)}
+								</div>
 							</Button>
 						</ButtonGroup>
 						</div>
 
 
-						{/* UNITS */}
+						{/* SELECT UNITS */}
 						<div className='flex gap-2 items-center w-full min-w-0'>
 						<ButtonGroup className='flex-1 flex min-w-0 overflow-hidden'>
 							<Select 
 								value={currentEntry.from} 
 								onValueChange={(val) => updateConversionHistory(category, 'from', val)}
 							>
-								<SelectTrigger className="flex-1 min-w-0 truncate h-18 py-6 px-4 flex items-center justify-between text-base md:text-xl">
+								<SelectTrigger className="flex-1 min-w-0 truncate py-2 md:py-6 px-3 md:px-4 flex items-center justify-between text-sm md:text-xl">
 									<SelectValue />
 								</SelectTrigger>
 								<SelectContent>
@@ -195,7 +215,7 @@ export default function App() {
 								value={currentEntry.to} 
 								onValueChange={(val) => updateConversionHistory(category, 'to', val)}
 							>
-								<SelectTrigger className="flex-1 min-w-0 truncate h-18 py-6 px-4 flex items-center justify-between text-base md:text-xl">
+								<SelectTrigger className="flex-1 min-w-0 truncate py-2 md:py-6 px-3 md:px-4 flex items-center justify-between text-sm md:text-xl">
 									<SelectValue />
 								</SelectTrigger>
 								<SelectContent>
