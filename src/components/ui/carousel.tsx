@@ -75,12 +75,6 @@ function Carousel({
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      const active = document.activeElement as HTMLElement;
-
-      const isTyping = active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable;
-
-      if (isTyping) return;
-      
       if (event.key === "ArrowLeft") {
         event.preventDefault()
         scrollPrev()
@@ -123,7 +117,7 @@ function Carousel({
       }}
     >
       <div
-        onKeyDownCapture={handleKeyDown}
+        //onKeyDownCapture={handleKeyDown} //do not trigger this
         className={cn("relative", className)}
         role="region"
         aria-roledescription="carousel"

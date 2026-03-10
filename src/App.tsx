@@ -67,7 +67,6 @@ export default function App() {
 				align: 'start',
 				slidesToScroll: 1,
 				loop: true, 
-				axis: 'x',
 			}}
 			orientation='vertical'
 			className='w-full max-w-xl md:max-w-3xl h-[100dvh]'
@@ -130,10 +129,6 @@ export default function App() {
 									if (isInputValid(val)) {
 										setValue(val);
 									}
-								}}
-								onKeyDown={(e) => {
-									e.nativeEvent.stopImmediatePropagation();
-									e.stopPropagation(); //stop event from reaching carousel
 								}}
 								placeholder="Enter value"
 							/>
