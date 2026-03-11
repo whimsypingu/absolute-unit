@@ -15,7 +15,9 @@ import { formatCopyPaste, formatHumanReadable, isInputValid, sanitizeInput } fro
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem } from './components/ui/carousel.tsx';
 import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerClose, DrawerTrigger } from './components/ui/drawer.tsx';
+import { toast } from 'sonner';
 import WheelGesturesPlugin from 'embla-carousel-wheel-gestures';
+import { Toaster } from './components/ui/sonner.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -65,6 +67,10 @@ export default function App() {
 		const copiedText = formatCopyPaste(result, toUnitData);
 		navigator.clipboard.writeText(copiedText);
 		setCopied(true);
+		toast.success('Copied:', {
+			description: copiedText, //see index.css [data-sonner-x] for styling
+			position: 'bottom-center'
+		});
 	};
 	useEffect(() => {
 		setCopied(false);
@@ -72,8 +78,8 @@ export default function App() {
 	}, [result]);
 
 	return (
+	<>
 	<div className="h-full w-full overflow-hidden flex flex-col items-center">
-
 		<Carousel 
 			plugins={[WheelGesturesPlugin()]}
 			opts={{
@@ -349,6 +355,9 @@ export default function App() {
 		</div>
 	  	</Carousel>
 	</div>
+
+	<Toaster />
+	</>
 	);
 }
 
