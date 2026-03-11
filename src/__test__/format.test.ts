@@ -167,5 +167,8 @@ describe('Human readable format with default parameters', () => {
 
         const t7 = 999999.49;
         expect(formatHumanReadable(t7)).toBe('999,999');
+
+        const t8 = -999999.5;
+        expect(formatHumanReadable(t8)).toBe('-1 million');
     });
 });
