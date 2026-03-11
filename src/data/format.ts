@@ -1,4 +1,4 @@
-const BIG_DENOMINATIONS: Record<number, string> = {
+export const BIG_DENOMINATIONS: Record<number, string> = {
     30: "brazilian",
     27: "gazillion",
     24: "septillion",
@@ -9,7 +9,16 @@ const BIG_DENOMINATIONS: Record<number, string> = {
     9: "billion",
     6: "million",
 };
+export const SORTED_DENOMINATION_KEYS = Object.keys(BIG_DENOMINATIONS) //compute this once at module level
+    .map(Number)
+    .sort((a, b) => b - a); //descending order
+
 function decimalToFraction(val: number, tolerance: number = 0.003, denomLimit: number = 8): string | false {
+
+    if (val < (1 / denomLimit - tolerance)) {
+        return false;
+    }
+
     let frac = val;
     let num1 = 0, den1 = 1; //previous best guess
     let num2 = 1, den2 = 0; //best convergent guess so far
@@ -43,14 +52,12 @@ export const formatHumanReadable = (value: number): string => {
     if (absValue >= upperFormatBound) {
         const exponent = Math.floor(Math.log10(absValue))
     
-        const keys = Object.keys(BIG_DENOMINATIONS).map(Number).sort((a, b) => b - a);
-
         //check against the biggest denomination, if it's too big then go scientific
-        if (exponent >= (keys[0] + 3)) {
+        if (exponent >= (SORTED_DENOMINATION_KEYS[0] + 3)) {
             return value.toExponential(2);
         }
 
-        const foundKey = keys.find(k => exponent >= k);
+        const foundKey = SORTED_DENOMINATION_KEYS.find(k => exponent >= k);
 
         if (foundKey) {
             const formatted = value / Math.pow(10, foundKey);
