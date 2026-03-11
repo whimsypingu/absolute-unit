@@ -1,3 +1,5 @@
+import type { UnitData } from "./constants";
+
 export const BIG_DENOMINATIONS: Record<number, string> = {
     30: "brazilian",
     27: "gazillion",
@@ -115,6 +117,18 @@ export const formatScientific = (value: number): string => {
         maximumFractionDigits: 6,
         useGrouping: true,
     }).format(value);
+}
+
+export const formatCopyPaste = (value: string, unitData: UnitData): string => {
+    if (value === "1") {
+        return `${value} ${unitData.singular.toLowerCase()}`;
+    }
+
+    if (value.includes('/')) {
+        return `${value} of a ${unitData.singular.toLowerCase()}`;
+    }
+
+    return `${value} ${unitData.plural.toLowerCase()}`;
 }
 
 
