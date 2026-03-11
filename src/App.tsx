@@ -11,7 +11,7 @@ import type { Category, ConversionHistory, CategoryData, ConversionEntry, UnitDa
 
 import { ArrowLeftRight, Shuffle, Copy, Check } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
-import { formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
+import { formatCopyPaste, formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem } from './components/ui/carousel.tsx';
 import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerClose, DrawerTrigger } from './components/ui/drawer.tsx';
@@ -51,7 +51,7 @@ export default function App() {
 		updateConversionHistory(newCategory, 'to', to);
 		return;
 	};
-	const handleSwap = () => {
+	const handleSwap = () => { 
 		const currentFrom = currentEntry.from;
 		const currentTo = currentEntry.to;
 
@@ -62,7 +62,7 @@ export default function App() {
 
 	// 4. COPY:
 	const handleCopy = () => {
-		const copiedText: string = result + ' ' + toUnitData.plural;
+		const copiedText = formatCopyPaste(result, toUnitData);
 		navigator.clipboard.writeText(copiedText);
 		setCopied(true);
 	};
