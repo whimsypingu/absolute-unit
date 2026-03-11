@@ -62,7 +62,8 @@ export default function App() {
 
 	// 4. COPY:
 	const handleCopy = () => {
-		navigator.clipboard.writeText(result);
+		const copiedText: string = result + ' ' + toUnitData.plural;
+		navigator.clipboard.writeText(copiedText);
 		setCopied(true);
 	};
 	useEffect(() => {
