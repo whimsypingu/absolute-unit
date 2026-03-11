@@ -9,6 +9,31 @@ const BIG_DENOMINATIONS: Record<number, string> = {
     9: "billion",
     6: "million",
 };
+function decimalToFraction(val: number, tolerance: number = 0.003, denomLimit: number = 8): string | false {
+    let frac = val;
+    let num1 = 0, den1 = 1; //previous best guess
+    let num2 = 1, den2 = 0; //best convergent guess so far
+
+    while (true) {
+        let a = Math.floor(frac); //whole number part
+
+        let num3 = a * num2 + num1;
+        let den3 = a * den2 + den1; //set current guess
+
+        if (den3 > denomLimit) { //break out early if fraction is too precise
+            return false;
+        }
+
+        if (Math.abs(val - (num3 / den3)) < tolerance) { //check accurate
+            return `${num3}/${den3}`;
+        }
+
+        num1 = num2; den1 = den2; //previous guess is the current failed guess
+        num2 = num3; den2 = den3; //best guess so far is previous guess
+
+        frac = 1 / (frac - a); //reciprocal with whole part removed
+    }
+}
 export const formatHumanReadable = (value: number): string => {
     if (value === 0) return "0";
 
@@ -38,6 +63,16 @@ export const formatHumanReadable = (value: number): string => {
         return value.toExponential(2);
     }
 
+    //handle pretty fractions, up to x/8
+    if (absValue < 1) {
+        const fraction = decimalToFraction(value);
+
+        if (fraction) {
+            return fraction;
+        }
+    }
+
+    //fallback pretty print
     const maxFracDigits = Math.abs(Math.floor(Math.log10(lowerExpBound))); //number of digits in lowerExpBound
 
     const wholeDigits = Math.max(0, Math.floor(Math.log10(absValue)) + 1); //take the number of whole number digits
