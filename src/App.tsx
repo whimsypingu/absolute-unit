@@ -11,11 +11,13 @@ import type { Category, ConversionHistory, CategoryData, ConversionEntry, UnitDa
 
 import { ArrowLeftRight, Shuffle, Copy, Check } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
-import { formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
+import { formatCopyPaste, formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem } from './components/ui/carousel.tsx';
 import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerClose, DrawerTrigger } from './components/ui/drawer.tsx';
+import { toast } from 'sonner';
 import WheelGesturesPlugin from 'embla-carousel-wheel-gestures';
+import { Toaster } from './components/ui/sonner.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -51,7 +53,7 @@ export default function App() {
 		updateConversionHistory(newCategory, 'to', to);
 		return;
 	};
-	const handleSwap = () => {
+	const handleSwap = () => { 
 		const currentFrom = currentEntry.from;
 		const currentTo = currentEntry.to;
 
@@ -62,9 +64,13 @@ export default function App() {
 
 	// 4. COPY:
 	const handleCopy = () => {
-		const copiedText: string = result + ' ' + toUnitData.plural;
+		const copiedText = formatCopyPaste(result, toUnitData);
 		navigator.clipboard.writeText(copiedText);
 		setCopied(true);
+		toast.success('Copied:', {
+			description: copiedText, //see index.css [data-sonner-x] for styling
+			position: 'bottom-center'
+		});
 	};
 	useEffect(() => {
 		setCopied(false);
@@ -72,8 +78,8 @@ export default function App() {
 	}, [result]);
 
 	return (
+	<>
 	<div className="h-full w-full overflow-hidden flex flex-col items-center">
-
 		<Carousel 
 			plugins={[WheelGesturesPlugin()]}
 			opts={{
@@ -349,6 +355,9 @@ export default function App() {
 		</div>
 	  	</Carousel>
 	</div>
+
+	<Toaster />
+	</>
 	);
 }
 

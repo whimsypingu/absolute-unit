@@ -122,3 +122,20 @@
     @apply bg-background text-foreground;
     }
 }
+
+/* Sonner Toasts smaller width for mobile */
+@media (max-width: 640px) {
+    [data-sonner-toaster] {
+        display: flex !important;
+        justify-content: center !important; /* this centers the toast container horizontally */
+        width: 100dvw !important;           /* ensure it spans the screen */
+        left: 0 !important;                 /* reset positioning */
+        right: 0 !important;                /* reset positioning */
+    }
+    [data-sonner-toast] {
+        padding: 0.5rem 0.75rem !important;
+        max-width: 60dvw !important; /* smaller width for mobile */
+
+        margin: 0 auto !important; /* stretch to fit and center */
+    }
+}
