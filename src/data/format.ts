@@ -1,4 +1,4 @@
-const BIG_DENOMINATIONS: Record<number, string> = {
+export const BIG_DENOMINATIONS: Record<number, string> = {
     30: "brazilian",
     27: "gazillion",
     24: "septillion",
@@ -9,7 +9,16 @@ const BIG_DENOMINATIONS: Record<number, string> = {
     9: "billion",
     6: "million",
 };
-function decimalToFraction(val: number, tolerance: number = 0.003, denomLimit: number = 8): string | false {
+export const SORTED_DENOMINATION_KEYS = Object.keys(BIG_DENOMINATIONS) //compute this once at module level
+    .map(Number)
+    .sort((a, b) => b - a); //descending order
+
+function decimalToFraction(val: number, tolerance: number = 0.002, denomLimit: number = 8): string | false {
+
+    if (val < (1 / denomLimit - tolerance)) {
+        return false;
+    }
+
     let frac = val;
     let num1 = 0, den1 = 1; //previous best guess
     let num2 = 1, den2 = 0; //best convergent guess so far
@@ -34,23 +43,27 @@ function decimalToFraction(val: number, tolerance: number = 0.003, denomLimit: n
         frac = 1 / (frac - a); //reciprocal with whole part removed
     }
 }
-export const formatHumanReadable = (value: number): string => {
+export const formatHumanReadable = (
+    value: number,
+    suffixExpBound: number = 6,         //at which point use suffixes
+    lowerExpBound: number = -5,         //at which point use scientific
+    fractionTolerance: number = 0.002,  //rounding for determining a fraction
+    fractionDenomLimit: number = 8,     //largest allowed denominator when determining fraction
+): string => {
     if (value === 0) return "0";
 
     const absValue = Math.abs(value)
 
-    const upperFormatBound = 1_000_000; //at which point use suffixes
-    if (absValue >= upperFormatBound) {
-        const exponent = Math.floor(Math.log10(absValue))
+    const suffixBound = Math.pow(10, suffixExpBound); //at which point use suffixes
+    if (absValue >= suffixBound - 0.5) {        
+        const exponent = Math.floor(Math.log10(absValue + 0.5)) //0.5 is the rounding error edge case
     
-        const keys = Object.keys(BIG_DENOMINATIONS).map(Number).sort((a, b) => b - a);
-
         //check against the biggest denomination, if it's too big then go scientific
-        if (exponent >= (keys[0] + 3)) {
+        if (exponent >= (SORTED_DENOMINATION_KEYS[0] + 3)) {
             return value.toExponential(2);
         }
 
-        const foundKey = keys.find(k => exponent >= k);
+        const foundKey = SORTED_DENOMINATION_KEYS.find(k => exponent >= k);
 
         if (foundKey) {
             const formatted = value / Math.pow(10, foundKey);
@@ -58,14 +71,20 @@ export const formatHumanReadable = (value: number): string => {
         }
     }
     
-    const lowerExpBound = 0.000_01; //at which point use exponential form
-    if (absValue < lowerExpBound) {
-        return value.toExponential(2);
+    const lowerBound = Math.pow(10, lowerExpBound); //at which point use exponential form
+    if (absValue < lowerBound) {
+
+        const expFormatValue = value.toExponential(2); //all this just to handle a rounding edge case
+        const roundedValue = parseFloat(expFormatValue);
+    
+        if (roundedValue < lowerBound) {
+            return expFormatValue;
+        }
     }
 
-    //handle pretty fractions, up to x/8
+    //handle pretty fractions between 0 and 1
     if (absValue < 1) {
-        const fraction = decimalToFraction(value);
+        const fraction = decimalToFraction(value, fractionTolerance, fractionDenomLimit); //default value sets 
 
         if (fraction) {
             return fraction;
@@ -73,7 +92,7 @@ export const formatHumanReadable = (value: number): string => {
     }
 
     //fallback pretty print
-    const maxFracDigits = Math.abs(Math.floor(Math.log10(lowerExpBound))); //number of digits in lowerExpBound
+    const maxFracDigits = Math.abs(lowerExpBound); //number of digits = lowerExpBound
 
     const wholeDigits = Math.max(0, Math.floor(Math.log10(absValue)) + 1); //take the number of whole number digits
     const precision = Math.max(0, maxFracDigits - wholeDigits); //calculate maximum precision digits
