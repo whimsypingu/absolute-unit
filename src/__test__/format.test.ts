@@ -147,12 +147,25 @@ describe('Human readable format with default parameters', () => {
         //zero
         const t1 = 0.00;
         expect(formatHumanReadable(t1)).toBe('0');
+
+        const t2 = -0.00;
+        expect(formatHumanReadable(t2)).toBe('0');
         
         //rounding
-        const t2 = 0.000009;
-        expect(formatHumanReadable(t2)).toBe('9.00e-6');
+        const t3 = 0.000009;
+        expect(formatHumanReadable(t3)).toBe('9.00e-6');
 
-        const t3 = 0.000009999;
-        expect(formatHumanReadable(t3)).toBe('0.00001');
+        const t4 = 0.00000999;
+        expect(formatHumanReadable(t4)).toBe('9.99e-6');
+
+        const t5 = 0.000009995;
+        expect(formatHumanReadable(t5)).toBe('0.00001');
+
+        //rounding from regular to denominations with default settings
+        const t6 = 999999.5;
+        expect(formatHumanReadable(t6)).toBe('1 million');
+
+        const t7 = 999999.49;
+        expect(formatHumanReadable(t7)).toBe('999,999');
     });
 });

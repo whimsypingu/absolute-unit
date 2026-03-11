@@ -55,8 +55,8 @@ export const formatHumanReadable = (
     const absValue = Math.abs(value)
 
     const suffixBound = Math.pow(10, suffixExpBound); //at which point use suffixes
-    if (absValue >= suffixBound) {
-        const exponent = Math.floor(Math.log10(absValue))
+    if (absValue >= suffixBound - 0.5) {        
+        const exponent = Math.floor(Math.log10(absValue + 0.5)) //0.5 is the rounding error edge case
     
         //check against the biggest denomination, if it's too big then go scientific
         if (exponent >= (SORTED_DENOMINATION_KEYS[0] + 3)) {
@@ -73,7 +73,13 @@ export const formatHumanReadable = (
     
     const lowerBound = Math.pow(10, lowerExpBound); //at which point use exponential form
     if (absValue < lowerBound) {
-        return value.toExponential(2);
+
+        const expFormatValue = value.toExponential(2); //all this just to handle a rounding edge case
+        const roundedValue = parseFloat(expFormatValue);
+    
+        if (roundedValue < lowerBound) {
+            return expFormatValue;
+        }
     }
 
     //handle pretty fractions between 0 and 1
