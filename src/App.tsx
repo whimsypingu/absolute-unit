@@ -256,12 +256,11 @@ export default function App() {
 						{/* VISUALIZATION */}
 						<div className='flex gap-2 items-center w-full h-full min-w-0'>
 							<NativeCanvasCompare
-								conversionCategory={'length'}
-								src1={'./giraffe.svg'}
+								conversionCategory={category}
+								src1={currentEntry.from}
 								cnt1={inputValue}
-								src2={'./giraffe.svg'}
+								src2={currentEntry.to}
 								cnt2={convertedValue}
-								backgroundColor={'#777777'}
 							/>
 						</div>
 

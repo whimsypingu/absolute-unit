@@ -1,5 +1,10 @@
 import { useEffect, useRef } from "react"
 
+const svgMap = import.meta.glob('../../src/assets/*.svg', { eager: true, as: 'url' });
+console.log(svgMap);
+
+const getPath = (filename: string) => svgMap[`../assets/${filename}.svg`];
+
 interface NativeCanvasCompareProps {
     conversionCategory: string;
     src1: string;
@@ -28,17 +33,39 @@ export const NativeCanvasCompare = ({
     
         // 1. Prepare images (Consider caching these outside useEffect if you want perfection)
         const loadImages = async () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             //likely need a try block here
-            const [img1, img2] = await Promise.all([
-                new Promise<HTMLImageElement>((resolve) => { const i = new Image(); i.onload = () => resolve(i); i.src = src1; }),
-                new Promise<HTMLImageElement>((resolve) => { const i = new Image(); i.onload = () => resolve(i); i.src = src2; })
-            ]);
+            let img1: HTMLImageElement;
+            let img2: HTMLImageElement;
+            try {
+                [img1, img2] = await Promise.all([
+                    new Promise<HTMLImageElement>((resolve, reject) => { 
+                        const i = new Image(); 
+                        i.onload = () => resolve(i);
+                        i.onerror = () => reject(new Error(`Failed to load: ${src1}`));
+                        
+                        const path = getPath(src1);
+                        if (!path) reject(new Error(`Path not found: ${src1}`));
+                        i.src = path; 
+                    }),
+                    new Promise<HTMLImageElement>((resolve, reject) => { 
+                        const i = new Image(); 
+                        i.onload = () => resolve(i);
+                        i.onerror = () => reject(new Error(`Failed to load: ${src2}`));
+                        
+                        const path = getPath(src2);
+                        if (!path) reject(new Error(`Path not found: ${src2}`));
+                        i.src = path; 
+                     })
+                ]);
+            } catch (error) {
+                console.error("Render aborted:", error);
+                return;
+            }
             
             // 2. Define a render function that calls a specific drawing strategy if available
             const render = async () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
                 if (isNaN(cnt1) || isNaN(cnt2)) return;
 
                 const strategy = drawStrategies[conversionCategory as keyof typeof drawStrategies];
