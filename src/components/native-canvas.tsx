@@ -28,19 +28,23 @@ export const NativeCanvasCompare = ({
     
         // 1. Prepare images (Consider caching these outside useEffect if you want perfection)
         const loadImages = async () => {
+
+            //likely need a try block here
             const [img1, img2] = await Promise.all([
                 new Promise<HTMLImageElement>((resolve) => { const i = new Image(); i.onload = () => resolve(i); i.src = src1; }),
                 new Promise<HTMLImageElement>((resolve) => { const i = new Image(); i.onload = () => resolve(i); i.src = src2; })
             ]);
             
             // 2. Define a render function that calls a specific drawing strategy if available
-            const render = () => {
+            const render = async () => {
                 if (isNaN(cnt1) || isNaN(cnt2)) return;
                 ctx.fillStyle = backgroundColor;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
                 const strategy = drawStrategies[conversionCategory as keyof typeof drawStrategies];
-                if (strategy) strategy(ctx, img1, img2, cnt1, cnt2);
+                if (strategy) {
+                    await strategy(ctx, img1, img2, cnt1, cnt2);
+                }
             };
 
             // 3. Resize handler that also triggers a draw
@@ -67,8 +71,32 @@ export const NativeCanvasCompare = ({
     );
 }
 
+let sharedOffScreenCanvas: OffscreenCanvas | null = null;
+let anchorBitmap: ImageBitmap | null = null;
+let targetBitmap: ImageBitmap | null = null;
+async function rasterizeSvgToBitmap(
+    img: HTMLImageElement,
+    width: number,
+    height: number,
+): Promise<ImageBitmap> {
+    if (!sharedOffScreenCanvas) {
+        sharedOffScreenCanvas = new OffscreenCanvas(width, height);
+    }
+    
+    sharedOffScreenCanvas.width = width;
+    sharedOffScreenCanvas.height = height;
+
+    const ctx = sharedOffScreenCanvas.getContext('2d', { alpha: true });
+    if (!ctx) throw new Error('Could not get 2D context');
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width, height);
+
+    return await createImageBitmap(sharedOffScreenCanvas);
+}
+
 const drawStrategies = {
-    length: (ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
+    length: async (ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
         const canvasW = ctx.canvas.width;
         const canvasH = ctx.canvas.height;
 
@@ -126,9 +154,19 @@ const drawStrategies = {
 
             ctx.globalAlpha = 1.0;
         } else {
-            for (let i = 0; i < Math.ceil(anchorCnt); i++) {
-                const anchorY = canvasH - ((i + 1) * anchorH);
-                ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
+            let bitmap = await createImageBitmap(anchorImg, {
+                resizeWidth: anchorW,
+                resizeHeight: anchorH,
+                resizeQuality: 'high'
+            });
+            try {
+                for (let i = 0; i < Math.ceil(anchorCnt); i++) {
+                    const anchorY = canvasH - ((i + 1) * anchorH);
+                    ctx.drawImage(bitmap, anchorX, anchorY);
+                    //ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
+                }
+            } finally {
+                bitmap.close();
             }
         }
 
@@ -150,31 +188,6 @@ const drawStrategies = {
 
         ctx.restore(); //restore context so clip doesnt affect anything else
 
-
-        // console.log(`#DEBUG cnt1: ${cnt1}, cnt2: ${cnt2}`);
-
-        // const h1 = Math.min(canvasH / cnt1);
-        // const w1 = h1 * ratio1;
-
-        // const h2 = Math.min(canvasH / cnt2);
-        // const w2 = h2 * ratio2;
-
-        // console.log(`cnt1: ${cnt1}, cnt2: ${cnt2}`);
-        // console.log(`h1: ${h1}, h2: ${h2}`);
-
-        // const offset1 = w1 * 0.5;
-        // const offset2 = w2 * 0.5;
-
-        // const midDiff = Math.min((offset1 + offset2), (canvasW * 0.2));
-        // const x1 = (canvasW / 2) - offset1 - midDiff;
-        // const x2 = (canvasW / 2) - offset2 + midDiff;
-
-        // for (let i = 0; i < Math.ceil(cnt1); i++) {
-        //     ctx.drawImage(img1, x1, i * h1, w1, h1);
-        // }
-        // for (let i = 0; i < Math.ceil(cnt2); i++) {
-        //     ctx.drawImage(img2, x2, i * h2, w2, h2);
-        // }
     },
     weight: ( ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
         for (let i = 0; i < cnt1; i++) ctx.drawImage(img1, 0, i * 30, 30, 30);
