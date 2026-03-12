@@ -35,6 +35,7 @@ export const NativeCanvasCompare = ({
             
             // 2. Define a render function that calls a specific drawing strategy if available
             const render = () => {
+                if (isNaN(cnt1) || isNaN(cnt2)) return;
                 ctx.fillStyle = backgroundColor;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
@@ -68,23 +69,79 @@ export const NativeCanvasCompare = ({
 
 const drawStrategies = {
     length: (ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
-        const totalWidth = ctx.canvas.width;
-        const totalHeight = ctx.canvas.height;
+        const canvasW = ctx.canvas.width;
+        const canvasH = ctx.canvas.height;
 
-        const h1 = totalHeight / cnt1;
-        const w1 = h1 * (img1.width / img1.height);
-        const x1 = (totalWidth / 3) - (w1 * 0.5);
+        // identify image anchor, the img with fewer items which means larger scale
+        const isImg1Anchor = cnt1 <= cnt2;
+        const anchorImg = isImg1Anchor ? img1 : img2;
+        const anchorCnt = isImg1Anchor ? cnt1 : cnt2;
 
-        const h2 = totalHeight / cnt2;
-        const w2 = h2 * (img2.width / img2.height);
-        const x2 = (totalWidth / 3 * 2) - (w2 * 0.5);
+        const targetImg = isImg1Anchor ? img2 : img1;
+        const targetCnt = isImg1Anchor ? cnt2 : cnt1;
 
-        for (let i = 0; i < cnt1; i++) {
-            ctx.drawImage(img1, x1, i * h1, w1, h1);
+        //define anchor dimensions capped by width
+        const maxAnchorW = canvasW / 8;
+        const anchorRatio = anchorImg.width / anchorImg.height;
+
+        const anchorW = Math.min(maxAnchorW, canvasH / anchorCnt * anchorRatio);
+        const anchorH = anchorW / anchorRatio;
+
+        //scale target item relative to anchor
+        const targetH = anchorH * (anchorCnt / targetCnt);
+        const targetW = targetH * (targetImg.width / targetImg.height);
+
+        //mask to cut off any extra parts from Math.ceil() overshooting
+        const cutoffY = canvasH - (anchorCnt * anchorH);
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, cutoffY, canvasW, canvasH);
+        ctx.clip(); //everything drawn after this is masked to keep stuff within the rect
+
+        //draw
+        const midPoint = canvasW * 0.5;
+        const anchorCenter = midPoint - (anchorW * 0.5); //center the imgs on the axis
+        const targetCenter = midPoint - (targetW * 0.5); 
+
+        const anchorX = isImg1Anchor ? anchorCenter - maxAnchorW : anchorCenter + maxAnchorW;
+        const targetX = isImg1Anchor ? targetCenter + maxAnchorW : targetCenter - maxAnchorW;
+
+        for (let i = 0; i < Math.ceil(anchorCnt); i++) {
+            const anchorY = canvasH - ((i + 1) * anchorH);
+            ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
         }
-        for (let i = 0; i < cnt2; i++) {
-            ctx.drawImage(img2, x2, i * h2, w2, h2);
+        for (let i = 0; i < Math.ceil(targetCnt); i++) {
+            const targetY = canvasH - ((i + 1) * targetH);
+            ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
         }
+
+        ctx.restore(); //restore context so clip doesnt affect anything else
+
+
+        // console.log(`#DEBUG cnt1: ${cnt1}, cnt2: ${cnt2}`);
+
+        // const h1 = Math.min(canvasH / cnt1);
+        // const w1 = h1 * ratio1;
+
+        // const h2 = Math.min(canvasH / cnt2);
+        // const w2 = h2 * ratio2;
+
+        // console.log(`cnt1: ${cnt1}, cnt2: ${cnt2}`);
+        // console.log(`h1: ${h1}, h2: ${h2}`);
+
+        // const offset1 = w1 * 0.5;
+        // const offset2 = w2 * 0.5;
+
+        // const midDiff = Math.min((offset1 + offset2), (canvasW * 0.2));
+        // const x1 = (canvasW / 2) - offset1 - midDiff;
+        // const x2 = (canvasW / 2) - offset2 + midDiff;
+
+        // for (let i = 0; i < Math.ceil(cnt1); i++) {
+        //     ctx.drawImage(img1, x1, i * h1, w1, h1);
+        // }
+        // for (let i = 0; i < Math.ceil(cnt2); i++) {
+        //     ctx.drawImage(img2, x2, i * h2, w2, h2);
+        // }
     },
     weight: ( ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
         for (let i = 0; i < cnt1; i++) ctx.drawImage(img1, 0, i * 30, 30, 30);
