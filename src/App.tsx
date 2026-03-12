@@ -43,6 +43,7 @@ export default function App() {
 	const fromUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.from); 
 	const toUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.to);
 
+	const inputValue: number = parseFloat(sanitizeInput(value));
 	const convertedValue: number = convert(sanitizeInput(value), fromUnitData.toBase, toUnitData.fromBase);
 	const result: string = formatHumanReadable(convertedValue);
 
@@ -253,14 +254,14 @@ export default function App() {
 
 						
 						{/* VISUALIZATION */}
-						<div className='flex gap-2 items-center w-full min-w-0'>
+						<div className='flex gap-2 items-center w-full h-full min-w-0'>
 							<NativeCanvasCompare
 								conversionCategory={'length'}
 								src1={'./giraffe.svg'}
-								cnt1={3}
+								cnt1={inputValue}
 								src2={'./giraffe.svg'}
-								cnt2={5}
-								backgroundColor={'#444444'}
+								cnt2={convertedValue}
+								backgroundColor={'#ffffff'}
 							/>
 						</div>
 
