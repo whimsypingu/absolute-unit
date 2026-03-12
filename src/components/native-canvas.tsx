@@ -180,9 +180,19 @@ const drawStrategies = {
     
             ctx.globalAlpha = 1.0;
         } else {
-            for (let i = 0; i < Math.ceil(targetCnt); i++) {
-                const targetY = canvasH - ((i + 1) * targetH);
-                ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
+            let bitmap = await createImageBitmap(targetImg, {
+                resizeWidth: anchorW,
+                resizeHeight: anchorH,
+                resizeQuality: 'high'
+            });
+            try {
+                for (let i = 0; i < Math.ceil(targetCnt); i++) {
+                    const targetY = canvasH - ((i + 1) * targetH);
+                    ctx.drawImage(bitmap, targetX, targetY);
+                    //ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
+                }
+            } finally {
+                bitmap.close();
             }
         }
 
