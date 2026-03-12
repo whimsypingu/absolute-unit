@@ -38,10 +38,12 @@ export const NativeCanvasCompare = ({
             // 2. Define a render function that calls a specific drawing strategy if available
             const render = async () => {
                 if (isNaN(cnt1) || isNaN(cnt2)) return;
+
                 ctx.fillStyle = backgroundColor;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
+
                 const strategy = drawStrategies[conversionCategory as keyof typeof drawStrategies];
+
                 if (strategy) {
                     await strategy(ctx, img1, img2, cnt1, cnt2);
                 }
@@ -143,6 +145,13 @@ const drawStrategies = {
         const anchorX = Math.round(isImg1Anchor ? anchorCenter - maxAnchorW : anchorCenter + maxAnchorW) - 0.5;
         const targetX = Math.round(isImg1Anchor ? targetCenter + maxAnchorW : targetCenter - maxAnchorW) + 0.5;
 
+        //BENCHMARKING
+        const anchorStart = performance.now();
+
+        //save execution id on the context so the next call to this will overwrite this and break out on race conditions
+        const executionId = Math.random();
+        (ctx as any)._latestStrategyId = executionId;
+        
         //draw either low level lod or full images
         if (useAnchorRect) {
             let alpha = maxAlpha - (anchorCnt / saturation) * (maxAlpha - minAlpha);
@@ -160,15 +169,22 @@ const drawStrategies = {
                 resizeQuality: 'high'
             });
             try {
-                for (let i = 0; i < Math.ceil(anchorCnt); i++) {
-                    const anchorY = canvasH - ((i + 1) * anchorH);
-                    ctx.drawImage(bitmap, anchorX, anchorY);
-                    //ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
+                if ((ctx as any)._latestStrategyId === executionId) {
+                    for (let i = 0; i < Math.ceil(anchorCnt); i++) {
+                        const anchorY = canvasH - ((i + 1) * anchorH);
+                        ctx.drawImage(bitmap, anchorX, anchorY);
+                        //ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
+                    }
+                } else {
+                    console.log("DISCARD");
                 }
             } finally {
                 bitmap.close();
             }
         }
+
+        //BENCHMARKING
+        const anchorEnd = performance.now();
 
         if (useTargetRect) {
             let alpha = maxAlpha - (targetCnt / saturation) * (maxAlpha - minAlpha);
@@ -181,26 +197,40 @@ const drawStrategies = {
             ctx.globalAlpha = 1.0;
         } else {
             let bitmap = await createImageBitmap(targetImg, {
-                resizeWidth: anchorW,
-                resizeHeight: anchorH,
+                resizeWidth: targetW,
+                resizeHeight: targetH,
                 resizeQuality: 'high'
             });
             try {
-                for (let i = 0; i < Math.ceil(targetCnt); i++) {
-                    const targetY = canvasH - ((i + 1) * targetH);
-                    ctx.drawImage(bitmap, targetX, targetY);
-                    //ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
+                if ((ctx as any)._latestStrategyId === executionId) {
+                    for (let i = 0; i < Math.ceil(targetCnt); i++) {
+                        const targetY = canvasH - ((i + 1) * targetH);
+                        ctx.drawImage(bitmap, targetX, targetY);
+                        //ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
+                    }
+                } else {
+                    console.log("DISCARD");
                 }
             } finally {
                 bitmap.close();
             }
         }
 
-        ctx.restore(); //restore context so clip doesnt affect anything else
+        //BENCHMARKING
+        const targetEnd = performance.now();
 
+        console.table({
+            "Total Time (ms)": (targetEnd - anchorStart).toFixed(2),
+            "Anchor Prep/Draw (ms)": (anchorEnd - anchorStart).toFixed(2),
+            "Target Prep/Draw (ms)": (targetEnd - anchorEnd).toFixed(2),
+        });
+
+        ctx.restore(); //restore context so clip doesnt affect anything else
+        return;
     },
-    weight: ( ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
+    weight: (ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
         for (let i = 0; i < cnt1; i++) ctx.drawImage(img1, 0, i * 30, 30, 30);
-        for (let i = 0; i < cnt2; i++) ctx.drawImage(img2, 100, i * 30, 30, 30);        
+        for (let i = 0; i < cnt2; i++) ctx.drawImage(img2, 100, i * 30, 30, 30);
+        return;  
     }
 }
