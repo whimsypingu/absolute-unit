@@ -18,11 +18,14 @@ import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerC
 import { toast } from 'sonner';
 import WheelGesturesPlugin from 'embla-carousel-wheel-gestures';
 import { Toaster } from './components/ui/sonner.tsx';
+import { Slider } from './components/ui/slider.tsx';
+
+import { NativeCanvasCompare } from './components/native-canvas.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
 	const [category, setCategory] = useState<Category>(INITIAL_CATEGORY);
-	const [value, setValue] = useState<string>("");
+	const [value, setValue] = useState<string>("1");
 	
 	const [conversionHistory, setConversionHistory] = useImmer<ConversionHistory>(INITIAL_HISTORY);	
 	
@@ -41,6 +44,7 @@ export default function App() {
 	const fromUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.from); 
 	const toUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.to);
 
+	const inputValue: number = parseFloat(sanitizeInput(value));
 	const convertedValue: number = convert(sanitizeInput(value), fromUnitData.toBase, toUnitData.fromBase);
 	const result: string = formatHumanReadable(convertedValue);
 
@@ -175,6 +179,15 @@ export default function App() {
 						</ButtonGroup>
 						</div>
 
+						{/* SLIDER */ }
+						<div className='flex gap-2 items-center w-full min-w-0'>
+							<Slider 
+								value={[inputValue]}
+								onValueChange={(vals) => setValue(vals[0].toString())}
+								min={0}
+								max={100}
+							/>
+						</div>
 
 						{/* SELECT UNITS */}
 						<div className='flex gap-2 items-center w-full min-w-0'>
@@ -249,7 +262,17 @@ export default function App() {
 						</ButtonGroup>
 						</div>
 
-
+						
+						{/* VISUALIZATION */}
+						<div className='flex gap-2 items-center w-full h-full min-w-0'>
+							<NativeCanvasCompare
+								conversionCategory={category}
+								src1={currentEntry.from}
+								cnt1={inputValue}
+								src2={currentEntry.to}
+								cnt2={convertedValue}
+							/>
+						</div>
 
 					</CardContent>
 				</Card>
