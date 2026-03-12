@@ -19,6 +19,8 @@ import { toast } from 'sonner';
 import WheelGesturesPlugin from 'embla-carousel-wheel-gestures';
 import { Toaster } from './components/ui/sonner.tsx';
 
+import { NativeCanvasCompare } from './components/native-canvas.tsx';
+
 export default function App() {
 	// 1. STATE: These track user choices
 	const [category, setCategory] = useState<Category>(INITIAL_CATEGORY);
@@ -249,7 +251,18 @@ export default function App() {
 						</ButtonGroup>
 						</div>
 
-
+						
+						{/* VISUALIZATION */}
+						<div className='flex gap-2 items-center w-full min-w-0'>
+							<NativeCanvasCompare
+								conversionCategory={'length'}
+								src1={'./giraffe.svg'}
+								cnt1={3}
+								src2={'./giraffe.svg'}
+								cnt2={5}
+								backgroundColor={'#444444'}
+							/>
+						</div>
 
 					</CardContent>
 				</Card>
