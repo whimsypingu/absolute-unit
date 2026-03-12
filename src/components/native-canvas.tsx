@@ -37,8 +37,6 @@ export const NativeCanvasCompare = ({
             
             // 2. Define a render function that calls a specific drawing strategy if available
             const render = async () => {
-                // ctx.fillStyle = backgroundColor;
-                // ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 if (isNaN(cnt1) || isNaN(cnt2)) return;
@@ -52,13 +50,12 @@ export const NativeCanvasCompare = ({
 
             // 3. Resize handler that also triggers a draw
             const handleResize = () => {
-                const dpr = window.devicePixelRatio || 1;
+                const dpr = window.devicePixelRatio || 1; //on mobile screens, dpr can be non-zero which leads to anti-aliasing
                 canvas.width = container.clientWidth * dpr;
                 canvas.height = container.clientHeight * dpr;
 
-                canvas.style.width = `${container.clientWidth}px`;
-                canvas.style.height = `${container.clientHeight}px`;
-                //ctx.scale(dpr, dpr);
+                canvas.style.width = `${container.clientWidth}px`; //set the element width correctly
+                canvas.style.height = `${container.clientHeight}px`; 
                 render();
             };
 
@@ -79,30 +76,6 @@ export const NativeCanvasCompare = ({
     );
 }
 
-let sharedOffScreenCanvas: OffscreenCanvas | null = null;
-let anchorBitmap: ImageBitmap | null = null;
-let targetBitmap: ImageBitmap | null = null;
-async function rasterizeSvgToBitmap(
-    img: HTMLImageElement,
-    width: number,
-    height: number,
-): Promise<ImageBitmap> {
-    if (!sharedOffScreenCanvas) {
-        sharedOffScreenCanvas = new OffscreenCanvas(width, height);
-    }
-    
-    sharedOffScreenCanvas.width = width;
-    sharedOffScreenCanvas.height = height;
-
-    const ctx = sharedOffScreenCanvas.getContext('2d', { alpha: true });
-    if (!ctx) throw new Error('Could not get 2D context');
-
-    ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(img, 0, 0, width, height);
-
-    return await createImageBitmap(sharedOffScreenCanvas);
-}
-
 const drawStrategies = {
     length: async (ctx: CanvasRenderingContext2D, img1: HTMLImageElement, img2: HTMLImageElement, cnt1: number, cnt2: number) => {
         const canvasW = ctx.canvas.width;
@@ -119,7 +92,7 @@ const drawStrategies = {
         const targetCnt = isImg1Anchor ? cnt2 : cnt1;
 
         //define anchor dimensions capped by width
-        const maxAnchorW = canvasW / 8;
+        const maxAnchorW = canvasW / 3;
         const anchorRatio = anchorImg.width / anchorImg.height;
 
         const anchorW = Math.min(maxAnchorW, canvasH / anchorCnt * anchorRatio);
@@ -147,17 +120,14 @@ const drawStrategies = {
         const midPoint = canvasW * 0.5;
         const anchorCenter = midPoint - (anchorW * 0.5); //center the imgs on the axis
         const targetCenter = midPoint - (targetW * 0.5); 
+        const midOffset = canvasW * 0.25;
 
-        const anchorX = Math.round(isImg1Anchor ? anchorCenter - maxAnchorW : anchorCenter + maxAnchorW);
-        const targetX = Math.round(isImg1Anchor ? targetCenter + maxAnchorW : targetCenter - maxAnchorW);
+        const anchorX = Math.round(isImg1Anchor ? anchorCenter - midOffset : anchorCenter + midOffset);
+        const targetX = Math.round(isImg1Anchor ? targetCenter + midOffset : targetCenter - midOffset);
 
         //BENCHMARKING
-        const anchorStart = performance.now();
+        // const anchorStart = performance.now();
 
-        //save execution id on the context so the next call to this will overwrite this and break out on race conditions
-        // const executionId = Math.random();
-        // (ctx as any)._latestStrategyId = executionId;
-        
         //draw either low level lod or full images
         if (useAnchorRect) {
             let alpha = maxAlpha - (anchorCnt / saturation) * (maxAlpha - minAlpha);
@@ -169,24 +139,15 @@ const drawStrategies = {
 
             ctx.globalAlpha = 1.0;
         } else {
-            // let bitmap = await createImageBitmap(anchorImg, {
-            //     resizeWidth: anchorW,
-            //     resizeHeight: anchorH,
-            //     resizeQuality: 'high'
-            // });
-            // try {
-                for (let i = 0; i < Math.ceil(anchorCnt); i++) {
-                    const anchorY = canvasH - ((i + 1) * anchorH);
-                    //ctx.drawImage(bitmap, anchorX, anchorY);
-                    ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
-                }
-            // } finally {
-            //     bitmap.close();
-            // }
+            for (let i = 0; i < Math.ceil(anchorCnt); i++) {
+                const anchorY = canvasH - ((i + 1) * anchorH);
+                //ctx.drawImage(bitmap, anchorX, anchorY);
+                ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
+            }
         }
 
         //BENCHMARKING
-        const anchorEnd = performance.now();
+        // const anchorEnd = performance.now();
 
         if (useTargetRect) {
             let alpha = maxAlpha - (targetCnt / saturation) * (maxAlpha - minAlpha);
@@ -198,30 +159,21 @@ const drawStrategies = {
     
             ctx.globalAlpha = 1.0;
         } else {
-            // let bitmap = await createImageBitmap(targetImg, {
-            //     resizeWidth: targetW,
-            //     resizeHeight: targetH,
-            //     resizeQuality: 'high'
-            // });
-            // try {
-                for (let i = 0; i < Math.ceil(targetCnt); i++) {
-                    const targetY = canvasH - ((i + 1) * targetH);
-                    //ctx.drawImage(bitmap, targetX, targetY);
-                    ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
-                }
-            // } finally {
-            //     bitmap.close();
-            // }
+            for (let i = 0; i < Math.ceil(targetCnt); i++) {
+                const targetY = canvasH - ((i + 1) * targetH);
+                //ctx.drawImage(bitmap, targetX, targetY);
+                ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
+            }
         }
 
         //BENCHMARKING
-        const targetEnd = performance.now();
+        // const targetEnd = performance.now();
 
-        console.table({
-            "Total Time (ms)": (targetEnd - anchorStart).toFixed(2),
-            "Anchor Prep/Draw (ms)": (anchorEnd - anchorStart).toFixed(2),
-            "Target Prep/Draw (ms)": (targetEnd - anchorEnd).toFixed(2),
-        });
+        // console.table({
+        //     "Total Time (ms)": (targetEnd - anchorStart).toFixed(2),
+        //     "Anchor Prep/Draw (ms)": (anchorEnd - anchorStart).toFixed(2),
+        //     "Target Prep/Draw (ms)": (targetEnd - anchorEnd).toFixed(2),
+        // });
 
         ctx.restore(); //restore context so clip doesnt affect anything else
         return;
