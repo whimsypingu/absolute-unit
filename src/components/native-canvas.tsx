@@ -72,6 +72,8 @@ const drawStrategies = {
         const canvasW = ctx.canvas.width;
         const canvasH = ctx.canvas.height;
 
+        const MIN_PIXEL_HEIGHT = 2.0; //lod threshold
+
         // identify image anchor, the img with fewer items which means larger scale
         const isImg1Anchor = cnt1 <= cnt2;
         const anchorImg = isImg1Anchor ? img1 : img2;
@@ -91,6 +93,13 @@ const drawStrategies = {
         const targetH = anchorH * (anchorCnt / targetCnt);
         const targetW = targetH * (targetImg.width / targetImg.height);
 
+        //lod
+        const useAnchorRect = anchorH <= MIN_PIXEL_HEIGHT;
+        const useTargetRect = targetH <= MIN_PIXEL_HEIGHT;
+        const maxAlpha = 0.4; //shading for density, higher density = less shading
+        const minAlpha = 0.1;
+        const saturation = 1000; //hit minAlpha in 1000items
+
         //mask to cut off any extra parts from Math.ceil() overshooting
         const cutoffY = canvasH - (anchorCnt * anchorH);
         ctx.save();
@@ -103,16 +112,40 @@ const drawStrategies = {
         const anchorCenter = midPoint - (anchorW * 0.5); //center the imgs on the axis
         const targetCenter = midPoint - (targetW * 0.5); 
 
-        const anchorX = isImg1Anchor ? anchorCenter - maxAnchorW : anchorCenter + maxAnchorW;
-        const targetX = isImg1Anchor ? targetCenter + maxAnchorW : targetCenter - maxAnchorW;
+        const anchorX = Math.round(isImg1Anchor ? anchorCenter - maxAnchorW : anchorCenter + maxAnchorW) - 0.5;
+        const targetX = Math.round(isImg1Anchor ? targetCenter + maxAnchorW : targetCenter - maxAnchorW) + 0.5;
 
-        for (let i = 0; i < Math.ceil(anchorCnt); i++) {
-            const anchorY = canvasH - ((i + 1) * anchorH);
-            ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
+        //draw either low level lod or full images
+        if (useAnchorRect) {
+            let alpha = maxAlpha - (anchorCnt / saturation) * (maxAlpha - minAlpha);
+            alpha = Math.max(minAlpha, alpha);
+
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = 'black';
+            ctx.fillRect(anchorX, 0, 1, canvasH);
+
+            ctx.globalAlpha = 1.0;
+        } else {
+            for (let i = 0; i < Math.ceil(anchorCnt); i++) {
+                const anchorY = canvasH - ((i + 1) * anchorH);
+                ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
+            }
         }
-        for (let i = 0; i < Math.ceil(targetCnt); i++) {
-            const targetY = canvasH - ((i + 1) * targetH);
-            ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
+
+        if (useTargetRect) {
+            let alpha = maxAlpha - (targetCnt / saturation) * (maxAlpha - minAlpha);
+            alpha = Math.max(minAlpha, alpha);
+
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = 'black';
+            ctx.fillRect(targetX, 0, 1, canvasH);
+    
+            ctx.globalAlpha = 1.0;
+        } else {
+            for (let i = 0; i < Math.ceil(targetCnt); i++) {
+                const targetY = canvasH - ((i + 1) * targetH);
+                ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
+            }
         }
 
         ctx.restore(); //restore context so clip doesnt affect anything else
