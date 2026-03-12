@@ -37,10 +37,11 @@ export const NativeCanvasCompare = ({
             
             // 2. Define a render function that calls a specific drawing strategy if available
             const render = async () => {
-                if (isNaN(cnt1) || isNaN(cnt2)) return;
+                // ctx.fillStyle = backgroundColor;
+                // ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                ctx.fillStyle = backgroundColor;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                if (isNaN(cnt1) || isNaN(cnt2)) return;
 
                 const strategy = drawStrategies[conversionCategory as keyof typeof drawStrategies];
 
@@ -51,8 +52,13 @@ export const NativeCanvasCompare = ({
 
             // 3. Resize handler that also triggers a draw
             const handleResize = () => {
-                canvas.width = container.clientWidth;
-                canvas.height = container.clientHeight;
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = container.clientWidth * dpr;
+                canvas.height = container.clientHeight * dpr;
+
+                canvas.style.width = `${container.clientWidth}px`;
+                canvas.style.height = `${container.clientHeight}px`;
+                //ctx.scale(dpr, dpr);
                 render();
             };
 
@@ -142,15 +148,15 @@ const drawStrategies = {
         const anchorCenter = midPoint - (anchorW * 0.5); //center the imgs on the axis
         const targetCenter = midPoint - (targetW * 0.5); 
 
-        const anchorX = Math.round(isImg1Anchor ? anchorCenter - maxAnchorW : anchorCenter + maxAnchorW) - 0.5;
-        const targetX = Math.round(isImg1Anchor ? targetCenter + maxAnchorW : targetCenter - maxAnchorW) + 0.5;
+        const anchorX = Math.round(isImg1Anchor ? anchorCenter - maxAnchorW : anchorCenter + maxAnchorW);
+        const targetX = Math.round(isImg1Anchor ? targetCenter + maxAnchorW : targetCenter - maxAnchorW);
 
         //BENCHMARKING
         const anchorStart = performance.now();
 
         //save execution id on the context so the next call to this will overwrite this and break out on race conditions
-        const executionId = Math.random();
-        (ctx as any)._latestStrategyId = executionId;
+        // const executionId = Math.random();
+        // (ctx as any)._latestStrategyId = executionId;
         
         //draw either low level lod or full images
         if (useAnchorRect) {
@@ -159,28 +165,24 @@ const drawStrategies = {
 
             ctx.globalAlpha = alpha;
             ctx.fillStyle = 'black';
-            ctx.fillRect(anchorX, 0, 1, canvasH);
+            ctx.fillRect(anchorX - 0.5, 0, 1, canvasH);
 
             ctx.globalAlpha = 1.0;
         } else {
-            let bitmap = await createImageBitmap(anchorImg, {
-                resizeWidth: anchorW,
-                resizeHeight: anchorH,
-                resizeQuality: 'high'
-            });
-            try {
-                if ((ctx as any)._latestStrategyId === executionId) {
-                    for (let i = 0; i < Math.ceil(anchorCnt); i++) {
-                        const anchorY = canvasH - ((i + 1) * anchorH);
-                        ctx.drawImage(bitmap, anchorX, anchorY);
-                        //ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
-                    }
-                } else {
-                    console.log("DISCARD");
+            // let bitmap = await createImageBitmap(anchorImg, {
+            //     resizeWidth: anchorW,
+            //     resizeHeight: anchorH,
+            //     resizeQuality: 'high'
+            // });
+            // try {
+                for (let i = 0; i < Math.ceil(anchorCnt); i++) {
+                    const anchorY = canvasH - ((i + 1) * anchorH);
+                    //ctx.drawImage(bitmap, anchorX, anchorY);
+                    ctx.drawImage(anchorImg, anchorX, anchorY, anchorW, anchorH);
                 }
-            } finally {
-                bitmap.close();
-            }
+            // } finally {
+            //     bitmap.close();
+            // }
         }
 
         //BENCHMARKING
@@ -192,28 +194,24 @@ const drawStrategies = {
 
             ctx.globalAlpha = alpha;
             ctx.fillStyle = 'black';
-            ctx.fillRect(targetX, 0, 1, canvasH);
+            ctx.fillRect(targetX - 0.5, 0, 1, canvasH);
     
             ctx.globalAlpha = 1.0;
         } else {
-            let bitmap = await createImageBitmap(targetImg, {
-                resizeWidth: targetW,
-                resizeHeight: targetH,
-                resizeQuality: 'high'
-            });
-            try {
-                if ((ctx as any)._latestStrategyId === executionId) {
-                    for (let i = 0; i < Math.ceil(targetCnt); i++) {
-                        const targetY = canvasH - ((i + 1) * targetH);
-                        ctx.drawImage(bitmap, targetX, targetY);
-                        //ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
-                    }
-                } else {
-                    console.log("DISCARD");
+            // let bitmap = await createImageBitmap(targetImg, {
+            //     resizeWidth: targetW,
+            //     resizeHeight: targetH,
+            //     resizeQuality: 'high'
+            // });
+            // try {
+                for (let i = 0; i < Math.ceil(targetCnt); i++) {
+                    const targetY = canvasH - ((i + 1) * targetH);
+                    //ctx.drawImage(bitmap, targetX, targetY);
+                    ctx.drawImage(targetImg, targetX, targetY, targetW, targetH);
                 }
-            } finally {
-                bitmap.close();
-            }
+            // } finally {
+            //     bitmap.close();
+            // }
         }
 
         //BENCHMARKING

@@ -261,7 +261,7 @@ export default function App() {
 								cnt1={inputValue}
 								src2={'./giraffe.svg'}
 								cnt2={convertedValue}
-								backgroundColor={'#ffffff'}
+								backgroundColor={'#777777'}
 							/>
 						</div>
 
