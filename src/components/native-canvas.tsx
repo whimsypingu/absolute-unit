@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 
 interface NativeCanvasCompareProps {
     conversionCategory: 'length' | 'weight';
@@ -61,62 +61,6 @@ export const NativeCanvasCompare = ({
         return () => { cleanup.then(fn => fn && fn()); };
     }, [src1, cnt1, src2, cnt2, conversionCategory, backgroundColor]);
     
-    /*
-        const resizeCanvas = () => {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        };
-
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        const loadImage = (src: string): Promise<HTMLImageElement> => {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.src = src;
-            });
-        };
-
-        (async () => {
-            const [img1, img2] = await Promise.all([
-                loadImage(src1),
-                loadImage(src2)
-            ]);
-
-            const draw = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-                //clear and background
-                ctx.clearRect(0, 0, width, height);
-
-                ctx.fillStyle = backgroundColor;
-                ctx.fillRect(0, 0, width, height);
-
-                switch (conversionCategory) {
-                    case 'length':
-                        //draw img1
-                        for (let i = 0; i < cnt1; i++) {
-                            ctx.drawImage(img1, 0, i * 50, 50, 50);
-                        }
-
-                        //draw img2
-                        for (let i = 0; i < cnt2; i++) {
-                            ctx.drawImage(img2, 100, i * 50, 50, 50);
-                        }
-                        break;
-                    
-                    case 'weight':
-                        break;
-                }
-            };
-
-            draw(ctx, canvas.width, canvas.height);
-
-            return () => window.removeEventListener('resize', resizeCanvas);
-
-        })();
-    }, [src1, cnt1, src2, cnt2]);
-    */
-
     return (
         <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
             <canvas ref={canvasRef} style={{ display: 'block', borderRadius: '0.5rem' }} />
