@@ -119,15 +119,41 @@ const drawStrategies = {
         const targetCnt = isImg1Anchor ? cnt2 : cnt1;
 
         //define anchor dimensions capped by width
-        const maxAnchorW = canvasW / 3;
-        const anchorRatio = anchorImg.width / anchorImg.height;
+        let anchorW = anchorImg.width
+        let anchorH = anchorImg.height
 
-        const anchorW = Math.min(maxAnchorW, canvasH / anchorCnt * anchorRatio);
-        const anchorH = anchorW / anchorRatio;
+        let targetH = anchorH * (anchorCnt / targetCnt); //targetH * targetCnt = anchorH * anchorCnt
+        let targetW = targetH * (targetImg.width / targetImg.height);
 
-        //scale target item relative to anchor
-        const targetH = anchorH * (anchorCnt / targetCnt);
-        const targetW = targetH * (targetImg.width / targetImg.height);
+        // console.table({
+        //     anchor_orig: {width: anchorImg.width, height: anchorImg.height },
+        //     anchor_pre: { width: anchorW, height: anchorH },
+        //     target_orig: {width: targetImg.width, height: targetImg.height },
+        //     target_pre: { width: targetW, height: targetH }
+        // });
+
+        const maxW = canvasW * 0.4;
+        const maxH = canvasH * 0.75;
+
+        const scaleW = maxW / Math.max(anchorW, targetW); //max(anchorW, targetW) * scaleW = maxW
+        const scaleH = maxH / Math.max(anchorH, targetH);
+
+        const scaleFit = canvasH / (anchorH * anchorCnt); //totalH * scaleFit = canvasH
+
+        const globalScale = Math.min(scaleW, scaleH, scaleFit);
+
+        anchorW *= globalScale;
+        anchorH *= globalScale;
+        targetW *= globalScale;
+        targetH *= globalScale;
+
+        // console.log(`globalScale: ${globalScale}`);
+        // console.table({
+        //     max: { width: maxW, height: maxH },
+        //     scale: { width: scaleW, height: scaleH },
+        //     anchor: { width: anchorW, height: anchorH },
+        //     target: { width: targetW, height: targetH }
+        // });
 
         //lod
         const useAnchorRect = anchorH <= MIN_PIXEL_HEIGHT;
@@ -137,7 +163,9 @@ const drawStrategies = {
         const saturation = 1000; //hit minAlpha in 1000items
 
         //mask to cut off any extra parts from Math.ceil() overshooting
-        const cutoffY = canvasH - (anchorCnt * anchorH);
+        const cutoffY = Math.max(canvasH - (anchorCnt * anchorH), 0);
+
+        console.log(`cutoffY: ${cutoffY}`);
         ctx.save();
         ctx.beginPath();
         ctx.rect(0, cutoffY, canvasW, canvasH);
