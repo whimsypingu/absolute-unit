@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-const svgMap = import.meta.glob('../../src/assets/*.svg', { eager: true, as: 'url' });
+const svgMap = import.meta.glob('../../src/assets/*.svg', { eager: true, query: '?url', import: 'default' });
 console.log(svgMap);
 
 const getPath = (filename: string) => svgMap[`../assets/${filename}.svg`];

@@ -7,7 +7,7 @@ function Slider({
   className,
   defaultValue,
   value,
-  min = 0,
+  min = 1,
   max = 100,
   step, //accept the prop but override here if provided
   ...props
