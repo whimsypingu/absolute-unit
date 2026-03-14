@@ -16,11 +16,16 @@ UNIT_TEMPLATE = """{unitName}: {{
 }}"""
 
 def include_field(key, value):
-    ts_safe_value = str(value).replace("'", "\\'")
-    return f"\n    {key}: '{ts_safe_value}',"
+    if isinstance(value, bool):
+        ts_safe_value = 'true' if value else 'false' #handle boolean
+    else:
+        ts_safe_value = str(value).replace("'", "\\'") #default string handling
+        ts_safe_value = f"'{ts_safe_value}'" #wrap in single quotes
+
+    return f"\n    {key}: {ts_safe_value},"
 
 def compile_unit(unit_json):
-    valid_optional_fields = ["abbr", "desc", "source", "lastCheck"]
+    valid_optional_fields = ["abbr", "customImg", "desc", "source", "lastCheck"]
 
     additionalFields = ""
     for field in valid_optional_fields:

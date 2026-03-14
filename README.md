@@ -21,6 +21,14 @@ You should have `Node.js`, `Python`, and `git` already installed on your compute
 ---
 
 
+Other references:
+- Link for image to SVG notebook used to generate SVGs: [https://colab.research.google.com/drive/1DHSp1QxXDu-2MIR7egtT1iTpxObsxSDz?usp=sharing](https://colab.research.google.com/drive/1DHSp1QxXDu-2MIR7egtT1iTpxObsxSDz?usp=sharing)
+
+
+
+---
+
+
 
 ### Citation
 If you use this conversion tool in your research, academic paper, or fanfiction, please include a citation. 
