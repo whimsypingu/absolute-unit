@@ -5,6 +5,7 @@
     "toBase": "x * 21196.18 * 1000",
     "fromBase": "x / (21196.18 * 1000)",
     "priority": 2,
+    "customImg": true,
     "desc": "A series of fortifications in China, The Great Wall of China was used as protection against invasions from the north. It is the world's largest military structure.",
     "source": "https://whc.unesco.org/en/list/438/",
     "lastCheck": "3/9/2026"

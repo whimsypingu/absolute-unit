@@ -31,6 +31,7 @@ export interface UnitData {
 	toBase: string;
 	fromBase: string;
 	abbr?: string;
+	customImg?: boolean;
 	desc?: string;
 	source?: string;
 	lastCheck?: string;
@@ -42,10 +43,9 @@ export interface UnitGroup {
 export interface CategoryData {
 	label: string;
 	initialUnits: ConversionEntry;
-	unitGroups: UnitGroup[];
+	unitGroups: UnitGroup[]; 
 }
 export type ConversionRegistry = Record<string, CategoryData>
-
 
 export type Category = keyof typeof CONVERSIONS;
 export type UnitKey<C extends Category> = keyof (
