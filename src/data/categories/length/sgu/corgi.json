@@ -4,5 +4,6 @@
     "plural": "Corgis",
     "toBase": "x * 0.3",
     "fromBase": "x / 0.3",
-    "priority": -1
+    "priority": -1,
+    "customImg": true
 }

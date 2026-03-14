@@ -267,9 +267,9 @@ export default function App() {
 						<div className='flex gap-2 items-center w-full h-full min-w-0'>
 							<NativeCanvasCompare
 								conversionCategory={category}
-								src1={'length'}
+								src1={ fromUnitData.customImg ? currentEntry.from : category }
 								cnt1={inputValue}
-								src2={currentEntry.to}
+								src2={ toUnitData.customImg ? currentEntry.to : category }
 								cnt2={convertedValue}
 							/>
 						</div>

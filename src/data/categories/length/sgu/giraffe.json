@@ -6,6 +6,7 @@
     "toBase": "x * 5.5",
     "fromBase": "x / 5.5",
     "priority": 0,
+    "customImg": true,
     "desc": "The standardized giraffe unit was proposed by the European Space Agency's Near-Earth Object Coordination Centre as a standardized unit for animal size reference, based on journalist records.",
     "source": "https://neo.ssa.esa.int/documents/d/guest/newsletter-april-2024",
     "lastCheck": "3/9/2026"

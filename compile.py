@@ -20,7 +20,7 @@ def include_field(key, value):
     return f"\n    {key}: '{ts_safe_value}',"
 
 def compile_unit(unit_json):
-    valid_optional_fields = ["abbr", "desc", "source", "lastCheck"]
+    valid_optional_fields = ["abbr", "customImg", "desc", "source", "lastCheck"]
 
     additionalFields = ""
     for field in valid_optional_fields:
