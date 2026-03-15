@@ -21,13 +21,28 @@ import { Toaster } from './components/ui/sonner.tsx';
 import { Slider } from './components/ui/slider.tsx';
 
 import { NativeCanvasCompare } from './components/visualizations/native-canvas.tsx';
+import { storage } from './lib/storage.ts';
 
 export default function App() {
 	// 1. STATE: These track user choices
-	const [category, setCategory] = useState<Category>(INITIAL_CATEGORY);
+	//category
+	const [category, setCategory] = useState<Category>(() => {
+		return storage.load<Category>('saved_category', INITIAL_CATEGORY);
+	});
+	useEffect(() => {
+		storage.save<Category>('saved_category', category);
+	}, [category]);
+
+	//initial value
 	const [value, setValue] = useState<string>("1");
 	
-	const [conversionHistory, setConversionHistory] = useImmer<ConversionHistory>(INITIAL_HISTORY);	
+	//conversion history
+	const [conversionHistory, setConversionHistory] = useImmer<ConversionHistory>(() => {
+		return storage.load<ConversionHistory>('saved_conversion_history', INITIAL_HISTORY);
+	});
+	useEffect(() => {
+		storage.save<ConversionHistory>('saved_conversion_history', conversionHistory);
+	}, [conversionHistory]);
 	
 	const updateConversionHistory = (category: Category, field: 'from' | 'to', value: string) => {
 		setConversionHistory(draft => {
@@ -35,6 +50,7 @@ export default function App() {
 		});
 	}
 
+	//copy and paste
 	const [copied, setCopied] = useState(false);
 
 	// 2. LOGIC: Derived state (Calculates automatically)
