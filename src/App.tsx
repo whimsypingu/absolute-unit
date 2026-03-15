@@ -20,7 +20,7 @@ import WheelGesturesPlugin from 'embla-carousel-wheel-gestures';
 import { Toaster } from './components/ui/sonner.tsx';
 import { Slider } from './components/ui/slider.tsx';
 
-import { NativeCanvasCompare } from './components/native-canvas.tsx';
+import { NativeCanvasCompare } from './components/visualizations/native-canvas.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
