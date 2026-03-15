@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react"
 import { drawLengthVerticalComparison } from "./length.ts";
 
-const svgMap: Record<string, string> = import.meta.glob('../../src/assets/*.svg', { eager: true, query: '?url', import: 'default' });
+const svgMap: Record<string, string> = import.meta.glob('@/assets/*.svg', { eager: true, query: '?url', import: 'default' });
 console.log(svgMap);
 
-const getPath = (filename: string) => svgMap[`../assets/${filename}.svg`];
+const getPath = (filename: string) => svgMap[`/src/assets/${filename}.svg`];
 
 interface NativeCanvasCompareProps {
     conversionCategory: string;
@@ -47,7 +47,7 @@ export const NativeCanvasCompare = ({
                         i.onerror = () => reject(new Error(`Failed to load: ${src1}`));
                         
                         const path = getPath(src1);
-                        if (!path) reject(new Error(`Path not found: ${src1}`));
+                        if (!path) reject(new Error(`Path not found: ${path}`));
                         i.src = path; 
                     }),
                     new Promise<HTMLImageElement>((resolve, reject) => { 
@@ -56,7 +56,7 @@ export const NativeCanvasCompare = ({
                         i.onerror = () => reject(new Error(`Failed to load: ${src2}`));
                         
                         const path = getPath(src2);
-                        if (!path) reject(new Error(`Path not found: ${src2}`));
+                        if (!path) reject(new Error(`Path not found: ${path}`));
                         i.src = path; 
                      })
                 ]);
