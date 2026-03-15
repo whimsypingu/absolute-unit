@@ -1,14 +1,20 @@
 <img src="./public/au-colored.svg" alt="You came here looking for nerd shit but found gold instead" width="100">
 
-## This is a unit converter, for dumb units.
+## [This is a unit converter, for dumb units.](https://whimsypingu.github.io/absolute-unit/)
 
-Link can be found here: [https://whimsypingu.github.io/absolute-unit/](https://whimsypingu.github.io/absolute-unit/)
+Just in case you need to know how many Big Macs are in a ton of TNT. 
+
+Link: [https://whimsypingu.github.io/absolute-unit/](https://whimsypingu.github.io/absolute-unit/)
+
+Install this as an app on your mobile device ([google how do I install a website as a PWA on my phone?](https://www.google.com/search?q=how+do+i+install+a+website+as+a+pwa+on+my+phone&oq=how+do+i+install+a+website+as+a+pwa+on+my+phone&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRigAdIBCDYzNTFqMGo5qAIAsAIB8QU7dNYBG5tB6w&sourceid=chrome&ie=UTF-8) to use this like any other native app.
+
+
 
 ### Contributing
 
-I'm actively looking for help on this, since I want to get some practice with merging PRs and reading/approving code from outside sources. I'm going to list more issues, not sure how they are closed with corresponding PRs exactly but I'll figure it out.
+I'm actively looking for help on this, since I want to get some practice with merging PRs and reading/approving code from outside sources. I'm going to list more issues, not sure how they are closed with corresponding PRs exactly but I'll figure it out. Relatively easier contributions would be to adding new units and unit metadata. Ideas are welcome.
 
-You should have `Node.js`, `Python`, and `git` already installed on your computer to do this.
+You should have `Node.js`, `Python`, and `git` already installed on your computer to do this. Still have to check what is required to get this started.
 
 **Step 1:** Fork the repo and create a branch with `git checkout -b [BRANCH_NAME]`
 
