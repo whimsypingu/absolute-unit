@@ -1,0 +1,9 @@
+{
+    "unitName": "kelvin",
+    "singular": "Kelvin",
+    "plural": "Kelvin",
+    "abbr": "K",
+    "toBase": "x * 1",
+    "fromBase": "x * 1",
+    "priority": 0
+}

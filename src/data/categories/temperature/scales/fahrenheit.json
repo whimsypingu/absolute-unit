@@ -1,0 +1,9 @@
+{
+    "unitName": "fahrenheit",
+    "singular": "Fahrenheit",
+    "plural": "Fahrenheit",
+    "abbr": "°F",
+    "toBase": "((x - 32) * 5 / 9) + 273.15",
+    "fromBase": "((x - 273.15) * 9 / 5) + 32",
+    "priority": 2
+}

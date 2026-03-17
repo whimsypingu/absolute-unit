@@ -1,0 +1,6 @@
+{
+    "catName": "temperature",
+    "label": "Temperature",
+    "initialFromUnitName": "fahrenheit",
+    "initialToUnitName": "celsius"
+}
