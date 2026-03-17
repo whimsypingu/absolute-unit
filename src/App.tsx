@@ -57,8 +57,6 @@ export default function App() {
 	const currentCategoryData: CategoryData = CONVERSIONS[category];
 	const currentEntry: ConversionEntry = conversionHistory[category];
 
-	console.log(conversionHistory);
-
 	const fromUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.from); 
 	const toUnitData: UnitData = getUnitData(currentCategoryData, currentEntry.to);
 
