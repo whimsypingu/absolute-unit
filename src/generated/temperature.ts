@@ -32,6 +32,20 @@ export const temperature: CategoryData = {
                     abbr: '°F',
                 }
             }
+        },
+        {
+            label: 'Cursed Units',
+            units: {
+                dalton: {
+                    singular: 'Dalton',
+                    plural: 'Dalton',
+                    toBase: '273.15 * (e ^ (x * 0.00311959389))',
+                    fromBase: '320.554545 * (e @ (x / 273.15))',
+                    abbr: '°D',
+                    desc: 'WTF is even this.',
+                    lastCheck: '3/18/2026',
+                }
+            }
         }
     ]
 };
