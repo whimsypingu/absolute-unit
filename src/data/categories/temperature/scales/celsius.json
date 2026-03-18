@@ -1,0 +1,9 @@
+{
+    "unitName": "celsius",
+    "singular": "Celsius",
+    "plural": "Celsius",
+    "abbr": "°C",
+    "toBase": "x + 273.15",
+    "fromBase": "x - 273.15",
+    "priority": 1
+}

@@ -1,0 +1,11 @@
+{
+    "unitName": "dalton",
+    "singular": "Dalton",
+    "plural": "Dalton",
+    "abbr": "°D",
+    "toBase": "273.15 * (e ^ (x * 0.00311959389))",
+    "fromBase": "320.554545 * (e @ (x / 273.15))",
+    "priority": 1,
+    "desc": "WTF is even this.",
+    "lastCheck": "3/18/2026"
+}

@@ -16,8 +16,8 @@ const parseToRPN = (infix: string): Formula => {
     const output: Formula = [];
     const stack: string[] = [];
     
-    // Tokens: numbers, 'x', operators, and parentheses
-	const tokens = infix.match(/-?\d*\.?\d+|x|[+\-*/^()@]/g) || [];
+    // Tokens: numbers, 'x', 'e', operators, and parentheses
+	const tokens = infix.match(/-?\d*\.?\d+|x|e|[+\-*/^()@]/g) || [];
     
 	const precedence: Record<string, number> = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '@': 4 };
 
@@ -28,6 +28,8 @@ const parseToRPN = (infix: string): Formula => {
         } else if (token === 'x') {
 			// input is pushed to the output
 			output.push('x');
+		} else if (token === 'e') {
+			output.push(2.71828183);
         } else if (token === '(') {
             stack.push(token);
         } else if (token === ')') {
