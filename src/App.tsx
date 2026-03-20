@@ -22,9 +22,7 @@ import { Slider } from './components/ui/slider.tsx';
 
 import { NativeCanvasCompare } from './components/visualizations/native-canvas.tsx';
 import { storage } from './lib/storage.ts';
-import { Switch } from './components/ui/switch.tsx';
-import { Label } from './components/ui/label.tsx';
-import { AppSettings, DEFAULT_SETTINGS, type SettingsUpdate } from './data/settings.ts';
+import { DEFAULT_SETTINGS, type SettingsUpdate } from './data/settings.ts';
 import { SettingsRow } from './components/ui/settings-row.tsx';
 
 export default function App() {
