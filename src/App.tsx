@@ -9,7 +9,7 @@ import { ButtonGroup } from './components/ui/button-group';
 import { INITIAL_CATEGORY, INITIAL_HISTORY, CONVERSIONS, CATEGORY_ITEMS } from './data/constants.ts';
 import type { Category, ConversionHistory, CategoryData, ConversionEntry, UnitData} from './data/constants.ts';
 
-import { ArrowLeftRight, Shuffle, Copy, Check } from 'lucide-react';
+import { ArrowLeftRight, Shuffle, Copy, Check, Moon } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import { formatCopyPaste, formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
@@ -22,6 +22,10 @@ import { Slider } from './components/ui/slider.tsx';
 
 import { NativeCanvasCompare } from './components/visualizations/native-canvas.tsx';
 import { storage } from './lib/storage.ts';
+import { Switch } from './components/ui/switch.tsx';
+import { Label } from './components/ui/label.tsx';
+import { AppSettings, DEFAULT_SETTINGS, type SettingsUpdate } from './data/settings.ts';
+import { SettingsRow } from './components/ui/settings-row.tsx';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -48,7 +52,17 @@ export default function App() {
 		setConversionHistory(draft => {
 			draft[category][field] = value;
 		});
-	}
+	};
+
+	//settings
+	const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
+
+	const updateSettings = (changes: SettingsUpdate) => {
+		setSettings((prev) => ({
+			...prev,
+			...changes,
+		}));
+	};
 
 	//copy and paste
 	const [copied, setCopied] = useState(false);
@@ -113,6 +127,7 @@ export default function App() {
 		<div className='pt-2'>
 		<CarouselContent className="-mt-0 h-[100dvh]">
 
+			{/* MAIN CONTENT */}
 			<CarouselItem className="basis-1/1 pt-0 pl-2 pr-2">
 				<Card>
 					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col p-6 gap-6">
@@ -294,6 +309,7 @@ export default function App() {
 				</Card>
 			</CarouselItem>
 
+			{/* UNIT INFORMATION */}
 			<CarouselItem className="basis-1/1 pt-0 pl-2 pr-2">
 				<Card>
 					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-200 p-6 gap-4">
@@ -389,6 +405,25 @@ export default function App() {
 					</CardContent>
 				</Card>
 			</CarouselItem>
+
+			{/* SETTINGS */}
+			<CarouselItem className="basis-1/1 pt-0 pl-2 pr-2">
+				<Card>
+					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col p-6 gap-6">
+						
+						<h2 className='text-2xl font-medium mb-2'>Settings</h2>
+
+						<SettingsRow
+							id="darkMode"
+							label="Dark Mode"
+							description="Adjust interface for low-light environments."
+							checked={settings.darkMode}
+							onToggle={(v) => updateSettings({ darkMode: v })}
+						/>
+					</CardContent>
+				</Card>
+			</CarouselItem>
+
 
       	</CarouselContent>
 		</div>
