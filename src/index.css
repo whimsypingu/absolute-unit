@@ -115,11 +115,20 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
+    }
+    p {
+        @apply font-light;
+    }
+    h1, h2 {
+        @apply font-medium!;
+    }
+    h3, h4 {
+        @apply font-normal!;
     }
 }
 

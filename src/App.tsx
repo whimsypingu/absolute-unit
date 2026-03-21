@@ -22,6 +22,8 @@ import { Slider } from './components/ui/slider.tsx';
 
 import { NativeCanvasCompare } from './components/visualizations/native-canvas.tsx';
 import { storage } from './lib/storage.ts';
+import { SettingsRow } from './components/ui/settings-row.tsx';
+import { useTheme } from 'next-themes';
 
 export default function App() {
 	// 1. STATE: These track user choices
@@ -48,7 +50,10 @@ export default function App() {
 		setConversionHistory(draft => {
 			draft[category][field] = value;
 		});
-	}
+	};
+
+	//settings
+	const { theme, setTheme } = useTheme();
 
 	//copy and paste
 	const [copied, setCopied] = useState(false);
@@ -113,6 +118,7 @@ export default function App() {
 		<div className='pt-2'>
 		<CarouselContent className="-mt-0 h-[100dvh]">
 
+			{/* MAIN CONTENT */}
 			<CarouselItem className="basis-1/1 pt-0 pl-2 pr-2">
 				<Card>
 					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col p-6 gap-6">
@@ -178,7 +184,7 @@ export default function App() {
 								className={`
 									flex-1 h-full px-3
 									bg-slate-100 rounded-md border border-slate-200 
-									text-base md:text-xl font-bold text-black
+									text-base md:text-xl font-bold
 									relative items-center justify-center
 								`}
 							>
@@ -294,9 +300,10 @@ export default function App() {
 				</Card>
 			</CarouselItem>
 
+			{/* UNIT INFORMATION */}
 			<CarouselItem className="basis-1/1 pt-0 pl-2 pr-2">
 				<Card>
-					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-200 p-6 gap-4">
+					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-border p-6 gap-4">
 
 						{/* FROM DESC */}
 						<Drawer direction="bottom">
@@ -313,11 +320,11 @@ export default function App() {
 										</div>
 
 										{!!fromUnitData.lastCheck && (
-											<span className='text-[0.5rem] text-right text-slate-400 border-l border-slate-200 pl-2'>{fromUnitData.lastCheck}</span>
+											<span className='text-[0.5rem] text-right text-muted-foreground/50 pl-2'>{fromUnitData.lastCheck}</span>
 										)}
 									</div>
 
-									<p className='text-sm text-slate-700 hyphens-auto line-clamp-3 md:line-clamp-none'>
+									<p className='text-sm text-muted-foreground hyphens-auto line-clamp-3 md:line-clamp-none'>
 										{fromUnitData.desc ?? "No description provided."}
 									</p>
 								</div>
@@ -329,7 +336,7 @@ export default function App() {
 								</DrawerHeader>
 
 								<div className='flex-1 overflow-y-auto'>
-									<p className="text-slate-700 leading-relaxed">
+									<p className="text-muted-foreground leading-relaxed">
 										{fromUnitData.desc}
 									</p>
 								</div>
@@ -357,11 +364,11 @@ export default function App() {
 										</div>
 
 										{!!toUnitData.lastCheck && (
-											<span className='text-[0.5rem] text-right text-slate-400 border-l border-slate-200 pl-2'>{toUnitData.lastCheck}</span>
+											<span className='text-[0.5rem] text-right text-muted-foreground/50 pl-2'>{toUnitData.lastCheck}</span>
 										)}
 									</div>
 
-									<p className='text-sm text-slate-700 hyphens-auto line-clamp-3 md:line-clamp-none'>
+									<p className='text-sm text-muted-foreground hyphens-auto line-clamp-3 md:line-clamp-none'>
 										{toUnitData.desc ?? "No description provided."}
 									</p>
 								</div>
@@ -373,7 +380,7 @@ export default function App() {
 								</DrawerHeader>
 
 								<div className='flex-1 overflow-y-auto'>
-									<p className="text-slate-700 leading-relaxed">
+									<p className="text-muted-foreground leading-relaxed">
 										{toUnitData.desc}
 									</p>
 								</div>
@@ -389,6 +396,25 @@ export default function App() {
 					</CardContent>
 				</Card>
 			</CarouselItem>
+
+			{/* SETTINGS */}
+			<CarouselItem className="basis-1/1 pt-0 pl-2 pr-2">
+				<Card>
+					<CardContent className="h-[calc(100dvh-4rem)] flex flex-col p-6 gap-6">
+						
+						<h2 className='text-2xl font-medium mb-2'>Settings</h2>
+
+						<SettingsRow
+							id="darkMode"
+							label="Dark Mode"
+							description="Adjust interface for low-light environments."
+							checked={theme === "dark"}
+							onToggle={(v) => setTheme(v ? "dark" : "light")}
+						/>
+					</CardContent>
+				</Card>
+			</CarouselItem>
+
 
       	</CarouselContent>
 		</div>
