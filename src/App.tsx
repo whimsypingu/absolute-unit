@@ -9,7 +9,7 @@ import { ButtonGroup } from './components/ui/button-group';
 import { INITIAL_CATEGORY, INITIAL_HISTORY, CONVERSIONS, CATEGORY_ITEMS } from './data/constants.ts';
 import type { Category, ConversionHistory, CategoryData, ConversionEntry, UnitData} from './data/constants.ts';
 
-import { ArrowLeftRight, Shuffle, Copy, Check, Moon } from 'lucide-react';
+import { ArrowLeftRight, Shuffle, Copy, Check } from 'lucide-react';
 import { convert, getRandomConversion, getUnitData } from './data/utils.ts';
 import { formatCopyPaste, formatHumanReadable, isInputValid, sanitizeInput } from './data/format.ts';
 import React from 'react';
@@ -22,7 +22,6 @@ import { Slider } from './components/ui/slider.tsx';
 
 import { NativeCanvasCompare } from './components/visualizations/native-canvas.tsx';
 import { storage } from './lib/storage.ts';
-import { DEFAULT_SETTINGS, type SettingsUpdate } from './data/settings.ts';
 import { SettingsRow } from './components/ui/settings-row.tsx';
 import { useTheme } from 'next-themes';
 
@@ -55,15 +54,6 @@ export default function App() {
 
 	//settings
 	const { theme, setTheme } = useTheme();
-
-	// const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
-
-	// const updateSettings = (changes: SettingsUpdate) => {
-	// 	setSettings((prev) => ({
-	// 		...prev,
-	// 		...changes,
-	// 	}));
-	// };
 
 	//copy and paste
 	const [copied, setCopied] = useState(false);

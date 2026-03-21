@@ -1,5 +1,4 @@
 import type { AppSettings } from "@/data/settings"
-import { Label } from "./label";
 import { Switch } from "./switch";
 
 interface SettingsRowProps {
@@ -7,17 +6,22 @@ interface SettingsRowProps {
     label: string;
     description: string;
     checked: boolean;
-    onToggle: (checekd: boolean) => void;
+    onToggle: (checked: boolean) => void;
 }
 
 export const SettingsRow = ({ id, label, description, checked, onToggle }: SettingsRowProps) => (
-    <div className="flex items-center space-x-4">
-        <div>
-            <Label htmlFor={id}>
+    <div 
+        className="w-full flex items-center justify-between space-x-4"
+        onClick={() => onToggle(!checked)}    
+    >
+        <div className="flex flex-col gap-1">
+            <h3 
+                className="text-md font-semibold"
+            >
                 {label}
-            </Label>
+            </h3>
 
-            <p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
                 {description}
             </p>
         </div>
@@ -25,7 +29,6 @@ export const SettingsRow = ({ id, label, description, checked, onToggle }: Setti
         <Switch
             id={id}
             checked={checked}
-            onCheckedChange={onToggle}
         />
     </div>
 );
